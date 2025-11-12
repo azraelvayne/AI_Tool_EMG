@@ -1,0 +1,52 @@
+import { motion, Variants } from 'framer-motion';
+import { ReactNode } from 'react';
+
+interface PageTransitionProps {
+  children: ReactNode;
+  className?: string;
+}
+
+const pageVariants: Variants = {
+  initial: {
+    opacity: 0,
+    y: 8
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: 'easeOut'
+    }
+  },
+  exit: {
+    opacity: 0,
+    y: -8,
+    transition: {
+      duration: 0.3,
+      ease: 'easeIn'
+    }
+  }
+};
+
+const prefersReducedMotion = typeof window !== 'undefined'
+  ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  : false;
+
+export function PageTransition({ children, className = '' }: PageTransitionProps) {
+  if (prefersReducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
+  return (
+    <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageVariants}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}

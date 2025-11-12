@@ -1,0 +1,231 @@
+{
+  "home": {
+    "title": "Universal AI Mapper Core",
+    "subtitle": "Explore, combine, and build powerful AI application tools",
+    "search_placeholder": "Search tools or keywords...",
+    "ai_generate": "AI Generate",
+    "popular_tools": "Popular Tools",
+    "featured_stacks": "Featured Stacks",
+    "learn_more": "Learn More",
+    "get_started": "Get Started",
+    "explore_tools": "Explore Tools"
+  },
+  "filter": {
+    "title": "Filters",
+    "clear_all": "Clear All Filters",
+    "purpose": "Purpose",
+    "functional_role": "Functional Role",
+    "tech_layer": "Tech Layer",
+    "data_flow": "Data Flow",
+    "difficulty": "Difficulty Level",
+    "application_field": "Application Field",
+    "all": "All",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced"
+  },
+  "tool": {
+    "view_details": "View Details",
+    "add_favorite": "Add to Favorites",
+    "remove_favorite": "Remove from Favorites",
+    "favorited": "Favorited",
+    "tools_found": "{{count}} tools found",
+    "no_tools_found": "No tools found",
+    "try_adjusting": "Try adjusting your filters or search keywords",
+    "description": "Description",
+    "categories": "Categories",
+    "features": "Features",
+    "use_cases": "Use Cases",
+    "pricing": "Pricing",
+    "website": "Website",
+    "documentation": "Documentation",
+    "related_tools": "Related Tools",
+    "alternatives": "Alternatives",
+    "integrations": "Integrations",
+    "verified": "Verified",
+    "pairs_with": "Pairs with",
+    "classifications": "Classifications",
+    "commonly_paired_with": "Commonly Paired With",
+    "creative_ideas_for": "Creative application ideas for",
+    "use_case_templates": "Use Case Templates",
+    "method": "Method",
+    "stack": "Stack",
+    "steps": "Steps"
+  },
+  "modal": {
+    "close": "Close",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit"
+  },
+  "detail": {
+    "tabs": {
+      "encyclopedia": "Encyclopedia",
+      "encyclopedia_desc": "Quick definition",
+      "guide": "Guide",
+      "guide_desc": "System positioning",
+      "strategy": "Strategy",
+      "strategy_desc": "When to use",
+      "inspiration": "Inspiration",
+      "inspiration_desc": "Creative ideas"
+    },
+    "export_btn": "Export",
+    "copy_json": "Copy JSON"
+  },
+  "export": {
+    "title": "Export Center",
+    "modal_title": "Export {{name}}",
+    "subtitle": "Choose export format",
+    "select_format": "Select Export Format",
+    "preview": "Preview",
+    "download_file": "Download File",
+    "copied": "Copied!",
+    "usage_tips": "Usage Tips",
+    "json_pretty": "JSON (Pretty)",
+    "json_pretty_desc": "Human-readable JSON format",
+    "json_minified": "JSON (Minified)",
+    "json_minified_desc": "Compact JSON for API usage",
+    "csv_standard": "CSV (Standard)",
+    "csv_standard_desc": "For Excel, Google Sheets",
+    "notion_database": "Notion Database",
+    "notion_database_desc": "Import into Notion",
+    "claude_prompt": "Claude Prompt",
+    "claude_prompt_desc": "For Claude Projects",
+    "universal_prompt": "Universal Prompt",
+    "universal_prompt_desc": "For any AI platform",
+    "n8n_workflow": "n8n Workflow",
+    "n8n_workflow_desc": "Workflow template guide",
+    "canva_markdown": "Canva Markdown",
+    "canva_markdown_desc": "For presentations",
+    "tips": {
+      "prompt_1": "Paste this prompt into Claude Projects or ChatGPT custom instructions",
+      "prompt_2": "Use as system message in Flowise or LangChain applications",
+      "json_1": "Use in API integrations and automated workflows",
+      "json_2": "Import into code projects or configuration files",
+      "csv_1": "Open in Excel, Google Sheets, or Airtable",
+      "csv_2": "Use for data analysis and bulk operations",
+      "n8n_1": "Use as reference when building n8n workflows",
+      "n8n_2": "Customize based on your specific integration needs",
+      "canva_1": "Paste into Canva Docs and use Magic Write",
+      "canva_2": "Auto-generate presentation slides from this content"
+    },
+    "download": "Download",
+    "copy": "Copy to Clipboard",
+    "success": "Export successful!",
+    "error": "Export failed, please try again"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "share": "Share",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "no_data": "No Data",
+    "learn_more": "Learn More"
+  },
+  "nav": {
+    "creator_mode": "Creator Mode",
+    "developer_mode": "Developer Mode",
+    "learner_mode": "Learner Mode",
+    "home": "Home",
+    "favorites": "Favorites",
+    "export": "Export"
+  },
+  "language": {
+    "switch_to_english": "Switch to English",
+    "switch_to_chinese": "切換至繁體中文",
+    "current": "English"
+  },
+  "popular": {
+    "title": "Popular Tools",
+    "subtitle": "Discover the most used and loved tools in our community",
+    "no_tools": "No popular tools yet",
+    "no_tools_desc": "Check back soon as our community grows",
+    "based_on": "Based on {{count}} user interactions"
+  },
+  "featured": {
+    "title": "Featured Stacks",
+    "subtitle": "Curated tool combinations for common workflows",
+    "no_stacks": "No featured stacks available",
+    "no_stacks_desc": "We're working on creating amazing tool combinations for you",
+    "use_case": "Use Case",
+    "included_tools": "Included Tools",
+    "tools": "tools",
+    "export_stack": "Export Stack"
+  },
+  "about": {
+    "title": "About Universal AI Mapper",
+    "subtitle": "Learn how to make the most of this platform",
+    "what_is": {
+      "title": "What is Universal AI Mapper Core?",
+      "desc1": "Universal AI Mapper Core is a comprehensive platform designed to help you discover, understand, and combine AI tools and technologies for your projects.",
+      "desc2": "Whether you're a creator, developer, or learner, our platform provides intelligent recommendations, curated tool stacks, and detailed insights to help you build powerful AI-driven applications."
+    },
+    "how_it_works": {
+      "title": "How It Works",
+      "step1": {
+        "title": "Explore & Discover",
+        "desc": "Browse our extensive catalog of AI tools, filtered by purpose, difficulty, and application field."
+      },
+      "step2": {
+        "title": "Learn & Understand",
+        "desc": "Access detailed descriptions, use cases, and integration guides for each tool."
+      },
+      "step3": {
+        "title": "Build & Export",
+        "desc": "Create your custom tool stack and export configurations for your preferred platforms."
+      }
+    },
+    "key_features": "Key Features",
+    "features": {
+      "discovery": {
+        "title": "Smart Discovery",
+        "desc": "Find the perfect tools using our advanced filtering and search capabilities"
+      },
+      "combinations": {
+        "title": "Tool Combinations",
+        "desc": "Explore pre-built stacks and learn which tools work best together"
+      },
+      "insights": {
+        "title": "Detailed Insights",
+        "desc": "Access comprehensive guides, strategies, and creative applications for each tool"
+      },
+      "export": {
+        "title": "Multi-Format Export",
+        "desc": "Export your selections to JSON, CSV, Notion, or custom AI prompts"
+      }
+    },
+    "use_cases": {
+      "title": "Who Is This For?",
+      "case1": "Creators building AI-powered content workflows",
+      "case2": "Developers architecting AI application stacks",
+      "case3": "Product managers evaluating no-code/low-code solutions",
+      "case4": "Learners exploring the AI tool ecosystem"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "Is this platform free to use?",
+      "a1": "Yes! Universal AI Mapper Core is completely free to use. You can browse, search, and export tool information without any cost.",
+      "q2": "How are tools categorized?",
+      "a2": "Tools are categorized using our Universal AI Mapper framework, which includes dimensions like purpose, functional role, tech layer, data flow, difficulty, and application field.",
+      "q3": "Can I suggest new tools?",
+      "a3": "Absolutely! We're constantly expanding our database. While we don't have a submission form yet, you can reach out through our community channels.",
+      "q4": "How often is the database updated?",
+      "a4": "We regularly update our database to include new tools, update existing information, and add new featured stacks based on community feedback and industry trends."
+    },
+    "get_started": {
+      "title": "Ready to Get Started?",
+      "desc": "Here's how to make the most of Universal AI Mapper:",
+      "step1": "Start by exploring tools in your area of interest using filters",
+      "step2": "Check out featured stacks for inspiration and best practices",
+      "step3": "Export your selections and start building amazing projects"
+    }
+  }
+}

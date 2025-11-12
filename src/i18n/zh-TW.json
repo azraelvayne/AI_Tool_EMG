@@ -1,0 +1,231 @@
+{
+  "home": {
+    "title": "Universal AI Mapper Core",
+    "subtitle": "探索、組合並建立強大的 AI 應用工具",
+    "search_placeholder": "搜尋工具或關鍵字...",
+    "ai_generate": "AI 生成推薦",
+    "popular_tools": "熱門工具",
+    "featured_stacks": "精選組合",
+    "learn_more": "了解更多",
+    "get_started": "開始使用",
+    "explore_tools": "探索工具"
+  },
+  "filter": {
+    "title": "篩選",
+    "clear_all": "清除所有篩選",
+    "purpose": "用途",
+    "functional_role": "功能角色",
+    "tech_layer": "技術層級",
+    "data_flow": "資料流程",
+    "difficulty": "難度等級",
+    "application_field": "應用領域",
+    "all": "全部",
+    "beginner": "初學者",
+    "intermediate": "中階",
+    "advanced": "進階"
+  },
+  "tool": {
+    "view_details": "查看詳細資料",
+    "add_favorite": "加入收藏",
+    "remove_favorite": "移除收藏",
+    "favorited": "已收藏",
+    "tools_found": "找到 {{count}} 個工具",
+    "no_tools_found": "找不到符合的工具",
+    "try_adjusting": "試著調整您的篩選條件或搜尋關鍵字",
+    "description": "描述",
+    "categories": "分類",
+    "features": "功能特色",
+    "use_cases": "使用案例",
+    "pricing": "定價",
+    "website": "官方網站",
+    "documentation": "文件",
+    "related_tools": "相關工具",
+    "alternatives": "替代方案",
+    "integrations": "整合工具",
+    "verified": "已驗證",
+    "pairs_with": "常搭配",
+    "classifications": "分類",
+    "commonly_paired_with": "常見配對工具",
+    "creative_ideas_for": "創意應用點子",
+    "use_case_templates": "使用案例範本",
+    "method": "方法",
+    "stack": "工具組合",
+    "steps": "步驟"
+  },
+  "modal": {
+    "close": "關閉",
+    "confirm": "確認",
+    "cancel": "取消",
+    "save": "儲存",
+    "delete": "刪除",
+    "edit": "編輯"
+  },
+  "detail": {
+    "tabs": {
+      "encyclopedia": "百科全書",
+      "encyclopedia_desc": "快速定義",
+      "guide": "指南",
+      "guide_desc": "系統定位",
+      "strategy": "策略",
+      "strategy_desc": "使用時機",
+      "inspiration": "靈感",
+      "inspiration_desc": "創意點子"
+    },
+    "export_btn": "匯出",
+    "copy_json": "複製 JSON"
+  },
+  "export": {
+    "title": "匯出中心",
+    "modal_title": "匯出 {{name}}",
+    "subtitle": "選擇匯出格式",
+    "select_format": "選擇匯出格式",
+    "preview": "預覽",
+    "download_file": "下載檔案",
+    "copied": "已複製！",
+    "usage_tips": "使用提示",
+    "json_pretty": "JSON (格式化)",
+    "json_pretty_desc": "易讀的 JSON 格式",
+    "json_minified": "JSON (壓縮)",
+    "json_minified_desc": "適合 API 使用的壓縮 JSON",
+    "csv_standard": "CSV (標準)",
+    "csv_standard_desc": "適用於 Excel、Google Sheets",
+    "notion_database": "Notion 資料庫",
+    "notion_database_desc": "匯入至 Notion",
+    "claude_prompt": "Claude 提示詞",
+    "claude_prompt_desc": "適用於 Claude Projects",
+    "universal_prompt": "通用提示詞",
+    "universal_prompt_desc": "適用於任何 AI 平台",
+    "n8n_workflow": "n8n 工作流程",
+    "n8n_workflow_desc": "工作流程範本指南",
+    "canva_markdown": "Canva Markdown",
+    "canva_markdown_desc": "適用於簡報",
+    "tips": {
+      "prompt_1": "將此提示詞貼到 Claude Projects 或 ChatGPT 自訂指令",
+      "prompt_2": "在 Flowise 或 LangChain 應用中作為系統訊息使用",
+      "json_1": "用於 API 整合和自動化工作流程",
+      "json_2": "匯入至程式碼專案或配置檔案",
+      "csv_1": "在 Excel、Google Sheets 或 Airtable 中開啟",
+      "csv_2": "用於資料分析和批次操作",
+      "n8n_1": "建立 n8n 工作流程時作為參考",
+      "n8n_2": "根據您的整合需求自訂",
+      "canva_1": "貼到 Canva Docs 並使用 Magic Write",
+      "canva_2": "從此內容自動生成簡報投影片"
+    },
+    "download": "下載",
+    "copy": "複製到剪貼簿",
+    "success": "匯出成功！",
+    "error": "匯出失敗，請稍後再試"
+  },
+  "common": {
+    "loading": "載入中...",
+    "error": "發生錯誤",
+    "success": "成功",
+    "search": "搜尋",
+    "filter": "篩選",
+    "sort": "排序",
+    "share": "分享",
+    "back": "返回",
+    "next": "下一步",
+    "previous": "上一步",
+    "no_data": "無資料",
+    "learn_more": "了解更多"
+  },
+  "nav": {
+    "creator_mode": "創作者模式",
+    "developer_mode": "開發者模式",
+    "learner_mode": "學習者模式",
+    "home": "首頁",
+    "favorites": "收藏",
+    "export": "匯出"
+  },
+  "language": {
+    "switch_to_english": "Switch to English",
+    "switch_to_chinese": "切換至繁體中文",
+    "current": "繁體中文"
+  },
+  "popular": {
+    "title": "熱門工具",
+    "subtitle": "探索社群中最常使用和最受喜愛的工具",
+    "no_tools": "目前還沒有熱門工具",
+    "no_tools_desc": "隨著我們的社群成長，請稍後再來查看",
+    "based_on": "基於 {{count}} 次使用者互動"
+  },
+  "featured": {
+    "title": "精選組合",
+    "subtitle": "為常見工作流程精心策劃的工具組合",
+    "no_stacks": "目前沒有精選組合",
+    "no_stacks_desc": "我們正在為您打造精彩的工具組合",
+    "use_case": "使用情境",
+    "included_tools": "包含的工具",
+    "tools": "個工具",
+    "export_stack": "匯出組合"
+  },
+  "about": {
+    "title": "關於 Universal AI Mapper",
+    "subtitle": "了解如何充分運用此平台",
+    "what_is": {
+      "title": "什麼是 Universal AI Mapper Core？",
+      "desc1": "Universal AI Mapper Core 是一個全方位的平台，旨在協助您探索、理解並組合 AI 工具與技術，應用於您的專案中。",
+      "desc2": "無論您是創作者、開發者還是學習者，我們的平台都能提供智慧推薦、精選工具組合和詳細見解，協助您建立強大的 AI 驅動應用程式。"
+    },
+    "how_it_works": {
+      "title": "運作方式",
+      "step1": {
+        "title": "探索與發現",
+        "desc": "瀏覽我們豐富的 AI 工具目錄，可依用途、難度和應用領域進行篩選。"
+      },
+      "step2": {
+        "title": "學習與理解",
+        "desc": "查看每個工具的詳細說明、使用案例和整合指南。"
+      },
+      "step3": {
+        "title": "建立與匯出",
+        "desc": "建立您的自訂工具組合，並匯出至您偏好的平台配置。"
+      }
+    },
+    "key_features": "核心功能",
+    "features": {
+      "discovery": {
+        "title": "智慧探索",
+        "desc": "使用我們先進的篩選和搜尋功能，找到最適合的工具"
+      },
+      "combinations": {
+        "title": "工具組合",
+        "desc": "探索預先建立的組合，了解哪些工具搭配使用效果最佳"
+      },
+      "insights": {
+        "title": "深入見解",
+        "desc": "存取每個工具的完整指南、策略和創意應用"
+      },
+      "export": {
+        "title": "多格式匯出",
+        "desc": "將您的選擇匯出為 JSON、CSV、Notion 或自訂 AI 提示詞"
+      }
+    },
+    "use_cases": {
+      "title": "適合誰使用？",
+      "case1": "建立 AI 驅動內容工作流程的創作者",
+      "case2": "架構 AI 應用程式堆疊的開發者",
+      "case3": "評估無程式碼/低程式碼解決方案的產品經理",
+      "case4": "探索 AI 工具生態系統的學習者"
+    },
+    "faq": {
+      "title": "常見問題",
+      "q1": "此平台是免費使用的嗎？",
+      "a1": "是的！Universal AI Mapper Core 完全免費使用。您可以免費瀏覽、搜尋和匯出工具資訊。",
+      "q2": "工具是如何分類的？",
+      "a2": "工具使用我們的 Universal AI Mapper 框架進行分類，包含用途、功能角色、技術層級、資料流程、難度和應用領域等維度。",
+      "q3": "我可以建議新工具嗎？",
+      "a3": "當然可以！我們持續擴充資料庫。雖然目前還沒有提交表單，但您可以透過我們的社群管道聯繫我們。",
+      "q4": "資料庫多久更新一次？",
+      "a4": "我們定期更新資料庫，新增新工具、更新現有資訊，並根據社群回饋和產業趨勢新增精選組合。"
+    },
+    "get_started": {
+      "title": "準備好開始了嗎？",
+      "desc": "以下是充分運用 Universal AI Mapper 的方法：",
+      "step1": "使用篩選功能開始探索您感興趣領域的工具",
+      "step2": "查看精選組合以獲得靈感和最佳實踐",
+      "step3": "匯出您的選擇並開始建立精彩的專案"
+    }
+  }
+}
