@@ -1,0 +1,1248 @@
+[
+  {
+    "id": "openai_1",
+    "name": "OpenAI #1",
+    "category": "AI模型",
+    "summary": "生成式語言模型與聊天 API",
+    "official_url": "https://openai.com/",
+    "tags": [
+      "AI",
+      "LLM",
+      "Text Generation"
+    ],
+    "common_pairings": [
+      "Notion",
+      "n8n",
+      "Supabase"
+    ],
+    "export_templates": {
+      "n8n": {
+        "file_url": "/exports/openai_n8n.json"
+      },
+      "langflow": {
+        "file_url": "/exports/openai_langflow.flow"
+      }
+    }
+  },
+  {
+    "id": "anthropic_2",
+    "name": "Anthropic Claude #2",
+    "category": "AI模型",
+    "summary": "注重安全的語言模型助手",
+    "official_url": "https://www.anthropic.com/",
+    "tags": [
+      "LLM",
+      "Safety",
+      "AI Assistant"
+    ],
+    "common_pairings": [
+      "Notion",
+      "Zapier",
+      "Langflow"
+    ]
+  },
+  {
+    "id": "gemini_3",
+    "name": "Google Gemini #3",
+    "category": "AI模型",
+    "summary": "支援文本與圖像的多模態模型",
+    "official_url": "https://gemini.google.com/",
+    "tags": [
+      "Multimodal",
+      "AI",
+      "Google"
+    ],
+    "common_pairings": [
+      "Sheets",
+      "Colab",
+      "n8n"
+    ]
+  },
+  {
+    "id": "cohere_4",
+    "name": "Cohere #4",
+    "category": "AI模型",
+    "summary": "語意生成與檢索 API",
+    "official_url": "https://cohere.ai/",
+    "tags": [
+      "LLM",
+      "Embedding",
+      "Search"
+    ],
+    "common_pairings": [
+      "Supabase",
+      "Langchain",
+      "Make"
+    ]
+  },
+  {
+    "id": "mistral_5",
+    "name": "Mistral AI #5",
+    "category": "AI模型",
+    "summary": "高效輕量語言模型",
+    "official_url": "https://mistral.ai/",
+    "tags": [
+      "Open Source",
+      "LLM",
+      "Text"
+    ],
+    "common_pairings": [
+      "Ollama",
+      "Flowise",
+      "Supabase"
+    ]
+  },
+  {
+    "id": "huggingface_6",
+    "name": "Hugging Face #6",
+    "category": "AI模型",
+    "summary": "開放模型與 API 平台",
+    "official_url": "https://huggingface.co/",
+    "tags": [
+      "Models",
+      "AI Hub",
+      "Transformers"
+    ],
+    "common_pairings": [
+      "Gradio",
+      "Spaces",
+      "Colab"
+    ]
+  },
+  {
+    "id": "perplexity_7",
+    "name": "Perplexity AI #7",
+    "category": "AI模型",
+    "summary": "搜尋驅動的對話式 AI",
+    "official_url": "https://www.perplexity.ai/",
+    "tags": [
+      "Search",
+      "Chat",
+      "AI"
+    ],
+    "common_pairings": [
+      "Notion",
+      "OpenAI",
+      "Zapier"
+    ]
+  },
+  {
+    "id": "llamaindex_8",
+    "name": "LlamaIndex #8",
+    "category": "AI/資料檢索",
+    "summary": "檢索增強生成框架",
+    "official_url": "https://www.llamaindex.ai/",
+    "tags": [
+      "RAG",
+      "Framework",
+      "Indexing"
+    ],
+    "common_pairings": [
+      "Supabase",
+      "Langchain",
+      "OpenAI"
+    ]
+  },
+  {
+    "id": "ollama_9",
+    "name": "Ollama #9",
+    "category": "AI模型",
+    "summary": "本地運行輕量 LLM",
+    "official_url": "https://ollama.ai/",
+    "tags": [
+      "Local",
+      "LLM",
+      "Offline"
+    ],
+    "common_pairings": [
+      "Mistral",
+      "Flowise",
+      "Langflow"
+    ]
+  },
+  {
+    "id": "flowise_10",
+    "name": "Flowise #10",
+    "category": "LLM編排",
+    "summary": "低程式化 AI 流程與代理",
+    "official_url": "https://flowiseai.com/",
+    "tags": [
+      "LLM",
+      "Flow",
+      "Automation"
+    ],
+    "common_pairings": [
+      "OpenAI",
+      "Ollama",
+      "n8n"
+    ]
+  },
+  {
+    "id": "openai_11",
+    "name": "OpenAI #11",
+    "category": "AI模型",
+    "summary": "生成式語言模型與聊天 API",
+    "official_url": "https://openai.com/",
+    "tags": [
+      "AI",
+      "LLM",
+      "Text Generation"
+    ],
+    "common_pairings": [
+      "Notion",
+      "n8n",
+      "Supabase"
+    ],
+    "export_templates": {
+      "n8n": {
+        "file_url": "/exports/openai_n8n.json"
+      },
+      "langflow": {
+        "file_url": "/exports/openai_langflow.flow"
+      }
+    }
+  },
+  {
+    "id": "anthropic_12",
+    "name": "Anthropic Claude #12",
+    "category": "AI模型",
+    "summary": "注重安全的語言模型助手",
+    "official_url": "https://www.anthropic.com/",
+    "tags": [
+      "LLM",
+      "Safety",
+      "AI Assistant"
+    ],
+    "common_pairings": [
+      "Notion",
+      "Zapier",
+      "Langflow"
+    ]
+  },
+  {
+    "id": "gemini_13",
+    "name": "Google Gemini #13",
+    "category": "AI模型",
+    "summary": "支援文本與圖像的多模態模型",
+    "official_url": "https://gemini.google.com/",
+    "tags": [
+      "Multimodal",
+      "AI",
+      "Google"
+    ],
+    "common_pairings": [
+      "Sheets",
+      "Colab",
+      "n8n"
+    ]
+  },
+  {
+    "id": "cohere_14",
+    "name": "Cohere #14",
+    "category": "AI模型",
+    "summary": "語意生成與檢索 API",
+    "official_url": "https://cohere.ai/",
+    "tags": [
+      "LLM",
+      "Embedding",
+      "Search"
+    ],
+    "common_pairings": [
+      "Supabase",
+      "Langchain",
+      "Make"
+    ]
+  },
+  {
+    "id": "mistral_15",
+    "name": "Mistral AI #15",
+    "category": "AI模型",
+    "summary": "高效輕量語言模型",
+    "official_url": "https://mistral.ai/",
+    "tags": [
+      "Open Source",
+      "LLM",
+      "Text"
+    ],
+    "common_pairings": [
+      "Ollama",
+      "Flowise",
+      "Supabase"
+    ]
+  },
+  {
+    "id": "huggingface_16",
+    "name": "Hugging Face #16",
+    "category": "AI模型",
+    "summary": "開放模型與 API 平台",
+    "official_url": "https://huggingface.co/",
+    "tags": [
+      "Models",
+      "AI Hub",
+      "Transformers"
+    ],
+    "common_pairings": [
+      "Gradio",
+      "Spaces",
+      "Colab"
+    ]
+  },
+  {
+    "id": "perplexity_17",
+    "name": "Perplexity AI #17",
+    "category": "AI模型",
+    "summary": "搜尋驅動的對話式 AI",
+    "official_url": "https://www.perplexity.ai/",
+    "tags": [
+      "Search",
+      "Chat",
+      "AI"
+    ],
+    "common_pairings": [
+      "Notion",
+      "OpenAI",
+      "Zapier"
+    ]
+  },
+  {
+    "id": "llamaindex_18",
+    "name": "LlamaIndex #18",
+    "category": "AI/資料檢索",
+    "summary": "檢索增強生成框架",
+    "official_url": "https://www.llamaindex.ai/",
+    "tags": [
+      "RAG",
+      "Framework",
+      "Indexing"
+    ],
+    "common_pairings": [
+      "Supabase",
+      "Langchain",
+      "OpenAI"
+    ]
+  },
+  {
+    "id": "ollama_19",
+    "name": "Ollama #19",
+    "category": "AI模型",
+    "summary": "本地運行輕量 LLM",
+    "official_url": "https://ollama.ai/",
+    "tags": [
+      "Local",
+      "LLM",
+      "Offline"
+    ],
+    "common_pairings": [
+      "Mistral",
+      "Flowise",
+      "Langflow"
+    ]
+  },
+  {
+    "id": "flowise_20",
+    "name": "Flowise #20",
+    "category": "LLM編排",
+    "summary": "低程式化 AI 流程與代理",
+    "official_url": "https://flowiseai.com/",
+    "tags": [
+      "LLM",
+      "Flow",
+      "Automation"
+    ],
+    "common_pairings": [
+      "OpenAI",
+      "Ollama",
+      "n8n"
+    ]
+  },
+  {
+    "id": "openai_21",
+    "name": "OpenAI #21",
+    "category": "AI模型",
+    "summary": "生成式語言模型與聊天 API",
+    "official_url": "https://openai.com/",
+    "tags": [
+      "AI",
+      "LLM",
+      "Text Generation"
+    ],
+    "common_pairings": [
+      "Notion",
+      "n8n",
+      "Supabase"
+    ],
+    "export_templates": {
+      "n8n": {
+        "file_url": "/exports/openai_n8n.json"
+      },
+      "langflow": {
+        "file_url": "/exports/openai_langflow.flow"
+      }
+    }
+  },
+  {
+    "id": "anthropic_22",
+    "name": "Anthropic Claude #22",
+    "category": "AI模型",
+    "summary": "注重安全的語言模型助手",
+    "official_url": "https://www.anthropic.com/",
+    "tags": [
+      "LLM",
+      "Safety",
+      "AI Assistant"
+    ],
+    "common_pairings": [
+      "Notion",
+      "Zapier",
+      "Langflow"
+    ]
+  },
+  {
+    "id": "gemini_23",
+    "name": "Google Gemini #23",
+    "category": "AI模型",
+    "summary": "支援文本與圖像的多模態模型",
+    "official_url": "https://gemini.google.com/",
+    "tags": [
+      "Multimodal",
+      "AI",
+      "Google"
+    ],
+    "common_pairings": [
+      "Sheets",
+      "Colab",
+      "n8n"
+    ]
+  },
+  {
+    "id": "cohere_24",
+    "name": "Cohere #24",
+    "category": "AI模型",
+    "summary": "語意生成與檢索 API",
+    "official_url": "https://cohere.ai/",
+    "tags": [
+      "LLM",
+      "Embedding",
+      "Search"
+    ],
+    "common_pairings": [
+      "Supabase",
+      "Langchain",
+      "Make"
+    ]
+  },
+  {
+    "id": "mistral_25",
+    "name": "Mistral AI #25",
+    "category": "AI模型",
+    "summary": "高效輕量語言模型",
+    "official_url": "https://mistral.ai/",
+    "tags": [
+      "Open Source",
+      "LLM",
+      "Text"
+    ],
+    "common_pairings": [
+      "Ollama",
+      "Flowise",
+      "Supabase"
+    ]
+  },
+  {
+    "id": "huggingface_26",
+    "name": "Hugging Face #26",
+    "category": "AI模型",
+    "summary": "開放模型與 API 平台",
+    "official_url": "https://huggingface.co/",
+    "tags": [
+      "Models",
+      "AI Hub",
+      "Transformers"
+    ],
+    "common_pairings": [
+      "Gradio",
+      "Spaces",
+      "Colab"
+    ]
+  },
+  {
+    "id": "perplexity_27",
+    "name": "Perplexity AI #27",
+    "category": "AI模型",
+    "summary": "搜尋驅動的對話式 AI",
+    "official_url": "https://www.perplexity.ai/",
+    "tags": [
+      "Search",
+      "Chat",
+      "AI"
+    ],
+    "common_pairings": [
+      "Notion",
+      "OpenAI",
+      "Zapier"
+    ]
+  },
+  {
+    "id": "llamaindex_28",
+    "name": "LlamaIndex #28",
+    "category": "AI/資料檢索",
+    "summary": "檢索增強生成框架",
+    "official_url": "https://www.llamaindex.ai/",
+    "tags": [
+      "RAG",
+      "Framework",
+      "Indexing"
+    ],
+    "common_pairings": [
+      "Supabase",
+      "Langchain",
+      "OpenAI"
+    ]
+  },
+  {
+    "id": "ollama_29",
+    "name": "Ollama #29",
+    "category": "AI模型",
+    "summary": "本地運行輕量 LLM",
+    "official_url": "https://ollama.ai/",
+    "tags": [
+      "Local",
+      "LLM",
+      "Offline"
+    ],
+    "common_pairings": [
+      "Mistral",
+      "Flowise",
+      "Langflow"
+    ]
+  },
+  {
+    "id": "flowise_30",
+    "name": "Flowise #30",
+    "category": "LLM編排",
+    "summary": "低程式化 AI 流程與代理",
+    "official_url": "https://flowiseai.com/",
+    "tags": [
+      "LLM",
+      "Flow",
+      "Automation"
+    ],
+    "common_pairings": [
+      "OpenAI",
+      "Ollama",
+      "n8n"
+    ]
+  },
+  {
+    "id": "openai_31",
+    "name": "OpenAI #31",
+    "category": "AI模型",
+    "summary": "生成式語言模型與聊天 API",
+    "official_url": "https://openai.com/",
+    "tags": [
+      "AI",
+      "LLM",
+      "Text Generation"
+    ],
+    "common_pairings": [
+      "Notion",
+      "n8n",
+      "Supabase"
+    ],
+    "export_templates": {
+      "n8n": {
+        "file_url": "/exports/openai_n8n.json"
+      },
+      "langflow": {
+        "file_url": "/exports/openai_langflow.flow"
+      }
+    }
+  },
+  {
+    "id": "anthropic_32",
+    "name": "Anthropic Claude #32",
+    "category": "AI模型",
+    "summary": "注重安全的語言模型助手",
+    "official_url": "https://www.anthropic.com/",
+    "tags": [
+      "LLM",
+      "Safety",
+      "AI Assistant"
+    ],
+    "common_pairings": [
+      "Notion",
+      "Zapier",
+      "Langflow"
+    ]
+  },
+  {
+    "id": "gemini_33",
+    "name": "Google Gemini #33",
+    "category": "AI模型",
+    "summary": "支援文本與圖像的多模態模型",
+    "official_url": "https://gemini.google.com/",
+    "tags": [
+      "Multimodal",
+      "AI",
+      "Google"
+    ],
+    "common_pairings": [
+      "Sheets",
+      "Colab",
+      "n8n"
+    ]
+  },
+  {
+    "id": "cohere_34",
+    "name": "Cohere #34",
+    "category": "AI模型",
+    "summary": "語意生成與檢索 API",
+    "official_url": "https://cohere.ai/",
+    "tags": [
+      "LLM",
+      "Embedding",
+      "Search"
+    ],
+    "common_pairings": [
+      "Supabase",
+      "Langchain",
+      "Make"
+    ]
+  },
+  {
+    "id": "mistral_35",
+    "name": "Mistral AI #35",
+    "category": "AI模型",
+    "summary": "高效輕量語言模型",
+    "official_url": "https://mistral.ai/",
+    "tags": [
+      "Open Source",
+      "LLM",
+      "Text"
+    ],
+    "common_pairings": [
+      "Ollama",
+      "Flowise",
+      "Supabase"
+    ]
+  },
+  {
+    "id": "huggingface_36",
+    "name": "Hugging Face #36",
+    "category": "AI模型",
+    "summary": "開放模型與 API 平台",
+    "official_url": "https://huggingface.co/",
+    "tags": [
+      "Models",
+      "AI Hub",
+      "Transformers"
+    ],
+    "common_pairings": [
+      "Gradio",
+      "Spaces",
+      "Colab"
+    ]
+  },
+  {
+    "id": "perplexity_37",
+    "name": "Perplexity AI #37",
+    "category": "AI模型",
+    "summary": "搜尋驅動的對話式 AI",
+    "official_url": "https://www.perplexity.ai/",
+    "tags": [
+      "Search",
+      "Chat",
+      "AI"
+    ],
+    "common_pairings": [
+      "Notion",
+      "OpenAI",
+      "Zapier"
+    ]
+  },
+  {
+    "id": "llamaindex_38",
+    "name": "LlamaIndex #38",
+    "category": "AI/資料檢索",
+    "summary": "檢索增強生成框架",
+    "official_url": "https://www.llamaindex.ai/",
+    "tags": [
+      "RAG",
+      "Framework",
+      "Indexing"
+    ],
+    "common_pairings": [
+      "Supabase",
+      "Langchain",
+      "OpenAI"
+    ]
+  },
+  {
+    "id": "ollama_39",
+    "name": "Ollama #39",
+    "category": "AI模型",
+    "summary": "本地運行輕量 LLM",
+    "official_url": "https://ollama.ai/",
+    "tags": [
+      "Local",
+      "LLM",
+      "Offline"
+    ],
+    "common_pairings": [
+      "Mistral",
+      "Flowise",
+      "Langflow"
+    ]
+  },
+  {
+    "id": "flowise_40",
+    "name": "Flowise #40",
+    "category": "LLM編排",
+    "summary": "低程式化 AI 流程與代理",
+    "official_url": "https://flowiseai.com/",
+    "tags": [
+      "LLM",
+      "Flow",
+      "Automation"
+    ],
+    "common_pairings": [
+      "OpenAI",
+      "Ollama",
+      "n8n"
+    ]
+  },
+  {
+    "id": "openai_41",
+    "name": "OpenAI #41",
+    "category": "AI模型",
+    "summary": "生成式語言模型與聊天 API",
+    "official_url": "https://openai.com/",
+    "tags": [
+      "AI",
+      "LLM",
+      "Text Generation"
+    ],
+    "common_pairings": [
+      "Notion",
+      "n8n",
+      "Supabase"
+    ],
+    "export_templates": {
+      "n8n": {
+        "file_url": "/exports/openai_n8n.json"
+      },
+      "langflow": {
+        "file_url": "/exports/openai_langflow.flow"
+      }
+    }
+  },
+  {
+    "id": "anthropic_42",
+    "name": "Anthropic Claude #42",
+    "category": "AI模型",
+    "summary": "注重安全的語言模型助手",
+    "official_url": "https://www.anthropic.com/",
+    "tags": [
+      "LLM",
+      "Safety",
+      "AI Assistant"
+    ],
+    "common_pairings": [
+      "Notion",
+      "Zapier",
+      "Langflow"
+    ]
+  },
+  {
+    "id": "gemini_43",
+    "name": "Google Gemini #43",
+    "category": "AI模型",
+    "summary": "支援文本與圖像的多模態模型",
+    "official_url": "https://gemini.google.com/",
+    "tags": [
+      "Multimodal",
+      "AI",
+      "Google"
+    ],
+    "common_pairings": [
+      "Sheets",
+      "Colab",
+      "n8n"
+    ]
+  },
+  {
+    "id": "cohere_44",
+    "name": "Cohere #44",
+    "category": "AI模型",
+    "summary": "語意生成與檢索 API",
+    "official_url": "https://cohere.ai/",
+    "tags": [
+      "LLM",
+      "Embedding",
+      "Search"
+    ],
+    "common_pairings": [
+      "Supabase",
+      "Langchain",
+      "Make"
+    ]
+  },
+  {
+    "id": "mistral_45",
+    "name": "Mistral AI #45",
+    "category": "AI模型",
+    "summary": "高效輕量語言模型",
+    "official_url": "https://mistral.ai/",
+    "tags": [
+      "Open Source",
+      "LLM",
+      "Text"
+    ],
+    "common_pairings": [
+      "Ollama",
+      "Flowise",
+      "Supabase"
+    ]
+  },
+  {
+    "id": "huggingface_46",
+    "name": "Hugging Face #46",
+    "category": "AI模型",
+    "summary": "開放模型與 API 平台",
+    "official_url": "https://huggingface.co/",
+    "tags": [
+      "Models",
+      "AI Hub",
+      "Transformers"
+    ],
+    "common_pairings": [
+      "Gradio",
+      "Spaces",
+      "Colab"
+    ]
+  },
+  {
+    "id": "perplexity_47",
+    "name": "Perplexity AI #47",
+    "category": "AI模型",
+    "summary": "搜尋驅動的對話式 AI",
+    "official_url": "https://www.perplexity.ai/",
+    "tags": [
+      "Search",
+      "Chat",
+      "AI"
+    ],
+    "common_pairings": [
+      "Notion",
+      "OpenAI",
+      "Zapier"
+    ]
+  },
+  {
+    "id": "llamaindex_48",
+    "name": "LlamaIndex #48",
+    "category": "AI/資料檢索",
+    "summary": "檢索增強生成框架",
+    "official_url": "https://www.llamaindex.ai/",
+    "tags": [
+      "RAG",
+      "Framework",
+      "Indexing"
+    ],
+    "common_pairings": [
+      "Supabase",
+      "Langchain",
+      "OpenAI"
+    ]
+  },
+  {
+    "id": "ollama_49",
+    "name": "Ollama #49",
+    "category": "AI模型",
+    "summary": "本地運行輕量 LLM",
+    "official_url": "https://ollama.ai/",
+    "tags": [
+      "Local",
+      "LLM",
+      "Offline"
+    ],
+    "common_pairings": [
+      "Mistral",
+      "Flowise",
+      "Langflow"
+    ]
+  },
+  {
+    "id": "flowise_50",
+    "name": "Flowise #50",
+    "category": "LLM編排",
+    "summary": "低程式化 AI 流程與代理",
+    "official_url": "https://flowiseai.com/",
+    "tags": [
+      "LLM",
+      "Flow",
+      "Automation"
+    ],
+    "common_pairings": [
+      "OpenAI",
+      "Ollama",
+      "n8n"
+    ]
+  },
+  {
+    "id": "openai_51",
+    "name": "OpenAI #51",
+    "category": "AI模型",
+    "summary": "生成式語言模型與聊天 API",
+    "official_url": "https://openai.com/",
+    "tags": [
+      "AI",
+      "LLM",
+      "Text Generation"
+    ],
+    "common_pairings": [
+      "Notion",
+      "n8n",
+      "Supabase"
+    ],
+    "export_templates": {
+      "n8n": {
+        "file_url": "/exports/openai_n8n.json"
+      },
+      "langflow": {
+        "file_url": "/exports/openai_langflow.flow"
+      }
+    }
+  },
+  {
+    "id": "anthropic_52",
+    "name": "Anthropic Claude #52",
+    "category": "AI模型",
+    "summary": "注重安全的語言模型助手",
+    "official_url": "https://www.anthropic.com/",
+    "tags": [
+      "LLM",
+      "Safety",
+      "AI Assistant"
+    ],
+    "common_pairings": [
+      "Notion",
+      "Zapier",
+      "Langflow"
+    ]
+  },
+  {
+    "id": "gemini_53",
+    "name": "Google Gemini #53",
+    "category": "AI模型",
+    "summary": "支援文本與圖像的多模態模型",
+    "official_url": "https://gemini.google.com/",
+    "tags": [
+      "Multimodal",
+      "AI",
+      "Google"
+    ],
+    "common_pairings": [
+      "Sheets",
+      "Colab",
+      "n8n"
+    ]
+  },
+  {
+    "id": "cohere_54",
+    "name": "Cohere #54",
+    "category": "AI模型",
+    "summary": "語意生成與檢索 API",
+    "official_url": "https://cohere.ai/",
+    "tags": [
+      "LLM",
+      "Embedding",
+      "Search"
+    ],
+    "common_pairings": [
+      "Supabase",
+      "Langchain",
+      "Make"
+    ]
+  },
+  {
+    "id": "mistral_55",
+    "name": "Mistral AI #55",
+    "category": "AI模型",
+    "summary": "高效輕量語言模型",
+    "official_url": "https://mistral.ai/",
+    "tags": [
+      "Open Source",
+      "LLM",
+      "Text"
+    ],
+    "common_pairings": [
+      "Ollama",
+      "Flowise",
+      "Supabase"
+    ]
+  },
+  {
+    "id": "huggingface_56",
+    "name": "Hugging Face #56",
+    "category": "AI模型",
+    "summary": "開放模型與 API 平台",
+    "official_url": "https://huggingface.co/",
+    "tags": [
+      "Models",
+      "AI Hub",
+      "Transformers"
+    ],
+    "common_pairings": [
+      "Gradio",
+      "Spaces",
+      "Colab"
+    ]
+  },
+  {
+    "id": "perplexity_57",
+    "name": "Perplexity AI #57",
+    "category": "AI模型",
+    "summary": "搜尋驅動的對話式 AI",
+    "official_url": "https://www.perplexity.ai/",
+    "tags": [
+      "Search",
+      "Chat",
+      "AI"
+    ],
+    "common_pairings": [
+      "Notion",
+      "OpenAI",
+      "Zapier"
+    ]
+  },
+  {
+    "id": "llamaindex_58",
+    "name": "LlamaIndex #58",
+    "category": "AI/資料檢索",
+    "summary": "檢索增強生成框架",
+    "official_url": "https://www.llamaindex.ai/",
+    "tags": [
+      "RAG",
+      "Framework",
+      "Indexing"
+    ],
+    "common_pairings": [
+      "Supabase",
+      "Langchain",
+      "OpenAI"
+    ]
+  },
+  {
+    "id": "ollama_59",
+    "name": "Ollama #59",
+    "category": "AI模型",
+    "summary": "本地運行輕量 LLM",
+    "official_url": "https://ollama.ai/",
+    "tags": [
+      "Local",
+      "LLM",
+      "Offline"
+    ],
+    "common_pairings": [
+      "Mistral",
+      "Flowise",
+      "Langflow"
+    ]
+  },
+  {
+    "id": "flowise_60",
+    "name": "Flowise #60",
+    "category": "LLM編排",
+    "summary": "低程式化 AI 流程與代理",
+    "official_url": "https://flowiseai.com/",
+    "tags": [
+      "LLM",
+      "Flow",
+      "Automation"
+    ],
+    "common_pairings": [
+      "OpenAI",
+      "Ollama",
+      "n8n"
+    ]
+  },
+  {
+    "id": "openai_61",
+    "name": "OpenAI #61",
+    "category": "AI模型",
+    "summary": "生成式語言模型與聊天 API",
+    "official_url": "https://openai.com/",
+    "tags": [
+      "AI",
+      "LLM",
+      "Text Generation"
+    ],
+    "common_pairings": [
+      "Notion",
+      "n8n",
+      "Supabase"
+    ],
+    "export_templates": {
+      "n8n": {
+        "file_url": "/exports/openai_n8n.json"
+      },
+      "langflow": {
+        "file_url": "/exports/openai_langflow.flow"
+      }
+    }
+  },
+  {
+    "id": "anthropic_62",
+    "name": "Anthropic Claude #62",
+    "category": "AI模型",
+    "summary": "注重安全的語言模型助手",
+    "official_url": "https://www.anthropic.com/",
+    "tags": [
+      "LLM",
+      "Safety",
+      "AI Assistant"
+    ],
+    "common_pairings": [
+      "Notion",
+      "Zapier",
+      "Langflow"
+    ]
+  },
+  {
+    "id": "gemini_63",
+    "name": "Google Gemini #63",
+    "category": "AI模型",
+    "summary": "支援文本與圖像的多模態模型",
+    "official_url": "https://gemini.google.com/",
+    "tags": [
+      "Multimodal",
+      "AI",
+      "Google"
+    ],
+    "common_pairings": [
+      "Sheets",
+      "Colab",
+      "n8n"
+    ]
+  },
+  {
+    "id": "cohere_64",
+    "name": "Cohere #64",
+    "category": "AI模型",
+    "summary": "語意生成與檢索 API",
+    "official_url": "https://cohere.ai/",
+    "tags": [
+      "LLM",
+      "Embedding",
+      "Search"
+    ],
+    "common_pairings": [
+      "Supabase",
+      "Langchain",
+      "Make"
+    ]
+  },
+  {
+    "id": "mistral_65",
+    "name": "Mistral AI #65",
+    "category": "AI模型",
+    "summary": "高效輕量語言模型",
+    "official_url": "https://mistral.ai/",
+    "tags": [
+      "Open Source",
+      "LLM",
+      "Text"
+    ],
+    "common_pairings": [
+      "Ollama",
+      "Flowise",
+      "Supabase"
+    ]
+  },
+  {
+    "id": "huggingface_66",
+    "name": "Hugging Face #66",
+    "category": "AI模型",
+    "summary": "開放模型與 API 平台",
+    "official_url": "https://huggingface.co/",
+    "tags": [
+      "Models",
+      "AI Hub",
+      "Transformers"
+    ],
+    "common_pairings": [
+      "Gradio",
+      "Spaces",
+      "Colab"
+    ]
+  },
+  {
+    "id": "perplexity_67",
+    "name": "Perplexity AI #67",
+    "category": "AI模型",
+    "summary": "搜尋驅動的對話式 AI",
+    "official_url": "https://www.perplexity.ai/",
+    "tags": [
+      "Search",
+      "Chat",
+      "AI"
+    ],
+    "common_pairings": [
+      "Notion",
+      "OpenAI",
+      "Zapier"
+    ]
+  },
+  {
+    "id": "llamaindex_68",
+    "name": "LlamaIndex #68",
+    "category": "AI/資料檢索",
+    "summary": "檢索增強生成框架",
+    "official_url": "https://www.llamaindex.ai/",
+    "tags": [
+      "RAG",
+      "Framework",
+      "Indexing"
+    ],
+    "common_pairings": [
+      "Supabase",
+      "Langchain",
+      "OpenAI"
+    ]
+  },
+  {
+    "id": "ollama_69",
+    "name": "Ollama #69",
+    "category": "AI模型",
+    "summary": "本地運行輕量 LLM",
+    "official_url": "https://ollama.ai/",
+    "tags": [
+      "Local",
+      "LLM",
+      "Offline"
+    ],
+    "common_pairings": [
+      "Mistral",
+      "Flowise",
+      "Langflow"
+    ]
+  },
+  {
+    "id": "flowise_70",
+    "name": "Flowise #70",
+    "category": "LLM編排",
+    "summary": "低程式化 AI 流程與代理",
+    "official_url": "https://flowiseai.com/",
+    "tags": [
+      "LLM",
+      "Flow",
+      "Automation"
+    ],
+    "common_pairings": [
+      "OpenAI",
+      "Ollama",
+      "n8n"
+    ]
+  }
+]
