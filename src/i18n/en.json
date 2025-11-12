@@ -160,6 +160,10 @@
     "tools": "tools",
     "export_stack": "Export Stack"
   },
+  "tools": {
+    "explorer_title": "AI Tools Explorer",
+    "explorer_subtitle": "Discover and filter through 100+ curated AI and automation tools"
+  },
   "about": {
     "title": "About Universal AI Mapper",
     "subtitle": "Learn how to make the most of this platform",

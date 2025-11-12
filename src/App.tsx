@@ -8,12 +8,15 @@ import { GoalDetailPage } from './pages/GoalDetailPage';
 import { InspirationBrowsePage } from './pages/InspirationBrowsePage';
 import { InspirationDetailPage } from './pages/InspirationDetailPage';
 import { FavoritesPage } from './pages/FavoritesPage';
+import { ToolsExplorerPage } from './pages/ToolsExplorerPage';
+import { CreativeUseCasesPage } from './pages/CreativeUseCasesPage';
+import { LearnPage } from './pages/LearnPage';
 import { LanguageSwitch } from './components/LanguageSwitch';
 import { useScrollRestoration } from './hooks/useScrollRestoration';
 import { useFavorites } from './hooks/useFavorites';
 import { Home, Heart } from 'lucide-react';
 
-type ViewMode = 'persona-home' | 'legacy-home' | 'persona-detail' | 'inspiration-browse' | 'inspiration-detail' | 'goal-detail' | 'favorites';
+type ViewMode = 'persona-home' | 'legacy-home' | 'persona-detail' | 'inspiration-browse' | 'inspiration-detail' | 'goal-detail' | 'favorites' | 'tools-explorer' | 'creative-use-cases' | 'learn';
 
 function AppContent() {
   const { i18n } = useTranslation();
@@ -72,6 +75,19 @@ function AppContent() {
     setViewMode('favorites');
   };
 
+  const handleNavigateToTools = (filters?: any) => {
+    setViewMode('tools-explorer');
+    // TODO: Apply filters when tools explorer page is shown
+  };
+
+  const handleNavigateToUseCases = () => {
+    setViewMode('creative-use-cases');
+  };
+
+  const handleNavigateToLearn = () => {
+    setViewMode('learn');
+  };
+
   return (
     <div className="min-h-screen">
       <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
@@ -107,6 +123,9 @@ function AppContent() {
           onPersonaSelect={handlePersonaSelect}
           onInspirationSelect={handleInspirationSelect}
           onBrowseAllInspirations={handleBrowseAllInspirations}
+          onNavigateToTools={handleNavigateToTools}
+          onNavigateToUseCases={handleNavigateToUseCases}
+          onNavigateToLearn={handleNavigateToLearn}
         />
       )}
 
@@ -156,6 +175,28 @@ function AppContent() {
           onBackToHome={handleBackToHome}
           onGoalSelect={handleGoalSelect}
           onInspirationSelect={handleInspirationSelect}
+        />
+      )}
+
+      {viewMode === 'tools-explorer' && (
+        <ToolsExplorerPage
+          language={language}
+          onBackToHome={handleBackToHome}
+        />
+      )}
+
+      {viewMode === 'creative-use-cases' && (
+        <CreativeUseCasesPage
+          language={language}
+          onBackToHome={handleBackToHome}
+          onNavigateToTools={handleNavigateToTools}
+        />
+      )}
+
+      {viewMode === 'learn' && (
+        <LearnPage
+          language={language}
+          onBackToHome={handleBackToHome}
         />
       )}
     </div>

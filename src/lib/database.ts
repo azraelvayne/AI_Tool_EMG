@@ -620,5 +620,80 @@ export const db = {
 
     if (error) throw error;
     return data as import('../types').Inspiration[];
+  },
+
+  // ============================================================================
+  // CREATIVE USE CASES QUERIES
+  // ============================================================================
+
+  async getCreativeUseCases(filters?: {
+    difficulty?: string;
+    tag?: string;
+    search?: string;
+  }): Promise<any[]> {
+    let query = supabase
+      .from('creative_use_cases')
+      .select('*')
+      .order('display_order');
+
+    if (filters?.difficulty && filters.difficulty !== 'all') {
+      query = query.eq('difficulty', filters.difficulty);
+    }
+
+    if (filters?.search) {
+      query = query.or(`title.ilike.%${filters.search}%,description.ilike.%${filters.search}%,title_en.ilike.%${filters.search}%,description_en.ilike.%${filters.search}%,title_zh_tw.ilike.%${filters.search}%,description_zh_tw.ilike.%${filters.search}%`);
+    }
+
+    const { data, error } = await query;
+
+    if (error) throw error;
+
+    let results = data || [];
+
+    if (filters?.tag && filters.tag !== 'all') {
+      results = results.filter((useCase: any) =>
+        useCase.use_case_tags?.includes(filters.tag)
+      );
+    }
+
+    return results;
+  },
+
+  async getCreativeUseCaseBySlug(slug: string): Promise<any | null> {
+    const { data, error } = await supabase
+      .from('creative_use_cases')
+      .select('*')
+      .eq('slug', slug)
+      .maybeSingle();
+
+    if (error) throw error;
+    return data;
+  },
+
+  // ============================================================================
+  // EXPORT TEMPLATES QUERIES
+  // ============================================================================
+
+  async getExportTemplates(toolId: string): Promise<any[]> {
+    const { data, error } = await supabase
+      .from('export_templates')
+      .select('*')
+      .eq('tool_id', toolId)
+      .order('platform');
+
+    if (error) throw error;
+    return data || [];
+  },
+
+  async getExportTemplateByPlatform(toolId: string, platform: string): Promise<any | null> {
+    const { data, error } = await supabase
+      .from('export_templates')
+      .select('*')
+      .eq('tool_id', toolId)
+      .eq('platform', platform)
+      .maybeSingle();
+
+    if (error) throw error;
+    return data;
   }
 };

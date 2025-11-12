@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Sparkles, ArrowRight, Users, Target } from 'lucide-react';
+import { Sparkles, ArrowRight, Users, Target, Layers, BookOpen, Lightbulb } from 'lucide-react';
 import { PersonaCard } from '../components/PersonaCard';
 import { InspirationCard } from '../components/InspirationCard';
 import { db } from '../lib/database';
@@ -10,9 +10,20 @@ interface PersonaHomePageProps {
   onPersonaSelect: (personaKey: string, personaName?: string) => void;
   onInspirationSelect: (inspirationKey: string) => void;
   onBrowseAllInspirations: () => void;
+  onNavigateToTools?: () => void;
+  onNavigateToUseCases?: () => void;
+  onNavigateToLearn?: () => void;
 }
 
-export function PersonaHomePage({ language, onPersonaSelect, onInspirationSelect, onBrowseAllInspirations }: PersonaHomePageProps) {
+export function PersonaHomePage({
+  language,
+  onPersonaSelect,
+  onInspirationSelect,
+  onBrowseAllInspirations,
+  onNavigateToTools,
+  onNavigateToUseCases,
+  onNavigateToLearn
+}: PersonaHomePageProps) {
   const [personas, setPersonas] = useState<Persona[]>([]);
   const [featuredInspirations, setFeaturedInspirations] = useState<Inspiration[]>([]);
   const [loading, setLoading] = useState(true);
@@ -84,7 +95,78 @@ export function PersonaHomePage({ language, onPersonaSelect, onInspirationSelect
         </div>
       </div>
 
+      {/* Three CTA Blocks */}
       <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          {/* Tools Directory CTA */}
+          <button
+            onClick={onNavigateToTools}
+            className="bg-gradient-to-br from-green-500 to-teal-600 rounded-2xl p-8 text-white text-left hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
+          >
+            <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4 group-hover:bg-white/30 transition-colors">
+              <Layers className="w-8 h-8" />
+            </div>
+            <h3 className="text-2xl font-bold mb-3">
+              {language === 'zh-TW' ? '工具目錄' : 'Tool Directory'}
+            </h3>
+            <p className="text-green-100 mb-4">
+              {language === 'zh-TW'
+                ? '探索 100+ 精選工具，使用多維度篩選找到最適合的解決方案'
+                : 'Explore 100+ curated tools with multi-dimensional filtering'}
+            </p>
+            <div className="flex items-center gap-2 text-sm font-medium">
+              <span>{language === 'zh-TW' ? '開始探索' : 'Start Exploring'}</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </button>
+
+          {/* Creative Use Cases CTA */}
+          <button
+            onClick={onNavigateToUseCases}
+            className="bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl p-8 text-white text-left hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
+          >
+            <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4 group-hover:bg-white/30 transition-colors">
+              <Lightbulb className="w-8 h-8" />
+            </div>
+            <h3 className="text-2xl font-bold mb-3">
+              {language === 'zh-TW' ? '創意堆疊' : 'Creative Stacks'}
+            </h3>
+            <p className="text-purple-100 mb-4">
+              {language === 'zh-TW'
+                ? '探索跨領域創意應用場景，一鍵套用工具組合'
+                : 'Discover creative cross-domain applications with one-click tool stacks'}
+            </p>
+            <div className="flex items-center gap-2 text-sm font-medium">
+              <span>{language === 'zh-TW' ? '查看靈感' : 'View Inspirations'}</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </button>
+
+          {/* Learn More CTA */}
+          <button
+            onClick={onNavigateToLearn}
+            className="bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl p-8 text-white text-left hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
+          >
+            <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4 group-hover:bg-white/30 transition-colors">
+              <BookOpen className="w-8 h-8" />
+            </div>
+            <h3 className="text-2xl font-bold mb-3">
+              {language === 'zh-TW' ? '了解更多' : 'Learn More'}
+            </h3>
+            <p className="text-blue-100 mb-4">
+              {language === 'zh-TW'
+                ? '深入了解平台功能、使用指南、匯出教學與常見問題'
+                : 'Platform guides, export tutorials, and frequently asked questions'}
+            </p>
+            <div className="flex items-center gap-2 text-sm font-medium">
+              <span>{language === 'zh-TW' ? '前往學習' : 'Go to Learn'}</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 pb-12 sm:px-6 lg:px-8">
         {/* Personas Section */}
         <div className="mb-16">
           <div className="flex items-center gap-3 mb-8">

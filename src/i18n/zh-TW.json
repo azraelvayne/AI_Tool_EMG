@@ -160,6 +160,10 @@
     "tools": "個工具",
     "export_stack": "匯出組合"
   },
+  "tools": {
+    "explorer_title": "AI 工具探索器",
+    "explorer_subtitle": "探索並篩選超過 100 種精選的 AI 與自動化工具"
+  },
   "about": {
     "title": "關於 Universal AI Mapper",
     "subtitle": "了解如何充分運用此平台",
