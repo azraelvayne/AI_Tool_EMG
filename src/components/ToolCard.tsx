@@ -2,7 +2,6 @@ import { Star, Sparkles, ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, CardBody } from './ui/Card';
 import { Badge } from './ui/Badge';
-import { ToolIcon } from './ToolIcon';
 import type { Tool, CategoryMetadata } from '../types';
 import { useApp } from '../contexts/AppContext';
 import { storage } from '../lib/localStorage';
@@ -51,6 +50,7 @@ export function ToolCard({ tool, categories, onClick }: ToolCardProps) {
   const toolCategories = tool.categories as any;
   const primaryRole = toolCategories.functional_role?.[0];
   const roleMetadata = primaryRole ? getCategoryMetadata('functional_role', primaryRole) : null;
+  const RoleIcon = roleMetadata ? getIcon(roleMetadata.icon_name) : Icons.Box;
 
   return (
     <Card hover onClick={handleClick} className="relative overflow-hidden">
@@ -59,14 +59,9 @@ export function ToolCard({ tool, categories, onClick }: ToolCardProps) {
           <div className="flex items-center gap-3 mb-2">
             <div
               className="w-12 h-12 rounded-lg flex items-center justify-center"
-              style={{ backgroundColor: roleMetadata?.color_hex + '20' || '#14b8a620' }}
+              style={{ backgroundColor: roleMetadata?.color_hex + '20' }}
             >
-              <ToolIcon
-                iconUrl={tool.icon_url}
-                toolName={tool.tool_name}
-                size={24}
-                backgroundColor={roleMetadata?.color_hex || '#14b8a6'}
-              />
+              <RoleIcon size={24} style={{ color: roleMetadata?.color_hex }} />
             </div>
             <div className="flex-1">
               <h3 className="text-lg font-bold text-gray-900 mb-1">{tool.tool_name}</h3>
