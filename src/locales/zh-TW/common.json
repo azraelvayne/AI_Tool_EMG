@@ -233,7 +233,16 @@
     "view_details": "查看詳情",
     "apply_stack": "套用堆疊",
     "tools_used": "使用工具：",
-    "use_cases_count": "個用例"
+    "use_cases_count": "個用例",
+    "implementation_steps": "實作步驟",
+    "tools_used_header": "使用的工具",
+    "supported_export_formats": "支援的匯出格式",
+    "apply_tool_stack": "套用工具堆疊",
+    "step": "步驟"
+  },
+  "persona": {
+    "learning_focus": "學習重點",
+    "explore": "探索更多"
   },
   "about": {
     "title": "關於 Universal AI Mapper",
