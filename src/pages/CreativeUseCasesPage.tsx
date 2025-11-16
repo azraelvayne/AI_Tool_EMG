@@ -8,6 +8,7 @@ import { Input } from '../components/ui/Input';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
 import { ComplexityBadge } from '../components/ComplexityBadge';
+import { CreativeUseCaseDetailModal } from '../components/CreativeUseCaseDetailModal';
 import { db } from '../lib/database';
 
 interface CreativeUseCasesPageProps {
@@ -37,6 +38,8 @@ export function CreativeUseCasesPage({ language, onBackToHome, onNavigateToTools
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>('all');
   const [selectedTag, setSelectedTag] = useState<string>('all');
+  const [selectedUseCase, setSelectedUseCase] = useState<CreativeUseCase | null>(null);
+  const [showDetailModal, setShowDetailModal] = useState(false);
 
   useEffect(() => {
     loadUseCases();
@@ -66,9 +69,18 @@ export function CreativeUseCasesPage({ language, onBackToHome, onNavigateToTools
 
   const allTags = Array.from(new Set(useCases.flatMap(uc => uc.use_case_tags)));
 
-  const handleApplyStack = (useCase: CreativeUseCase) => {
-    // Navigate to tools page with filters applied based on the use case tools
-    onNavigateToTools({ tools: useCase.tools });
+  const handleApplyStack = (tools: string[]) => {
+    onNavigateToTools({ tools });
+  };
+
+  const handleViewDetails = (useCase: CreativeUseCase) => {
+    setSelectedUseCase(useCase);
+    setShowDetailModal(true);
+  };
+
+  const handleCloseDetail = () => {
+    setShowDetailModal(false);
+    setSelectedUseCase(null);
   };
 
   if (loading) {
@@ -230,7 +242,7 @@ export function CreativeUseCasesPage({ language, onBackToHome, onNavigateToTools
                     size="sm"
                     variant="outline"
                     className="flex-1"
-                    onClick={() => {}}
+                    onClick={() => handleViewDetails(useCase)}
                   >
                     {language === 'zh-TW' ? '查看詳情' : 'View Details'}
                   </Button>
@@ -239,7 +251,7 @@ export function CreativeUseCasesPage({ language, onBackToHome, onNavigateToTools
                     variant="primary"
                     icon={Sparkles}
                     className="flex-1"
-                    onClick={() => handleApplyStack(useCase)}
+                    onClick={() => handleApplyStack(useCase.tools)}
                   >
                     {language === 'zh-TW' ? '套用堆疊' : 'Apply Stack'}
                   </Button>
@@ -249,6 +261,14 @@ export function CreativeUseCasesPage({ language, onBackToHome, onNavigateToTools
           </motion.div>
         )}
       </div>
+
+      <CreativeUseCaseDetailModal
+        useCase={selectedUseCase}
+        isOpen={showDetailModal}
+        onClose={handleCloseDetail}
+        language={language}
+        onApplyStack={handleApplyStack}
+      />
     </PageTransition>
   );
 }
