@@ -27,11 +27,25 @@ export function PersonaCard({ persona, language, onClick }: PersonaCardProps) {
 
         <div className="relative flex flex-col items-center text-center p-6">
           <motion.div
-            className="text-6xl mb-4"
-            whileHover={{ scale: 1.15, rotate: [0, -5, 5, 0] }}
+            className="w-32 h-32 mb-4 rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center shadow-md group-hover:shadow-xl transition-shadow duration-300"
+            whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           >
-            {persona.icon}
+            {persona.icon_url ? (
+              <img
+                src={persona.icon_url}
+                alt={name}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  const fallback = e.currentTarget.nextElementSibling;
+                  if (fallback) fallback.classList.remove('hidden');
+                }}
+              />
+            ) : null}
+            <span className={`text-6xl ${persona.icon_url ? 'hidden' : ''}`}>
+              {persona.icon}
+            </span>
           </motion.div>
 
           <h3 className="text-xl font-bold mb-2 text-gray-900 group-hover:text-blue-600 transition-colors duration-300">

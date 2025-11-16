@@ -233,6 +233,7 @@ export interface Persona {
   learning_focus: string[];
   recommended_goals: string[];
   icon: string;
+  icon_url?: string;
   display_order: number;
   created_at?: string;
 }
