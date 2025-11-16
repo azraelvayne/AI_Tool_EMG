@@ -43,7 +43,7 @@ export function ToolsExplorerLayout({
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="bg-gradient-to-br from-blue-600 via-teal-500 to-green-500 text-white">
+      <div className="bg-gradient-hero-cool text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           {headerActions && (
             <div className="absolute top-4 right-4">
@@ -52,10 +52,10 @@ export function ToolsExplorerLayout({
           )}
 
           <div className="text-center mb-8">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 drop-shadow-sm">
               {title || t('home.title')}
             </h1>
-            <p className="text-xl text-blue-50 max-w-2xl mx-auto">
+            <p className="text-xl text-white/90 max-w-2xl mx-auto drop-shadow-sm">
               {subtitle || t('home.subtitle')}
             </p>
           </div>

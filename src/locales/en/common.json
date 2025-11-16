@@ -69,7 +69,11 @@
       "strategy": "Strategy",
       "strategy_desc": "When to use",
       "inspiration": "Inspiration",
-      "inspiration_desc": "Creative ideas"
+      "inspiration_desc": "Creative ideas",
+      "templates": "Export Templates",
+      "templates_desc": "Ready-to-use workflow templates",
+      "pairings": "Tool Pairings",
+      "pairings_desc": "Recommended tool combinations"
     },
     "export_btn": "Export",
     "copy_json": "Copy JSON"
@@ -217,6 +221,19 @@
     "getting_started": "Getting Started",
     "guides": "Guides",
     "faq": "FAQ"
+  },
+  "creative_use_cases": {
+    "title": "Creative Use Cases Gallery",
+    "subtitle": "Explore cross-domain creative applications and apply tool stacks with one click",
+    "search_placeholder": "Search use cases...",
+    "all_difficulties": "All Difficulties",
+    "all_tags": "All Tags",
+    "no_matches": "No matching use cases",
+    "adjust_filters": "Try adjusting your filters",
+    "view_details": "View Details",
+    "apply_stack": "Apply Stack",
+    "tools_used": "Tools used:",
+    "use_cases_count": "use cases"
   },
   "about": {
     "title": "About Universal AI Mapper",

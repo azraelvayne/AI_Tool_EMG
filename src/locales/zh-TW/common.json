@@ -69,7 +69,11 @@
       "strategy": "策略",
       "strategy_desc": "使用時機",
       "inspiration": "靈感",
-      "inspiration_desc": "創意點子"
+      "inspiration_desc": "創意點子",
+      "templates": "匯出範本",
+      "templates_desc": "可直接使用的工作流程範本",
+      "pairings": "工具配對",
+      "pairings_desc": "推薦的工具組合"
     },
     "export_btn": "匯出",
     "copy_json": "複製 JSON"
@@ -217,6 +221,19 @@
     "getting_started": "開始使用",
     "guides": "指南",
     "faq": "常見問題"
+  },
+  "creative_use_cases": {
+    "title": "創意用例畫廊",
+    "subtitle": "探索跨領域創意應用，找到靈感並一鍵套用工具堆疊",
+    "search_placeholder": "搜尋創意用例...",
+    "all_difficulties": "所有難度",
+    "all_tags": "所有標籤",
+    "no_matches": "沒有符合的用例",
+    "adjust_filters": "試試調整篩選條件",
+    "view_details": "查看詳情",
+    "apply_stack": "套用堆疊",
+    "tools_used": "使用工具：",
+    "use_cases_count": "個用例"
   },
   "about": {
     "title": "關於 Universal AI Mapper",

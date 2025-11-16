@@ -88,8 +88,8 @@ export function ToolDetailModal({ tool, isOpen, onClose, categories }: ToolDetai
     { id: 'guide' as TabType, label: t('detail.tabs.guide'), icon: Map, description: t('detail.tabs.guide_desc') },
     { id: 'strategy' as TabType, label: t('detail.tabs.strategy'), icon: Target, description: t('detail.tabs.strategy_desc') },
     { id: 'inspiration' as TabType, label: t('detail.tabs.inspiration'), icon: Lightbulb, description: t('detail.tabs.inspiration_desc') },
-    { id: 'templates' as TabType, label: 'Export Templates', icon: FileJson, description: 'Ready-to-use workflow templates', badge: exportTemplates.length },
-    { id: 'pairings' as TabType, label: 'Tool Pairings', icon: LinkIcon, description: 'Recommended tool combinations', badge: toolPairings.length }
+    { id: 'templates' as TabType, label: t('detail.tabs.templates'), icon: FileJson, description: t('detail.tabs.templates_desc'), badge: exportTemplates.length },
+    { id: 'pairings' as TabType, label: t('detail.tabs.pairings'), icon: LinkIcon, description: t('detail.tabs.pairings_desc'), badge: toolPairings.length }
   ];
 
   const handleDownloadTemplate = (template: any) => {
@@ -126,11 +126,23 @@ export function ToolDetailModal({ tool, isOpen, onClose, categories }: ToolDetai
               const RoleIcon = roleMetadata ? getIcon(roleMetadata.icon_name) : Icons.Box;
 
               return (
-                <div
-                  className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0"
-                  style={{ backgroundColor: roleMetadata?.color_hex + '20' }}
-                >
-                  <RoleIcon size={32} style={{ color: roleMetadata?.color_hex }} />
+                <div className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 bg-white border-2 border-gray-200 p-3">
+                  {tool.icon_url ? (
+                    <img
+                      src={tool.icon_url}
+                      alt={`${tool.tool_name} icon`}
+                      className="w-full h-full object-contain"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                      }}
+                    />
+                  ) : null}
+                  <RoleIcon
+                    size={32}
+                    style={{ color: roleMetadata?.color_hex }}
+                    className={tool.icon_url ? 'hidden' : ''}
+                  />
                 </div>
               );
             })()}
