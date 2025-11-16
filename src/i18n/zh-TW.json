@@ -164,6 +164,60 @@
     "explorer_title": "AI 工具探索器",
     "explorer_subtitle": "探索並篩選超過 100 種精選的 AI 與自動化工具"
   },
+  "platforms": {
+    "n8n": "n8n",
+    "langflow": "Langflow",
+    "zapier": "Zapier",
+    "select_platform": "選擇平台",
+    "importable_workflow": "可直接匯入的 workflow JSON",
+    "importable_flow": "可直接匯入的 flow JSON",
+    "template_guide": "模板連結與操作指南"
+  },
+  "validation": {
+    "format_valid": "格式驗證通過",
+    "format_invalid": "格式驗證失敗",
+    "validate_format": "驗證格式"
+  },
+  "enhanced_export": {
+    "title": "匯出 {{name}}",
+    "select_platform": "選擇平台",
+    "json_preview": "JSON 預覽",
+    "how_to_use": "如何使用",
+    "quick_start": "快速開始",
+    "setup_steps": "設定步驟",
+    "common_pairings": "常見配對",
+    "pro_tips": "專業提示",
+    "copy_json": "複製 JSON",
+    "download_file": "下載檔案",
+    "open_in_zapier": "在 Zapier 開啟",
+    "copied": "已複製"
+  },
+  "pairings": {
+    "title": "工具配對",
+    "strength": "配對強度",
+    "rationale": "配對理由",
+    "view_workflow": "查看範例工作流程",
+    "create_stack": "從配對建立堆疊",
+    "no_pairings": "目前無配對資料"
+  },
+  "collections": {
+    "title": "我的收藏集",
+    "new_collection": "新增收藏集",
+    "edit_collection": "編輯收藏集",
+    "delete_collection": "刪除收藏集",
+    "collection_name": "收藏集名稱",
+    "add_to_collection": "加入收藏集",
+    "empty_collection": "此收藏集為空",
+    "export_collection": "匯出收藏集",
+    "share_collection": "分享收藏集"
+  },
+  "learn": {
+    "title": "學習",
+    "subtitle": "探索如何充分運用 AI Mapper",
+    "getting_started": "開始使用",
+    "guides": "指南",
+    "faq": "常見問題"
+  },
   "about": {
     "title": "關於 Universal AI Mapper",
     "subtitle": "了解如何充分運用此平台",

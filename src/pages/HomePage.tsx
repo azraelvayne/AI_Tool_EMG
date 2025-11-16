@@ -10,6 +10,7 @@ import { LanguageSwitch } from '../components/LanguageSwitch';
 import { PopularToolsModal } from '../components/PopularToolsModal';
 import { FeaturedStacksModal } from '../components/FeaturedStacksModal';
 import { AboutModal } from '../components/AboutModal';
+import { AIRecommendationModal } from '../components/AIRecommendationModal';
 import { useApp } from '../contexts/AppContext';
 import { Modal } from '../components/ui/Modal';
 
@@ -22,6 +23,7 @@ export function HomePage() {
   const [showPopularTools, setShowPopularTools] = useState(false);
   const [showFeaturedStacks, setShowFeaturedStacks] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
+  const [showAIRecommendation, setShowAIRecommendation] = useState(false);
 
   const selectedTool = tools.find(t => t.id === selectedToolId) || null;
 
@@ -57,7 +59,7 @@ export function HomePage() {
               <Button
                 variant="secondary"
                 icon={Sparkles}
-                onClick={() => {}}
+                onClick={() => setShowAIRecommendation(true)}
               >
                 {t('home.ai_generate')}
               </Button>
@@ -227,6 +229,15 @@ export function HomePage() {
       <AboutModal
         isOpen={showAbout}
         onClose={() => setShowAbout(false)}
+      />
+
+      <AIRecommendationModal
+        isOpen={showAIRecommendation}
+        onClose={() => setShowAIRecommendation(false)}
+        allTools={tools}
+        onApplyStack={(tools) => {
+          setShowAIRecommendation(false);
+        }}
       />
     </div>
   );

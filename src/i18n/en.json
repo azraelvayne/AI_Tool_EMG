@@ -164,6 +164,60 @@
     "explorer_title": "AI Tools Explorer",
     "explorer_subtitle": "Discover and filter through 100+ curated AI and automation tools"
   },
+  "platforms": {
+    "n8n": "n8n",
+    "langflow": "Langflow",
+    "zapier": "Zapier",
+    "select_platform": "Select Platform",
+    "importable_workflow": "Importable workflow JSON",
+    "importable_flow": "Importable flow JSON",
+    "template_guide": "Template link and setup guide"
+  },
+  "validation": {
+    "format_valid": "Format validation passed",
+    "format_invalid": "Format validation failed",
+    "validate_format": "Validate Format"
+  },
+  "enhanced_export": {
+    "title": "Export {{name}}",
+    "select_platform": "Select Platform",
+    "json_preview": "JSON Preview",
+    "how_to_use": "How to Use",
+    "quick_start": "Quick Start",
+    "setup_steps": "Setup Steps",
+    "common_pairings": "Common Pairings",
+    "pro_tips": "Pro Tips",
+    "copy_json": "Copy JSON",
+    "download_file": "Download File",
+    "open_in_zapier": "Open in Zapier",
+    "copied": "Copied"
+  },
+  "pairings": {
+    "title": "Tool Pairings",
+    "strength": "Connection Strength",
+    "rationale": "Why pair these tools",
+    "view_workflow": "View Example Workflow",
+    "create_stack": "Create Stack from Pairing",
+    "no_pairings": "No pairings available yet"
+  },
+  "collections": {
+    "title": "My Collections",
+    "new_collection": "New Collection",
+    "edit_collection": "Edit Collection",
+    "delete_collection": "Delete Collection",
+    "collection_name": "Collection Name",
+    "add_to_collection": "Add to Collection",
+    "empty_collection": "This collection is empty",
+    "export_collection": "Export Collection",
+    "share_collection": "Share Collection"
+  },
+  "learn": {
+    "title": "Learn",
+    "subtitle": "Discover how to make the most of AI Mapper",
+    "getting_started": "Getting Started",
+    "guides": "Guides",
+    "faq": "FAQ"
+  },
   "about": {
     "title": "About Universal AI Mapper",
     "subtitle": "Learn how to make the most of this platform",
