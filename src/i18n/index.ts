@@ -1,7 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import en from './en.json';
-import zhTW from './zh-TW.json';
+import en from '../locales/en/common.json';
+import zhTW from '../locales/zh-TW/common.json';
 
 const detectLanguage = (): string => {
   const saved = localStorage.getItem('lang');
