@@ -64,9 +64,9 @@ export function PersonaHomePage({
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-teal-50 via-white to-green-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
           <p className="text-gray-600">{language === 'zh-TW' ? '載入中...' : 'Loading...'}</p>
         </div>
       </div>
@@ -74,9 +74,9 @@ export function PersonaHomePage({
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-green-50">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+      <div className="bg-gradient-header text-white">
         <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
@@ -101,7 +101,7 @@ export function PersonaHomePage({
           {/* Tools Directory CTA */}
           <button
             onClick={onNavigateToTools}
-            className="bg-gradient-to-br from-green-500 to-teal-600 rounded-2xl p-8 text-white text-left hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
+            className="bg-gradient-to-br from-primary-500 to-accent-600 rounded-2xl p-8 text-white text-left hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
           >
             <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4 group-hover:bg-white/30 transition-colors">
               <Layers className="w-8 h-8" />
@@ -109,7 +109,7 @@ export function PersonaHomePage({
             <h3 className="text-2xl font-bold mb-3">
               {language === 'zh-TW' ? '工具目錄' : 'Tool Directory'}
             </h3>
-            <p className="text-green-100 mb-4">
+            <p className="text-teal-100 mb-4">
               {language === 'zh-TW'
                 ? '探索 100+ 精選工具，使用多維度篩選找到最適合的解決方案'
                 : 'Explore 100+ curated tools with multi-dimensional filtering'}
@@ -123,7 +123,7 @@ export function PersonaHomePage({
           {/* Creative Use Cases CTA */}
           <button
             onClick={onNavigateToUseCases}
-            className="bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl p-8 text-white text-left hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
+            className="bg-gradient-to-br from-blue-500 to-primary-600 rounded-2xl p-8 text-white text-left hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
           >
             <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4 group-hover:bg-white/30 transition-colors">
               <Lightbulb className="w-8 h-8" />
@@ -131,7 +131,7 @@ export function PersonaHomePage({
             <h3 className="text-2xl font-bold mb-3">
               {language === 'zh-TW' ? '創意堆疊' : 'Creative Stacks'}
             </h3>
-            <p className="text-purple-100 mb-4">
+            <p className="text-blue-100 mb-4">
               {language === 'zh-TW'
                 ? '探索跨領域創意應用場景，一鍵套用工具組合'
                 : 'Discover creative cross-domain applications with one-click tool stacks'}
@@ -145,7 +145,7 @@ export function PersonaHomePage({
           {/* Learn More CTA */}
           <button
             onClick={onNavigateToLearn}
-            className="bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl p-8 text-white text-left hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
+            className="bg-gradient-to-br from-accent-500 to-accent-700 rounded-2xl p-8 text-white text-left hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
           >
             <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4 group-hover:bg-white/30 transition-colors">
               <BookOpen className="w-8 h-8" />
@@ -153,7 +153,7 @@ export function PersonaHomePage({
             <h3 className="text-2xl font-bold mb-3">
               {language === 'zh-TW' ? '了解更多' : 'Learn More'}
             </h3>
-            <p className="text-blue-100 mb-4">
+            <p className="text-green-100 mb-4">
               {language === 'zh-TW'
                 ? '深入了解平台功能、使用指南、匯出教學與常見問題'
                 : 'Platform guides, export tutorials, and frequently asked questions'}
@@ -170,7 +170,7 @@ export function PersonaHomePage({
         {/* Personas Section */}
         <div className="mb-16">
           <div className="flex items-center gap-3 mb-8">
-            <Users className="w-8 h-8 text-blue-600" />
+            <Users className="w-8 h-8 text-primary-600" />
             <div>
               <h2 className="text-3xl font-bold text-gray-900">{personaSectionTitle}</h2>
               <p className="text-gray-600 mt-1">

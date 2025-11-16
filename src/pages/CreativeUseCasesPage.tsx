@@ -85,9 +85,9 @@ export function CreativeUseCasesPage({ language, onBackToHome, onNavigateToTools
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-green-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
           <p className="text-gray-600">{language === 'zh-TW' ? '載入中...' : 'Loading...'}</p>
         </div>
       </div>
@@ -95,8 +95,8 @@ export function CreativeUseCasesPage({ language, onBackToHome, onNavigateToTools
   }
 
   return (
-    <PageTransition className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50">
-      <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+    <PageTransition className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-green-50">
+      <div className="bg-gradient-header text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <Breadcrumb
             items={[
@@ -120,7 +120,7 @@ export function CreativeUseCasesPage({ language, onBackToHome, onNavigateToTools
               <h1 className="text-4xl font-bold mb-3">
                 {language === 'zh-TW' ? '創意用例畫廊' : 'Creative Use Cases Gallery'}
               </h1>
-              <p className="text-xl text-purple-100 mb-4">
+              <p className="text-xl text-blue-100 mb-4">
                 {language === 'zh-TW'
                   ? '探索跨領域創意應用，找到靈感並一鍵套用工具堆疊'
                   : 'Explore cross-domain creative applications and apply tool stacks with one click'}
@@ -149,7 +149,7 @@ export function CreativeUseCasesPage({ language, onBackToHome, onNavigateToTools
               <select
                 value={selectedDifficulty}
                 onChange={(e) => setSelectedDifficulty(e.target.value)}
-                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 <option value="all">{language === 'zh-TW' ? '所有難度' : 'All Difficulties'}</option>
                 <option value="beginner">{language === 'zh-TW' ? '初學者' : 'Beginner'}</option>
@@ -160,7 +160,7 @@ export function CreativeUseCasesPage({ language, onBackToHome, onNavigateToTools
                 <select
                   value={selectedTag}
                   onChange={(e) => setSelectedTag(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
                   <option value="all">{language === 'zh-TW' ? '所有標籤' : 'All Tags'}</option>
                   {allTags.map(tag => (
@@ -205,7 +205,7 @@ export function CreativeUseCasesPage({ language, onBackToHome, onNavigateToTools
                 className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-all duration-300 cursor-pointer group"
               >
                 <div className="flex items-start justify-between mb-3">
-                  <h3 className="text-xl font-semibold text-gray-900 group-hover:text-purple-600 transition-colors flex-1">
+                  <h3 className="text-xl font-semibold text-gray-900 group-hover:text-primary-600 transition-colors flex-1">
                     {language === 'zh-TW' ? useCase.title : useCase.title_en}
                   </h3>
                   <ComplexityBadge level={useCase.difficulty} language={language} />
@@ -217,7 +217,7 @@ export function CreativeUseCasesPage({ language, onBackToHome, onNavigateToTools
                 {useCase.use_case_tags.length > 0 && (
                   <div className="flex flex-wrap gap-2 mb-4">
                     {useCase.use_case_tags.slice(0, 3).map((tag) => (
-                      <Badge key={tag} className="bg-purple-50 text-purple-700 border-purple-200">
+                      <Badge key={tag} className="bg-primary-50 text-primary-700 border-primary-200">
                         {tag}
                       </Badge>
                     ))}

@@ -135,8 +135,8 @@ export function LearnPage({ language, onBackToHome }: LearnPageProps) {
   ];
 
   return (
-    <PageTransition className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-teal-50">
-      <div className="bg-gradient-to-r from-blue-600 to-teal-600 text-white">
+    <PageTransition className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-green-50">
+      <div className="bg-gradient-header text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <Breadcrumb
             items={[
@@ -175,7 +175,7 @@ export function LearnPage({ language, onBackToHome }: LearnPageProps) {
           {sections.map((section) => (
             <Card key={section.id} className="p-6">
               <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-teal-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-primary-500 rounded-lg flex items-center justify-center flex-shrink-0">
                   <section.icon className="w-6 h-6 text-white" />
                 </div>
                 <div className="flex-1">
@@ -190,7 +190,7 @@ export function LearnPage({ language, onBackToHome }: LearnPageProps) {
               <ul className="space-y-2">
                 {section.content.map((item, index) => (
                   <li key={index} className="flex items-start gap-2 text-gray-700">
-                    <span className="text-blue-500 mt-1">•</span>
+                    <span className="text-primary-500 mt-1">•</span>
                     <span>{item}</span>
                   </li>
                 ))}
@@ -217,7 +217,7 @@ export function LearnPage({ language, onBackToHome }: LearnPageProps) {
           </div>
         </div>
 
-        <div className="bg-gradient-to-r from-blue-50 to-teal-50 rounded-xl border border-blue-200 p-8 text-center">
+        <div className="bg-gradient-to-r from-teal-50 to-green-50 rounded-xl border border-primary-200 p-8 text-center">
           <h3 className="text-2xl font-bold text-gray-900 mb-3">
             {language === 'zh-TW' ? '準備好開始了嗎？' : 'Ready to Get Started?'}
           </h3>
