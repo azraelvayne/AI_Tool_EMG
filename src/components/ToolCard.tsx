@@ -58,10 +58,24 @@ export function ToolCard({ tool, categories, onClick }: ToolCardProps) {
         <div className="flex-1">
           <div className="flex items-center gap-3 mb-2">
             <div
-              className="w-12 h-12 rounded-lg flex items-center justify-center"
-              style={{ backgroundColor: roleMetadata?.color_hex + '20' }}
+              className="w-12 h-12 rounded-lg flex items-center justify-center bg-white border border-gray-200 p-2"
             >
-              <RoleIcon size={24} style={{ color: roleMetadata?.color_hex }} />
+              {tool.icon_url ? (
+                <img
+                  src={tool.icon_url}
+                  alt={`${tool.tool_name} icon`}
+                  className="w-full h-full object-contain"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                  }}
+                />
+              ) : null}
+              <RoleIcon
+                size={24}
+                style={{ color: roleMetadata?.color_hex }}
+                className={tool.icon_url ? 'hidden' : ''}
+              />
             </div>
             <div className="flex-1">
               <h3 className="text-lg font-bold text-gray-900 mb-1">{tool.tool_name}</h3>

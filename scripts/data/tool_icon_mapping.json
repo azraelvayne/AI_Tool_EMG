@@ -1,0 +1,327 @@
+{
+  "openai": {
+    "name": "OpenAI",
+    "iconUrl": "https://cdn.simpleicons.org/openai/412991",
+    "source": "simple-icons"
+  },
+  "anthropic": {
+    "name": "Anthropic Claude",
+    "iconUrl": "https://cdn.simpleicons.org/anthropic/CA8B61",
+    "source": "simple-icons"
+  },
+  "google-gemini": {
+    "name": "Google Gemini",
+    "iconUrl": "https://cdn.simpleicons.org/googlegemini/8E75B2",
+    "source": "simple-icons"
+  },
+  "cohere": {
+    "name": "Cohere",
+    "iconUrl": "https://cdn.simpleicons.org/cohere/39594D",
+    "source": "simple-icons"
+  },
+  "mistral": {
+    "name": "Mistral AI",
+    "iconUrl": "https://cdn.simpleicons.org/mistral/F7D046",
+    "source": "simple-icons"
+  },
+  "huggingface": {
+    "name": "Hugging Face",
+    "iconUrl": "https://cdn.simpleicons.org/huggingface/FFD21E",
+    "source": "simple-icons"
+  },
+  "perplexity": {
+    "name": "Perplexity AI",
+    "iconUrl": "https://cdn.simpleicons.org/perplexity/20808D",
+    "source": "simple-icons"
+  },
+  "llamaindex": {
+    "name": "LlamaIndex",
+    "iconUrl": "https://cdn.simpleicons.org/llamaindex/6F42C1",
+    "source": "simple-icons"
+  },
+  "ollama": {
+    "name": "Ollama",
+    "iconUrl": "https://cdn.simpleicons.org/ollama/000000",
+    "source": "simple-icons"
+  },
+  "flowise": {
+    "name": "Flowise",
+    "iconUrl": "https://cdn.simpleicons.org/flowise/3B82F6",
+    "source": "simple-icons"
+  },
+  "langflow": {
+    "name": "Langflow",
+    "iconUrl": "https://cdn.simpleicons.org/langflow/1A56DB",
+    "source": "simple-icons"
+  },
+  "dify": {
+    "name": "Dify.ai",
+    "iconUrl": "https://cdn.simpleicons.org/dify/155EEF",
+    "source": "simple-icons"
+  },
+  "pipedream": {
+    "name": "Pipedream",
+    "iconUrl": "https://cdn.simpleicons.org/pipedream/2D3748",
+    "source": "simple-icons"
+  },
+  "n8n": {
+    "name": "n8n",
+    "iconUrl": "https://cdn.simpleicons.org/n8n/EA4B71",
+    "source": "simple-icons"
+  },
+  "make": {
+    "name": "Make (Integromat)",
+    "iconUrl": "https://cdn.simpleicons.org/make/6D00CC",
+    "source": "simple-icons"
+  },
+  "zapier": {
+    "name": "Zapier",
+    "iconUrl": "https://cdn.simpleicons.org/zapier/FF4A00",
+    "source": "simple-icons"
+  },
+  "apidog": {
+    "name": "Apidog",
+    "iconUrl": "https://cdn.simpleicons.org/apidog/00D4AA",
+    "source": "simple-icons"
+  },
+  "postman": {
+    "name": "Postman",
+    "iconUrl": "https://cdn.simpleicons.org/postman/FF6C37",
+    "source": "simple-icons"
+  },
+  "swagger": {
+    "name": "Swagger.io",
+    "iconUrl": "https://cdn.simpleicons.org/swagger/85EA2D",
+    "source": "simple-icons"
+  },
+  "aws-lambda": {
+    "name": "AWS Lambda",
+    "iconUrl": "https://cdn.simpleicons.org/awslambda/FF9900",
+    "source": "simple-icons"
+  },
+  "supabase": {
+    "name": "Supabase",
+    "iconUrl": "https://cdn.simpleicons.org/supabase/3FCF8E",
+    "source": "simple-icons"
+  },
+  "airtable": {
+    "name": "Airtable",
+    "iconUrl": "https://cdn.simpleicons.org/airtable/18BFFF",
+    "source": "simple-icons"
+  },
+  "notion": {
+    "name": "Notion",
+    "iconUrl": "https://cdn.simpleicons.org/notion/000000",
+    "source": "simple-icons"
+  },
+  "retool": {
+    "name": "Retool",
+    "iconUrl": "https://cdn.simpleicons.org/retool/3D3D3D",
+    "source": "simple-icons"
+  },
+  "replit": {
+    "name": "Replit",
+    "iconUrl": "https://cdn.simpleicons.org/replit/F26207",
+    "source": "simple-icons"
+  },
+  "bubble": {
+    "name": "Bubble.io",
+    "iconUrl": "https://cdn.simpleicons.org/bubble/0061FF",
+    "source": "simple-icons"
+  },
+  "softr": {
+    "name": "Softr",
+    "iconUrl": "https://cdn.simpleicons.org/softr/5E3DB8",
+    "source": "simple-icons"
+  },
+  "glide": {
+    "name": "Glide",
+    "iconUrl": "https://cdn.simpleicons.org/glide/6B46FF",
+    "source": "simple-icons"
+  },
+  "webflow": {
+    "name": "Webflow",
+    "iconUrl": "https://cdn.simpleicons.org/webflow/4353FF",
+    "source": "simple-icons"
+  },
+  "figma": {
+    "name": "Figma",
+    "iconUrl": "https://cdn.simpleicons.org/figma/F24E1E",
+    "source": "simple-icons"
+  },
+  "canva": {
+    "name": "Canva",
+    "iconUrl": "https://cdn.simpleicons.org/canva/00C4CC",
+    "source": "simple-icons"
+  },
+  "midjourney": {
+    "name": "Midjourney",
+    "iconUrl": "https://cdn.simpleicons.org/midjourney/000000",
+    "source": "simple-icons"
+  },
+  "runway": {
+    "name": "Runway",
+    "iconUrl": "https://cdn.simpleicons.org/runway/000000",
+    "source": "simple-icons"
+  },
+  "stability": {
+    "name": "Stability AI",
+    "iconUrl": "https://cdn.simpleicons.org/stabilityai/5C32E0",
+    "source": "simple-icons"
+  },
+  "leonardo": {
+    "name": "Leonardo.ai",
+    "iconUrl": "https://cdn.simpleicons.org/leonardo/8B5CF6",
+    "source": "simple-icons"
+  },
+  "jasper": {
+    "name": "Jasper",
+    "iconUrl": "https://cdn.simpleicons.org/jasper/FF4785",
+    "source": "simple-icons"
+  },
+  "grammarly": {
+    "name": "Grammarly",
+    "iconUrl": "https://cdn.simpleicons.org/grammarly/15C39A",
+    "source": "simple-icons"
+  },
+  "chatpdf": {
+    "name": "ChatPDF",
+    "iconUrl": "https://cdn.simpleicons.org/chatbot/3B82F6",
+    "source": "simple-icons"
+  },
+  "docgpt": {
+    "name": "DocGPT",
+    "iconUrl": "https://cdn.simpleicons.org/googledocs/4285F4",
+    "source": "simple-icons"
+  },
+  "voiceflow": {
+    "name": "Voiceflow",
+    "iconUrl": "https://cdn.simpleicons.org/voiceflow/5340FF",
+    "source": "simple-icons"
+  },
+  "retell": {
+    "name": "Retell AI",
+    "iconUrl": "https://cdn.simpleicons.org/phone/10B981",
+    "source": "simple-icons"
+  },
+  "elevenlabs": {
+    "name": "ElevenLabs",
+    "iconUrl": "https://cdn.simpleicons.org/elevenlabs/000000",
+    "source": "simple-icons"
+  },
+  "vapi": {
+    "name": "Vapi.ai",
+    "iconUrl": "https://cdn.simpleicons.org/voice/8B5CF6",
+    "source": "simple-icons"
+  },
+  "notta": {
+    "name": "Notta.ai",
+    "iconUrl": "https://cdn.simpleicons.org/naver/03C75A",
+    "source": "simple-icons"
+  },
+  "assemblyai": {
+    "name": "AssemblyAI",
+    "iconUrl": "https://cdn.simpleicons.org/assemblyai/00D4AA",
+    "source": "simple-icons"
+  },
+  "salesforce": {
+    "name": "Salesforce CRM",
+    "iconUrl": "https://cdn.simpleicons.org/salesforce/00A1E0",
+    "source": "simple-icons"
+  },
+  "monday": {
+    "name": "Monday.com",
+    "iconUrl": "https://cdn.simpleicons.org/monday/FF3D57",
+    "source": "simple-icons"
+  },
+  "clickup": {
+    "name": "ClickUp",
+    "iconUrl": "https://cdn.simpleicons.org/clickup/7B68EE",
+    "source": "simple-icons"
+  },
+  "trello": {
+    "name": "Trello",
+    "iconUrl": "https://cdn.simpleicons.org/trello/0052CC",
+    "source": "simple-icons"
+  },
+  "linear": {
+    "name": "Linear",
+    "iconUrl": "https://cdn.simpleicons.org/linear/5E6AD2",
+    "source": "simple-icons"
+  },
+  "jira": {
+    "name": "Jira",
+    "iconUrl": "https://cdn.simpleicons.org/jira/0052CC",
+    "source": "simple-icons"
+  },
+  "metabase": {
+    "name": "Metabase",
+    "iconUrl": "https://cdn.simpleicons.org/metabase/509EE3",
+    "source": "simple-icons"
+  },
+  "superset": {
+    "name": "Superset",
+    "iconUrl": "https://cdn.simpleicons.org/apachesuperset/20A6C9",
+    "source": "simple-icons"
+  },
+  "hex": {
+    "name": "Hex",
+    "iconUrl": "https://cdn.simpleicons.org/hex/8B5CF6",
+    "source": "simple-icons"
+  },
+  "dbdiagram": {
+    "name": "dbdiagram.io",
+    "iconUrl": "https://cdn.simpleicons.org/databricks/FF3621",
+    "source": "simple-icons"
+  },
+  "datagrip": {
+    "name": "DataGrip",
+    "iconUrl": "https://cdn.simpleicons.org/datagrip/000000",
+    "source": "simple-icons"
+  },
+  "prisma": {
+    "name": "Prisma",
+    "iconUrl": "https://cdn.simpleicons.org/prisma/2D3748",
+    "source": "simple-icons"
+  },
+  "drizzle": {
+    "name": "Drizzle",
+    "iconUrl": "https://cdn.simpleicons.org/drizzle/C5F74F",
+    "source": "simple-icons"
+  },
+  "livekit": {
+    "name": "Livekit",
+    "iconUrl": "https://cdn.simpleicons.org/livekit/5865F2",
+    "source": "simple-icons"
+  },
+  "dyad": {
+    "name": "Dyad.sh",
+    "iconUrl": "https://cdn.simpleicons.org/docker/2496ED",
+    "source": "simple-icons"
+  },
+  "chainlit": {
+    "name": "Chainlit",
+    "iconUrl": "https://cdn.simpleicons.org/chainlink/375BD2",
+    "source": "simple-icons"
+  },
+  "gradio": {
+    "name": "Gradio",
+    "iconUrl": "https://cdn.simpleicons.org/gradio/FF7C00",
+    "source": "simple-icons"
+  },
+  "huggingface-spaces": {
+    "name": "HuggingFace Spaces",
+    "iconUrl": "https://cdn.simpleicons.org/huggingface/FFD21E",
+    "source": "simple-icons"
+  },
+  "kaggle": {
+    "name": "Kaggle",
+    "iconUrl": "https://cdn.simpleicons.org/kaggle/20BEFF",
+    "source": "simple-icons"
+  },
+  "github-copilot": {
+    "name": "GitHub Copilot",
+    "iconUrl": "https://cdn.simpleicons.org/githubcopilot/000000",
+    "source": "simple-icons"
+  }
+}
