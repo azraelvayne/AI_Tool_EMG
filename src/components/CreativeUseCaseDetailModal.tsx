@@ -130,7 +130,7 @@ export function CreativeUseCaseDetailModal({
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
                   <CheckCircle className="w-5 h-5 text-blue-600" />
-                  {t('creative_use_cases.implementation_steps')}
+                  {language === 'zh-TW' ? '實作步驟' : 'Implementation Steps'}
                 </h3>
                 <div className="space-y-3">
                   {workflowSteps.map((step: any, index: number) => {
@@ -147,7 +147,7 @@ export function CreativeUseCaseDetailModal({
                         </div>
                         <div className="flex-1">
                           <p className="text-gray-900 font-medium mb-1">
-                            {t('creative_use_cases.step')} {step.step || index + 1}
+                            {language === 'zh-TW' ? `步驟 ${step.step || index + 1}` : `Step ${step.step || index + 1}`}
                           </p>
                           <p className="text-gray-700">{stepDesc}</p>
                         </div>
@@ -165,7 +165,7 @@ export function CreativeUseCaseDetailModal({
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
                   <Sparkles className="w-5 h-5 text-purple-600" />
-                  {t('creative_use_cases.tools_used_header')}
+                  {language === 'zh-TW' ? '使用的工具' : 'Tools Used'}
                 </h3>
                 {loadingTools ? (
                   <div className="text-center py-4">
@@ -203,7 +203,7 @@ export function CreativeUseCaseDetailModal({
             {useCase.export_format && useCase.export_format.length > 0 && (
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  {t('creative_use_cases.supported_export_formats')}
+                  {language === 'zh-TW' ? '支援的匯出格式' : 'Supported Export Formats'}
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {useCase.export_format.map((format: string) => (
@@ -218,11 +218,11 @@ export function CreativeUseCaseDetailModal({
 
           <div className="mt-8 pt-6 border-t border-gray-200 flex gap-3">
             <Button onClick={onClose} variant="outline" className="flex-1">
-              {t('modal.close')}
+              {language === 'zh-TW' ? '關閉' : 'Close'}
             </Button>
             {onApplyStack && useCase.tools && useCase.tools.length > 0 && (
               <Button onClick={handleApplyStack} icon={Sparkles} className="flex-1">
-                {t('creative_use_cases.apply_tool_stack')}
+                {language === 'zh-TW' ? '套用工具堆疊' : 'Apply Tool Stack'}
               </Button>
             )}
           </div>

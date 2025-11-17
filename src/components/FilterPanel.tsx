@@ -16,11 +16,9 @@ export function FilterPanel({ onClose, mobile = false }: FilterPanelProps) {
 
   const getIcon = (iconName: string) => {
     if (!iconName) return Icons.Box;
-    const pascalCaseName = iconName
-      .split('-')
-      .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join('');
-    const IconComponent = (Icons as any)[pascalCaseName];
+    const IconComponent = (Icons as any)[iconName.split('-').map((word: string, i: number) =>
+      i === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1)
+    ).join('')];
     return IconComponent || Icons.Box;
   };
 

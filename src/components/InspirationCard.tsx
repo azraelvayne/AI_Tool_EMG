@@ -1,6 +1,5 @@
 import { Clock, TrendingUp, Zap, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
 import { Card } from './ui/Card';
 import { Badge } from './ui/Badge';
 import { ComplexityBadge } from './ComplexityBadge';
@@ -13,7 +12,6 @@ interface InspirationCardProps {
 }
 
 export function InspirationCard({ inspiration, language, onClick }: InspirationCardProps) {
-  const { t } = useTranslation();
   const title = language === 'zh-TW' ? inspiration.title_zh_tw : inspiration.title_en;
   const description = language === 'zh-TW' ? inspiration.description_zh_tw : inspiration.description_en;
 
@@ -94,7 +92,7 @@ export function InspirationCard({ inspiration, language, onClick }: InspirationC
           whileHover={{ backgroundColor: 'rgba(147, 51, 234, 0.1)' }}
         >
           <span className="text-sm font-medium text-purple-900">
-            {t('creative_use_cases.view_details')}
+            {language === 'zh-TW' ? '查看詳情' : 'View Details'}
           </span>
           <motion.div
             animate={{ x: [0, 4, 0] }}

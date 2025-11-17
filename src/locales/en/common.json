@@ -233,16 +233,7 @@
     "view_details": "View Details",
     "apply_stack": "Apply Stack",
     "tools_used": "Tools used:",
-    "use_cases_count": "use cases",
-    "implementation_steps": "Implementation Steps",
-    "tools_used_header": "Tools Used",
-    "supported_export_formats": "Supported Export Formats",
-    "apply_tool_stack": "Apply Tool Stack",
-    "step": "Step"
-  },
-  "persona": {
-    "learning_focus": "Learning Focus",
-    "explore": "Explore"
+    "use_cases_count": "use cases"
   },
   "about": {
     "title": "About Universal AI Mapper",
