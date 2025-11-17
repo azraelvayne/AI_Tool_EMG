@@ -1,6 +1,7 @@
 import { Card } from './ui/Card';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import type { Persona } from '../types';
 
 interface PersonaCardProps {
@@ -10,6 +11,7 @@ interface PersonaCardProps {
 }
 
 export function PersonaCard({ persona, language, onClick }: PersonaCardProps) {
+  const { t } = useTranslation();
   const name = language === 'zh-TW' ? persona.name_zh_tw : persona.name_en;
   const description = language === 'zh-TW' ? persona.description_zh_tw : persona.description_en;
 
@@ -27,11 +29,25 @@ export function PersonaCard({ persona, language, onClick }: PersonaCardProps) {
 
         <div className="relative flex flex-col items-center text-center p-6">
           <motion.div
-            className="text-6xl mb-4"
-            whileHover={{ scale: 1.15, rotate: [0, -5, 5, 0] }}
+            className="w-32 h-32 mb-4 rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center shadow-md group-hover:shadow-xl transition-shadow duration-300"
+            whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           >
-            {persona.icon}
+            {persona.icon_url ? (
+              <img
+                src={persona.icon_url}
+                alt={name}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  const fallback = e.currentTarget.nextElementSibling;
+                  if (fallback) fallback.classList.remove('hidden');
+                }}
+              />
+            ) : null}
+            <span className={`text-6xl ${persona.icon_url ? 'hidden' : ''}`}>
+              {persona.icon}
+            </span>
           </motion.div>
 
           <h3 className="text-xl font-bold mb-2 text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
@@ -48,7 +64,7 @@ export function PersonaCard({ persona, language, onClick }: PersonaCardProps) {
 
           <div className="mt-auto pt-4 border-t border-gray-100 w-full">
             <p className="text-xs text-gray-500 font-medium mb-2">
-              {language === 'zh-TW' ? '學習重點' : 'Learning Focus'}
+              {t('persona.learning_focus')}
             </p>
             <div className="flex flex-wrap gap-2 justify-center">
               {persona.learning_focus.slice(0, 3).map((focus, index) => (
@@ -70,7 +86,7 @@ export function PersonaCard({ persona, language, onClick }: PersonaCardProps) {
             initial={{ x: -10 }}
             whileHover={{ x: 0 }}
           >
-            <span>{language === 'zh-TW' ? '探索更多' : 'Explore'}</span>
+            <span>{t('persona.explore')}</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
           </motion.div>
         </div>
