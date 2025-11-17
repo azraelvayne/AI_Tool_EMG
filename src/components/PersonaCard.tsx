@@ -1,7 +1,6 @@
 import { Card } from './ui/Card';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { useState } from 'react';
 import type { Persona } from '../types';
 
 interface PersonaCardProps {
@@ -13,37 +12,6 @@ interface PersonaCardProps {
 export function PersonaCard({ persona, language, onClick }: PersonaCardProps) {
   const name = language === 'zh-TW' ? persona.name_zh_tw : persona.name_en;
   const description = language === 'zh-TW' ? persona.description_zh_tw : persona.description_en;
-  const [imageError, setImageError] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
-
-  const personaColors: Record<string, { gradient: string; hoverGradient: string }> = {
-    ai_tool_designer: {
-      gradient: 'from-purple-50 to-indigo-50',
-      hoverGradient: 'from-purple-100 to-indigo-100'
-    },
-    creative_builder: {
-      gradient: 'from-orange-50 to-pink-50',
-      hoverGradient: 'from-orange-100 to-pink-100'
-    },
-    data_analyst: {
-      gradient: 'from-blue-50 to-cyan-50',
-      hoverGradient: 'from-blue-100 to-cyan-100'
-    },
-    knowledge_manager: {
-      gradient: 'from-green-50 to-emerald-50',
-      hoverGradient: 'from-green-100 to-emerald-100'
-    },
-    business_developer: {
-      gradient: 'from-red-50 to-orange-50',
-      hoverGradient: 'from-red-100 to-orange-100'
-    },
-    workflow_architect: {
-      gradient: 'from-cyan-50 to-blue-50',
-      hoverGradient: 'from-cyan-100 to-blue-100'
-    }
-  };
-
-  const colors = personaColors[persona.persona_key] || personaColors.ai_tool_designer;
 
   return (
     <motion.div
@@ -55,36 +23,16 @@ export function PersonaCard({ persona, language, onClick }: PersonaCardProps) {
         onClick={onClick}
         className="cursor-pointer hover:shadow-2xl transition-all duration-300 group relative overflow-hidden"
       >
-        <div className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
         <div className="relative flex flex-col items-center text-center p-6">
-          {persona.icon_url && !imageError ? (
-            <motion.div
-              className="relative w-32 h-32 mb-4 rounded-2xl overflow-hidden"
-              whileHover={{ scale: 1.08 }}
-              transition={{ duration: 0.3 }}
-            >
-              {!imageLoaded && (
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 animate-pulse rounded-2xl" />
-              )}
-              <img
-                src={persona.icon_url}
-                alt={name}
-                className={`w-full h-full object-cover transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-                onLoad={() => setImageLoaded(true)}
-                onError={() => setImageError(true)}
-                loading="lazy"
-              />
-            </motion.div>
-          ) : (
-            <motion.div
-              className="text-6xl mb-4"
-              whileHover={{ scale: 1.15, rotate: [0, -5, 5, 0] }}
-              transition={{ duration: 0.3 }}
-            >
-              {persona.icon}
-            </motion.div>
-          )}
+          <motion.div
+            className="text-6xl mb-4"
+            whileHover={{ scale: 1.15, rotate: [0, -5, 5, 0] }}
+            transition={{ duration: 0.3 }}
+          >
+            {persona.icon}
+          </motion.div>
 
           <h3 className="text-xl font-bold mb-2 text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
             {name}
