@@ -2,22 +2,22 @@
   # Update Workflow Architect Persona Image
 
   ## Overview
-  This migration updates the Workflow Architect (自動化工程師) persona's icon_url
-  to use the newly uploaded custom illustration.
+  This migration updates the Workflow Architect persona's icon_url
+  to use the deployment-safe filename.
 
   ## Changes
-  1. Updates persona image path from placeholder to the actual uploaded image
-  2. Maps to the correct file: Phoenix_10_flat_vector_illustration_of_a_workflow_architect_co_3.jpg
+  1. Updates persona image path to use deployment-safe filename
+  2. Maps to the correct file: workflow-architect.jpg
 
   ## File Mapping
-  - Workflow Architect (自動化工程師) → Phoenix_10_flat_vector_illustration_of_a_workflow_architect_co_3.jpg
+  - Workflow Architect → workflow-architect.jpg
 
   ## Security
   - No changes to RLS policies
   - Public read access maintained
 */
 
--- Update Workflow Architect persona image to use the newly uploaded illustration
+-- Update Workflow Architect persona image to use deployment-safe filename
 UPDATE personas
-SET icon_url = '/personas/Phoenix_10_flat_vector_illustration_of_a_workflow_architect_co_3.jpg'
+SET icon_url = '/personas/workflow-architect.jpg'
 WHERE persona_key = 'workflow_architect';
