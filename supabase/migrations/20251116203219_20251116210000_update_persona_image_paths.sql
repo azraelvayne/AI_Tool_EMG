@@ -6,17 +6,17 @@
   image files that exist in the /public/personas/ directory.
 
   ## Changes
-  1. Updates persona image paths to use the correct filenames
-  2. Maps Chinese-named files to corresponding personas
+  1. Updates persona image paths to use deployment-safe filenames
+  2. Removes Chinese characters and spaces from filenames
   3. Assigns appropriate images to all 6 personas including Workflow Architect
 
   ## File Mapping
-  - Creative Builder (創意開發者) → 創意開發者.jpg
-  - Data Analyst (資料分析師) → 資料分析師.jpg
-  - AI Tool Designer → Artificial Intelligence Tool Designer.png (already correct)
-  - Knowledge Manager (知識管理者) → 知識管理者.jpg
-  - Business Developer (商業開發者) → 商業開發者.png
-  - Workflow Architect (自動化工程師) → image-EoRWq18DY6Hg0kQsdqghu.png
+  - Creative Builder → creative-builder.jpg
+  - Data Analyst → data-analyst-zh.jpg
+  - AI Tool Designer → ai-tool-designer-full.png
+  - Knowledge Manager → knowledge-manager-zh.jpg
+  - Business Developer → business-developer-zh.png
+  - Workflow Architect → workflow-architect.jpg
 
   ## Security
   - No changes to RLS policies
@@ -24,8 +24,8 @@
 */
 
 -- Update persona image paths to match actual files
-UPDATE personas SET icon_url = '/personas/創意開發者.jpg' WHERE persona_key = 'creative_builder';
-UPDATE personas SET icon_url = '/personas/資料分析師.jpg' WHERE persona_key = 'data_analyst';
-UPDATE personas SET icon_url = '/personas/知識管理者.jpg' WHERE persona_key = 'knowledge_manager';
-UPDATE personas SET icon_url = '/personas/商業開發者.png' WHERE persona_key = 'business_developer';
-UPDATE personas SET icon_url = '/personas/image-EoRWq18DY6Hg0kQsdqghu.png' WHERE persona_key = 'workflow_architect';
+UPDATE personas SET icon_url = '/personas/creative-builder.jpg' WHERE persona_key = 'creative_builder';
+UPDATE personas SET icon_url = '/personas/data-analyst-zh.jpg' WHERE persona_key = 'data_analyst';
+UPDATE personas SET icon_url = '/personas/knowledge-manager-zh.jpg' WHERE persona_key = 'knowledge_manager';
+UPDATE personas SET icon_url = '/personas/business-developer-zh.png' WHERE persona_key = 'business_developer';
+UPDATE personas SET icon_url = '/personas/workflow-architect.jpg' WHERE persona_key = 'workflow_architect';

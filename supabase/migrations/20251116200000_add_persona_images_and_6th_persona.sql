@@ -19,12 +19,12 @@
     - Focus on automation and system integration
 
   3. Image Path Updates
-    - AI Tool Designer → Artificial Intelligence Tool Designer.png
-    - Creative Builder → creative-builder.png
-    - Data Analyst → data-analyst.png
-    - Knowledge Manager → knowledge-curator.png
-    - Business Developer → business-developer.png
-    - Workflow Architect → workflow-architect.png (placeholder)
+    - AI Tool Designer → ai-tool-designer-full.png
+    - Creative Builder → creative-builder.jpg
+    - Data Analyst → data-analyst-zh.jpg
+    - Knowledge Manager → knowledge-curator.jpg
+    - Business Developer → business-developer-zh.png
+    - Workflow Architect → workflow-architect.jpg
 
   ## Security
   - No changes to RLS policies needed
@@ -43,11 +43,11 @@ BEGIN
 END $$;
 
 -- Update existing personas with image paths
-UPDATE personas SET icon_url = '/personas/Artificial Intelligence Tool Designer.png' WHERE persona_key = 'ai_tool_designer';
-UPDATE personas SET icon_url = '/personas/creative-builder.png' WHERE persona_key = 'creative_builder';
-UPDATE personas SET icon_url = '/personas/data-analyst.png' WHERE persona_key = 'data_analyst';
+UPDATE personas SET icon_url = '/personas/ai-tool-designer-full.png' WHERE persona_key = 'ai_tool_designer';
+UPDATE personas SET icon_url = '/personas/creative-builder.jpg' WHERE persona_key = 'creative_builder';
+UPDATE personas SET icon_url = '/personas/data-analyst-zh.jpg' WHERE persona_key = 'data_analyst';
 UPDATE personas SET icon_url = '/personas/knowledge-curator.jpg' WHERE persona_key = 'knowledge_manager';
-UPDATE personas SET icon_url = '/personas/business-developer.png' WHERE persona_key = 'business_developer';
+UPDATE personas SET icon_url = '/personas/business-developer-zh.png' WHERE persona_key = 'business_developer';
 
 -- Insert 6th persona: Workflow Architect
 INSERT INTO personas (
@@ -71,7 +71,7 @@ VALUES (
   'intermediate',
   '["Process Automation", "Tool Integration", "Workflow Design"]'::jsonb,
   '⚙️',
-  '/personas/workflow-architect.png',
+  '/personas/workflow-architect.jpg',
   6
 )
 ON CONFLICT (persona_key) DO NOTHING;
