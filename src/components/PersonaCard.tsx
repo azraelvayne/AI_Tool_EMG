@@ -1,7 +1,6 @@
 import { Card } from './ui/Card';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
 import type { Persona } from '../types';
 
 interface PersonaCardProps {
@@ -11,7 +10,6 @@ interface PersonaCardProps {
 }
 
 export function PersonaCard({ persona, language, onClick }: PersonaCardProps) {
-  const { t } = useTranslation();
   const name = language === 'zh-TW' ? persona.name_zh_tw : persona.name_en;
   const description = language === 'zh-TW' ? persona.description_zh_tw : persona.description_en;
 
@@ -64,7 +62,7 @@ export function PersonaCard({ persona, language, onClick }: PersonaCardProps) {
 
           <div className="mt-auto pt-4 border-t border-gray-100 w-full">
             <p className="text-xs text-gray-500 font-medium mb-2">
-              {t('persona.learning_focus')}
+              {language === 'zh-TW' ? '學習重點' : 'Learning Focus'}
             </p>
             <div className="flex flex-wrap gap-2 justify-center">
               {persona.learning_focus.slice(0, 3).map((focus, index) => (
@@ -86,7 +84,7 @@ export function PersonaCard({ persona, language, onClick }: PersonaCardProps) {
             initial={{ x: -10 }}
             whileHover={{ x: 0 }}
           >
-            <span>{t('persona.explore')}</span>
+            <span>{language === 'zh-TW' ? '探索更多' : 'Explore'}</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
           </motion.div>
         </div>

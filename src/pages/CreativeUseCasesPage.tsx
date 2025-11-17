@@ -88,7 +88,7 @@ export function CreativeUseCasesPage({ language, onBackToHome, onNavigateToTools
       <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">{t('common.loading')}</p>
+          <p className="text-gray-600">{language === 'zh-TW' ? '載入中...' : 'Loading...'}</p>
         </div>
       </div>
     );
@@ -101,11 +101,11 @@ export function CreativeUseCasesPage({ language, onBackToHome, onNavigateToTools
           <Breadcrumb
             items={[
               {
-                label: t('nav.home'),
+                label: language === 'zh-TW' ? '首頁' : 'Home',
                 onClick: onBackToHome
               },
               {
-                label: t('creative_use_cases.title'),
+                label: language === 'zh-TW' ? '創意用例' : 'Creative Use Cases',
                 isCurrentPage: true
               }
             ]}
@@ -118,13 +118,15 @@ export function CreativeUseCasesPage({ language, onBackToHome, onNavigateToTools
             </div>
             <div className="flex-1">
               <h1 className="text-4xl font-bold mb-3">
-                {t('creative_use_cases.title')}
+                {language === 'zh-TW' ? '創意用例畫廊' : 'Creative Use Cases Gallery'}
               </h1>
               <p className="text-xl text-white/90 drop-shadow-sm mb-4">
-                {t('creative_use_cases.subtitle')}
+                {language === 'zh-TW'
+                  ? '探索跨領域創意應用，找到靈感並一鍵套用工具堆疊'
+                  : 'Explore cross-domain creative applications and apply tool stacks with one click'}
               </p>
               <Badge className="bg-white/20 text-white border-white/30">
-                {filteredUseCases.length} {t('creative_use_cases.use_cases_count')}
+                {filteredUseCases.length} {language === 'zh-TW' ? '個用例' : 'use cases'}
               </Badge>
             </div>
           </div>
@@ -137,7 +139,7 @@ export function CreativeUseCasesPage({ language, onBackToHome, onNavigateToTools
             <div className="flex-1">
               <Input
                 type="search"
-                placeholder={t('creative_use_cases.search_placeholder')}
+                placeholder={language === 'zh-TW' ? '搜尋創意用例...' : 'Search use cases...'}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 icon={Search}
@@ -149,10 +151,10 @@ export function CreativeUseCasesPage({ language, onBackToHome, onNavigateToTools
                 onChange={(e) => setSelectedDifficulty(e.target.value)}
                 className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
               >
-                <option value="all">{t('creative_use_cases.all_difficulties')}</option>
-                <option value="beginner">{t('filter.beginner')}</option>
-                <option value="intermediate">{t('filter.intermediate')}</option>
-                <option value="advanced">{t('filter.advanced')}</option>
+                <option value="all">{language === 'zh-TW' ? '所有難度' : 'All Difficulties'}</option>
+                <option value="beginner">{language === 'zh-TW' ? '初學者' : 'Beginner'}</option>
+                <option value="intermediate">{language === 'zh-TW' ? '中級' : 'Intermediate'}</option>
+                <option value="advanced">{language === 'zh-TW' ? '進階' : 'Advanced'}</option>
               </select>
               {allTags.length > 0 && (
                 <select
@@ -160,7 +162,7 @@ export function CreativeUseCasesPage({ language, onBackToHome, onNavigateToTools
                   onChange={(e) => setSelectedTag(e.target.value)}
                   className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                 >
-                  <option value="all">{t('creative_use_cases.all_tags')}</option>
+                  <option value="all">{language === 'zh-TW' ? '所有標籤' : 'All Tags'}</option>
                   {allTags.map(tag => (
                     <option key={tag} value={tag}>{tag}</option>
                   ))}
@@ -174,10 +176,10 @@ export function CreativeUseCasesPage({ language, onBackToHome, onNavigateToTools
           <div className="text-center py-16">
             <Lightbulb className="w-16 h-16 text-gray-300 mx-auto mb-4" />
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              {t('creative_use_cases.no_matches')}
+              {language === 'zh-TW' ? '沒有符合的用例' : 'No matching use cases'}
             </h3>
             <p className="text-gray-600">
-              {t('creative_use_cases.adjust_filters')}
+              {language === 'zh-TW' ? '試試調整篩選條件' : 'Try adjusting your filters'}
             </p>
           </div>
         ) : (
@@ -224,7 +226,7 @@ export function CreativeUseCasesPage({ language, onBackToHome, onNavigateToTools
 
                 <div className="mb-4">
                   <p className="text-sm text-gray-600 mb-2">
-                    {t('creative_use_cases.tools_used')}
+                    {language === 'zh-TW' ? '使用工具：' : 'Tools used:'}
                   </p>
                   <div className="flex flex-wrap gap-1">
                     {useCase.tools.map((tool) => (
@@ -242,7 +244,7 @@ export function CreativeUseCasesPage({ language, onBackToHome, onNavigateToTools
                     className="flex-1"
                     onClick={() => handleViewDetails(useCase)}
                   >
-                    {t('creative_use_cases.view_details')}
+                    {language === 'zh-TW' ? '查看詳情' : 'View Details'}
                   </Button>
                   <Button
                     size="sm"
@@ -251,7 +253,7 @@ export function CreativeUseCasesPage({ language, onBackToHome, onNavigateToTools
                     className="flex-1"
                     onClick={() => handleApplyStack(useCase.tools)}
                   >
-                    {t('creative_use_cases.apply_stack')}
+                    {language === 'zh-TW' ? '套用堆疊' : 'Apply Stack'}
                   </Button>
                 </div>
               </motion.div>
