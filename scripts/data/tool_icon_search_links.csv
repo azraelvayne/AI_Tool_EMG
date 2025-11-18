@@ -1,4 +1,4 @@
-﻿tool,official_site,google_search,iconduck_search,seeklogo_search
+tool,official_site,google_search,iconduck_search,seeklogo_search
 OpenAI,/httpservice/retry/enablejs?sei=GMkUadjEHKK2vr0P_dSVuQU,https://www.google.com/search?tbm=isch&q=OpenAI%20logo,https://iconduck.com/search?q=OpenAI%20logo,https://seeklogo.com/search?q=OpenAI%20logo
 Claude,/httpservice/retry/enablejs?sei=GMkUabfZM_2ivr0PicOMyAU,https://www.google.com/search?tbm=isch&q=Claude%20logo,https://iconduck.com/search?q=Claude%20logo,https://seeklogo.com/search?q=Claude%20logo
 Gemini,/httpservice/retry/enablejs?sei=GMkUaY-XO_z31e8P2t_C-Aw,https://www.google.com/search?tbm=isch&q=Gemini%20logo,https://iconduck.com/search?q=Gemini%20logo,https://seeklogo.com/search?q=Gemini%20logo

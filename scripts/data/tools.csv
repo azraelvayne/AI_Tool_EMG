@@ -1,4 +1,4 @@
-﻿id,name_zh,name_en,category_zh,description_zh,description_en
+id,name_zh,name_en,category_zh,description_zh,description_en
 openai,OpenAI,OpenAI,AI/LLM,生成式語言模型與聊天 API,General-purpose generative language model
 anthropic,Anthropic Claude,Claude,AI/LLM,注重安全的語言模型助手,Safety-focused conversational AI
 google-gemini,Google Gemini,Gemini,AI/LLM,支援文本與圖像的多模態模型,Multimodal AI by Google
