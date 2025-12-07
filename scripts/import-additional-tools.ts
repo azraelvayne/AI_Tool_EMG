@@ -42,19 +42,19 @@ function escapeSQL(str: string): string {
   return str.replace(/'/g, "''");
 }
 
-function generateMigration(tools: Tool[]): string {
+function generateMigration(tools: Tool[], batchNumber: number): string {
   const timestamp = new Date().toISOString().split('T')[0].replace(/-/g, '');
   const date = new Date();
 
+  const toolNames = tools.map(t => t.tool_name).join(', ');
+  const batchLabel = `v3.0-expansion-batch${batchNumber}`;
+
   let sql = `/*
-  # Import 30 Additional Tools - Phase 3 Expansion
+  # Import Tools - Batch ${batchNumber} of 3 (Phase 3 Expansion)
 
   ## Overview
-  This migration imports 30 additional tools to expand the database from 70 to 100+ tools.
-  Tools include: Airflow, fal, Prefect, Egnyte, Composio, BrightData, ScrapingBee,
-  Phantombuster, Thunderbit, Miro, Atlassian, Jam.dev, Temporal, Typedream, Triform,
-  Kintone, Kubernetes, Carrd, Mintlify, Zenler, Replicate, Daloopa, LSEG, Spaceship,
-  Alpaca, BioRender, Hex, AllTrails, Canva, and Figma.
+  This migration imports ${tools.length} tools as part of batch ${batchNumber}.
+  Tools in this batch: ${toolNames}
 
   ## Data Source
   Generated from additional_tools_dataset.json
@@ -64,12 +64,13 @@ function generateMigration(tools: Tool[]): string {
   - Categories are properly mapped to match existing schema
   - Translations are added for zh-TW locale
   - Common pairings are stored in categories
+  - Curation batch: ${batchLabel}
 
   ## Date
   Generated: ${date.toISOString()}
 */
 
--- Import tools
+-- Import tools (Batch ${batchNumber})
 DO $$
 DECLARE
   tool_id UUID;
@@ -133,18 +134,18 @@ BEGIN
     '${JSON.stringify(descriptionStylesJSON).replace(/'/g, "''")}'::jsonb,
     '${JSON.stringify(useCaseTemplatesJSON).replace(/'/g, "''")}'::jsonb,
     true,
-    'v3.0-expansion-30',
+    '${batchLabel}',
     'claude-ai',
     NOW(),
     NOW()
-  ) ON CONFLICT (source_slug) DO UPDATE SET
-    tool_name = EXCLUDED.tool_name,
+  ) ON CONFLICT (tool_name) DO UPDATE SET
     summary = EXCLUDED.summary,
+    source_slug = EXCLUDED.source_slug,
     categories = EXCLUDED.categories,
     description_styles = EXCLUDED.description_styles,
     use_case_templates = EXCLUDED.use_case_templates,
     is_curated = true,
-    curation_batch = 'v3.0-expansion-30',
+    curation_batch = '${batchLabel}',
     updated_at = NOW();
 
   -- Add zh-TW translation for ${toolName}
@@ -172,7 +173,7 @@ BEGIN
 END $$;
 
 -- Add comment
-COMMENT ON TABLE tools IS 'Updated with 30 additional tools from Phase 3 expansion';
+COMMENT ON TABLE tools IS 'Updated with tools from Phase 3 expansion - Batch ${batchNumber}';
 `;
 
   return sql;
@@ -180,25 +181,55 @@ COMMENT ON TABLE tools IS 'Updated with 30 additional tools from Phase 3 expansi
 
 // Main execution
 try {
+  // Parse command line arguments
+  const args = process.argv.slice(2);
+  const batchNumber = args.length > 0 ? parseInt(args[0]) : 1;
+  const batchSize = args.length > 1 ? parseInt(args[1]) : 10;
+
+  if (batchNumber < 1 || batchNumber > 3) {
+    console.error('Error: Batch number must be 1, 2, or 3');
+    process.exit(1);
+  }
+
+  console.log(`Batch Configuration:`);
+  console.log(`- Batch Number: ${batchNumber}`);
+  console.log(`- Batch Size: ${batchSize}`);
+  console.log('');
+
   console.log('Reading additional_tools_dataset.json...');
   const dataPath = join(__dirname, 'data', 'additional_tools_dataset.json');
   const data = readFileSync(dataPath, 'utf-8');
-  const tools: Tool[] = JSON.parse(data);
+  const allTools: Tool[] = JSON.parse(data);
 
-  console.log(`Found ${tools.length} tools to import`);
+  console.log(`Found ${allTools.length} total tools`);
+
+  // Slice tools array based on batch number
+  const startIndex = (batchNumber - 1) * batchSize;
+  const endIndex = startIndex + batchSize;
+  const tools = allTools.slice(startIndex, endIndex);
+
+  console.log(`Selecting tools ${startIndex + 1} to ${Math.min(endIndex, allTools.length)} for batch ${batchNumber}`);
+  console.log(`Tools in this batch: ${tools.map(t => t.tool_name).join(', ')}`);
+  console.log('');
 
   console.log('Generating migration SQL...');
-  const migrationSQL = generateMigration(tools);
+  const migrationSQL = generateMigration(tools, batchNumber);
 
-  const timestamp = new Date().toISOString().replace(/[:.]/g, '').replace('T', '_').slice(0, 15);
-  const outputPath = join(__dirname, '..', 'supabase', 'migrations', `${timestamp}_import_30_additional_tools.sql`);
+  const timestamp = new Date().toISOString().split('T')[0].replace(/-/g, '');
+  const outputPath = join(__dirname, '..', 'supabase', 'migrations', `${timestamp}_batch${batchNumber}_import_${tools.length}_tools.sql`);
 
   writeFileSync(outputPath, migrationSQL);
   console.log(`Migration file created: ${outputPath}`);
   console.log(`\nTo apply this migration:`);
   console.log(`1. Review the generated SQL file`);
-  console.log(`2. Run: supabase db push (if using Supabase CLI)`);
+  console.log(`2. Use the Supabase MCP tool to apply the migration`);
   console.log(`   OR manually execute the SQL in Supabase Studio`);
+  console.log(`\nNext steps:`);
+  if (batchNumber < 3) {
+    console.log(`- Generate batch ${batchNumber + 1}: npm run tsx scripts/import-additional-tools.ts ${batchNumber + 1}`);
+  } else {
+    console.log(`- All batches generated! Apply them sequentially to the database.`);
+  }
 
 } catch (error) {
   console.error('Error generating migration:', error);
