@@ -20,7 +20,7 @@ export const db = {
 
     if (filters?.toolNames && filters.toolNames.length > 0) {
       const toolNameConditions = filters.toolNames
-        .map(name => `tool_name.eq.${name},source_slug.eq.${name}`)
+        .map(name => `(tool_name.eq.${name},source_slug.eq.${name})`)
         .join(',');
       query = query.or(toolNameConditions);
     } else if (filters?.search) {
@@ -206,6 +206,7 @@ export const db = {
 
   async getToolsWithTranslations(language: string = 'en', filters?: {
     search?: string;
+    toolNames?: string[];
     purpose?: string[];
     functional_role?: string[];
     tech_layer?: string[];

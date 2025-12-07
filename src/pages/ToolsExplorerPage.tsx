@@ -36,6 +36,14 @@ export function ToolsExplorerPage({ initialFilters }: ToolsExplorerPageProps) {
       }
     } else {
       setToolNames([]);
+      setFilters({
+        purpose: [],
+        functional_role: [],
+        tech_layer: [],
+        data_flow_role: [],
+        difficulty: [],
+        application_field: []
+      });
     }
   }, [initialFilters]);
 
