@@ -2,6 +2,17 @@ import type { LocalStorageData, Collection, UserMode } from '../types';
 
 const STORAGE_KEY = 'ai_mapper_data';
 
+function debounce<T extends (...args: any[]) => void>(
+  func: T,
+  wait: number
+): (...args: Parameters<T>) => void {
+  let timeout: NodeJS.Timeout | null = null;
+  return function (...args: Parameters<T>) {
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+}
+
 const defaultData: LocalStorageData = {
   favorites: [],
   collections: [],
@@ -12,6 +23,19 @@ const defaultData: LocalStorageData = {
   },
   onboarding_completed: false
 };
+
+const saveDataImmediate = (data: Partial<LocalStorageData>) => {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const current = stored ? { ...defaultData, ...JSON.parse(stored) } : defaultData;
+    const updated = { ...current, ...data };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+  } catch (error) {
+    console.error('Failed to save to localStorage:', error);
+  }
+};
+
+const debouncedSaveData = debounce(saveDataImmediate, 300);
 
 export const storage = {
   getData(): LocalStorageData {
@@ -25,13 +49,11 @@ export const storage = {
   },
 
   saveData(data: Partial<LocalStorageData>): void {
-    try {
-      const current = this.getData();
-      const updated = { ...current, ...data };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-    } catch (error) {
-      console.error('Failed to save to localStorage:', error);
-    }
+    debouncedSaveData(data);
+  },
+
+  saveDataImmediate(data: Partial<LocalStorageData>): void {
+    saveDataImmediate(data);
   },
 
   getFavorites(): string[] {

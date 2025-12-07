@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AppProvider } from './contexts/AppContext';
-import { HomePage } from './pages/HomePage';
 import { PersonaHomePage } from './pages/PersonaHomePage';
 import { PersonaDetailPage } from './pages/PersonaDetailPage';
 import { GoalDetailPage } from './pages/GoalDetailPage';
@@ -16,7 +15,7 @@ import { useScrollRestoration } from './hooks/useScrollRestoration';
 import { useFavorites } from './hooks/useFavorites';
 import { Home, Heart } from 'lucide-react';
 
-type ViewMode = 'persona-home' | 'legacy-home' | 'persona-detail' | 'inspiration-browse' | 'inspiration-detail' | 'goal-detail' | 'favorites' | 'tools-explorer' | 'creative-use-cases' | 'learn';
+type ViewMode = 'persona-home' | 'persona-detail' | 'inspiration-browse' | 'inspiration-detail' | 'goal-detail' | 'favorites' | 'tools-explorer' | 'creative-use-cases' | 'learn';
 
 function AppContent() {
   const { i18n } = useTranslation();
@@ -25,6 +24,7 @@ function AppContent() {
   const [selectedPersonaName, setSelectedPersonaName] = useState<string | null>(null);
   const [selectedGoal, setSelectedGoal] = useState<string | null>(null);
   const [selectedInspiration, setSelectedInspiration] = useState<string | null>(null);
+  const [pendingFilters, setPendingFilters] = useState<any>(null);
   const { getFavoriteCount } = useFavorites();
 
   const language = i18n.language as 'en' | 'zh-TW';
@@ -76,8 +76,8 @@ function AppContent() {
   };
 
   const handleNavigateToTools = (filters?: any) => {
+    setPendingFilters(filters || null);
     setViewMode('tools-explorer');
-    // TODO: Apply filters when tools explorer page is shown
   };
 
   const handleNavigateToUseCases = () => {
@@ -128,8 +128,6 @@ function AppContent() {
           onNavigateToLearn={handleNavigateToLearn}
         />
       )}
-
-      {viewMode === 'legacy-home' && <HomePage />}
 
       {viewMode === 'persona-detail' && selectedPersona && (
         <PersonaDetailPage
@@ -182,6 +180,7 @@ function AppContent() {
         <ToolsExplorerPage
           language={language}
           onBackToHome={handleBackToHome}
+          initialFilters={pendingFilters}
         />
       )}
 
