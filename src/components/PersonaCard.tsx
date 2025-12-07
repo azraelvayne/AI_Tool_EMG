@@ -33,21 +33,13 @@ export function PersonaCard({ persona, language, onClick }: PersonaCardProps) {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           >
-            {persona.icon_url ? (
+            {persona.icon_url && (
               <img
                 src={persona.icon_url}
                 alt={name}
                 className="w-full h-full object-cover"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  const fallback = e.currentTarget.nextElementSibling;
-                  if (fallback) fallback.classList.remove('hidden');
-                }}
               />
-            ) : null}
-            <span className={`text-6xl ${persona.icon_url ? 'hidden' : ''}`}>
-              {persona.icon}
-            </span>
+            )}
           </motion.div>
 
           <h3 className="text-xl font-bold mb-2 text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
