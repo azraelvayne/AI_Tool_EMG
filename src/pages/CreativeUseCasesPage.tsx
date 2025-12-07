@@ -22,8 +22,16 @@ interface CreativeUseCase {
   slug: string;
   title: string;
   title_en: string;
+  title_zh_tw: string;
   description: string;
   description_en: string;
+  description_zh_tw: string;
+  problem_statement?: string;
+  problem_statement_en?: string;
+  problem_statement_zh_tw?: string;
+  solution_statement?: string;
+  solution_statement_en?: string;
+  solution_statement_zh_tw?: string;
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   use_case_tags: string[];
   tools: string[];
@@ -59,8 +67,8 @@ export function CreativeUseCasesPage({ language, onBackToHome, onNavigateToTools
   };
 
   const filteredUseCases = useCases.filter(useCase => {
-    const matchesSearch = searchQuery === '' ||
-      (language === 'zh-TW' ? useCase.title : useCase.title_en).toLowerCase().includes(searchQuery.toLowerCase());
+    const title = language === 'zh-TW' ? (useCase.title_zh_tw || useCase.title) : (useCase.title_en || useCase.title);
+    const matchesSearch = searchQuery === '' || title.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesDifficulty = selectedDifficulty === 'all' || useCase.difficulty === selectedDifficulty;
     const matchesTag = selectedTag === 'all' || useCase.use_case_tags.includes(selectedTag);
 
@@ -204,12 +212,12 @@ export function CreativeUseCasesPage({ language, onBackToHome, onNavigateToTools
               >
                 <div className="flex items-start justify-between mb-3">
                   <h3 className="text-xl font-semibold text-gray-900 group-hover:text-primary-600 transition-colors flex-1">
-                    {language === 'zh-TW' ? useCase.title : useCase.title_en}
+                    {language === 'zh-TW' ? (useCase.title_zh_tw || useCase.title) : (useCase.title_en || useCase.title)}
                   </h3>
                   <ComplexityBadge level={useCase.difficulty} language={language} />
                 </div>
                 <p className="text-gray-600 mb-4 line-clamp-3">
-                  {language === 'zh-TW' ? useCase.description : useCase.description_en}
+                  {language === 'zh-TW' ? (useCase.description_zh_tw || useCase.description) : (useCase.description_en || useCase.description)}
                 </p>
 
                 {useCase.use_case_tags.length > 0 && (

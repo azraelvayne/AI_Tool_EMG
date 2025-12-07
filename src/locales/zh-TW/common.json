@@ -5,10 +5,10 @@
     "search_placeholder": "搜尋工具或關鍵字...",
     "ai_generate": "AI 生成推薦",
     "popular_tools": "熱門工具",
-    "featured_stacks": "精選組合",
+    "featured_stacks": "精選應用組合",
     "learn_more": "了解更多",
     "get_started": "開始使用",
-    "explore_tools": "探索工具"
+    "explore_tools": "探索工具生態"
   },
   "filter": {
     "title": "篩選",
@@ -35,7 +35,7 @@
     "description": "描述",
     "categories": "分類",
     "features": "功能特色",
-    "use_cases": "使用案例",
+    "use_cases": "應用場景",
     "pricing": "定價",
     "website": "官方網站",
     "documentation": "文件",
@@ -47,7 +47,7 @@
     "classifications": "分類",
     "commonly_paired_with": "常見配對工具",
     "creative_ideas_for": "創意應用點子",
-    "use_case_templates": "使用案例範本",
+    "use_case_templates": "應用場景範本",
     "method": "方法",
     "stack": "工具組合",
     "steps": "步驟"
@@ -155,11 +155,11 @@
     "based_on": "基於 {{count}} 次使用者互動"
   },
   "featured": {
-    "title": "精選組合",
-    "subtitle": "為常見工作流程精心策劃的工具組合",
+    "title": "精選應用組合",
+    "subtitle": "為常見工作流程精心策劃的工具生態組合",
     "no_stacks": "目前沒有精選組合",
     "no_stacks_desc": "我們正在為您打造精彩的工具組合",
-    "use_case": "使用情境",
+    "use_case": "應用情境",
     "included_tools": "包含的工具",
     "tools": "個工具",
     "export_stack": "匯出組合"
@@ -201,7 +201,7 @@
     "strength": "配對強度",
     "rationale": "配對理由",
     "view_workflow": "查看範例工作流程",
-    "create_stack": "從配對建立堆疊",
+    "create_stack": "從配對建立組合",
     "no_pairings": "目前無配對資料"
   },
   "collections": {
@@ -223,21 +223,21 @@
     "faq": "常見問題"
   },
   "creative_use_cases": {
-    "title": "創意用例畫廊",
-    "subtitle": "探索跨領域創意應用，找到靈感並一鍵套用工具堆疊",
-    "search_placeholder": "搜尋創意用例...",
+    "title": "應用場景探索",
+    "subtitle": "探索跨領域創意應用，找到靈感並一鍵套用工具組合",
+    "search_placeholder": "搜尋應用場景...",
     "all_difficulties": "所有難度",
     "all_tags": "所有標籤",
-    "no_matches": "沒有符合的用例",
+    "no_matches": "沒有符合的場景",
     "adjust_filters": "試試調整篩選條件",
     "view_details": "查看詳情",
-    "apply_stack": "套用堆疊",
+    "apply_stack": "套用此組合",
     "tools_used": "使用工具：",
-    "use_cases_count": "個用例",
+    "use_cases_count": "個場景",
     "implementation_steps": "實作步驟",
     "tools_used_header": "使用的工具",
     "supported_export_formats": "支援的匯出格式",
-    "apply_tool_stack": "套用工具堆疊",
+    "apply_tool_stack": "套用工具組合",
     "step": "步驟"
   },
   "persona": {
