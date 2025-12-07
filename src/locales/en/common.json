@@ -123,6 +123,7 @@
   "common": {
     "loading": "Loading...",
     "error": "Error",
+    "retry": "Retry",
     "success": "Success",
     "search": "Search",
     "filter": "Filter",

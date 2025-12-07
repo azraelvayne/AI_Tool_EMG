@@ -9,6 +9,8 @@ interface AppContextType {
   categories: CategoryMetadata[];
   filters: FilterState;
   setFilters: (filters: FilterState) => void;
+  toolNames: string[];
+  setToolNames: (names: string[]) => void;
   favorites: string[];
   toggleFavorite: (toolId: string) => void;
   userMode: UserMode;
@@ -16,6 +18,7 @@ interface AppContextType {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
   loading: boolean;
+  error: string | null;
   refreshTools: () => Promise<void>;
   getTranslatedCategoryValue: (categoryValue: string) => string;
 }
@@ -37,7 +40,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [favorites, setFavorites] = useState<string[]>([]);
   const [userMode, setUserModeState] = useState<UserMode>('creator');
   const [searchQuery, setSearchQuery] = useState('');
+  const [toolNames, setToolNames] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     loadInitialData();
@@ -49,11 +54,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     filterTools();
-  }, [filters, searchQuery]);
+  }, [filters, searchQuery, toolNames]);
 
   const loadInitialData = async () => {
     try {
       setLoading(true);
+      setError(null);
       const currentLang = i18n.language;
       const [toolsData, categoriesData] = await Promise.all([
         db.getToolsWithTranslations(currentLang),
@@ -65,6 +71,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setUserModeState(storage.getUserMode());
     } catch (error) {
       console.error('Error loading data:', error);
+      setError(error instanceof Error ? error.message : 'Failed to load data');
     } finally {
       setLoading(false);
     }
@@ -72,14 +79,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const filterTools = async () => {
     try {
+      setError(null);
       const currentLang = i18n.language;
       const filtered = await db.getToolsWithTranslations(currentLang, {
         search: searchQuery,
+        toolNames: toolNames.length > 0 ? toolNames : undefined,
         ...filters
       });
       setTools(filtered);
     } catch (error) {
       console.error('Error filtering tools:', error);
+      setError(error instanceof Error ? error.message : 'Failed to filter tools');
     }
   };
 
@@ -113,6 +123,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
         categories,
         filters,
         setFilters,
+        toolNames,
+        setToolNames,
         favorites,
         toggleFavorite,
         userMode,
@@ -120,6 +132,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         searchQuery,
         setSearchQuery,
         loading,
+        error,
         refreshTools,
         getTranslatedCategoryValue
       }}

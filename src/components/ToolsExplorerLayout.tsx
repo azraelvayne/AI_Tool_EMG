@@ -28,7 +28,7 @@ export function ToolsExplorerLayout({
   headerActions,
 }: ToolsExplorerLayoutProps) {
   const { t } = useTranslation();
-  const { tools, categories, searchQuery, setSearchQuery, loading } = useApp();
+  const { tools, categories, searchQuery, setSearchQuery, loading, error } = useApp();
   const [showFilters, setShowFilters] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [selectedToolId, setSelectedToolId] = useState<string | null>(null);
@@ -150,7 +150,20 @@ export function ToolsExplorerLayout({
               </div>
             </div>
 
-            {loading ? (
+            {error ? (
+              <div className="text-center py-16">
+                <div className="w-24 h-24 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-12 h-12 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">{t('common.error')}</h3>
+                <p className="text-gray-600 mb-6">{error}</p>
+                <Button onClick={() => window.location.reload()}>
+                  {t('common.retry')}
+                </Button>
+              </div>
+            ) : loading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[...Array(6)].map((_, i) => (
                   <div key={i} className="bg-white rounded-xl border border-gray-200 p-6 animate-pulse">

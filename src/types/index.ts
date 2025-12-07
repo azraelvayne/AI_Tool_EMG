@@ -117,6 +117,12 @@ export interface ExtendedFilterState extends FilterState {
   integration_platforms?: IntegrationPlatform[];
 }
 
+// Navigation filters for cross-page navigation
+export interface NavigationFilters {
+  tools?: string[];
+  filters?: Partial<FilterState>;
+}
+
 export interface ExportFormat {
   type: 'json' | 'csv' | 'prompt' | 'notion' | 'airtable' | 'n8n' | 'canva';
   data: string;

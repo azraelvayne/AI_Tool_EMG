@@ -4,6 +4,7 @@ import type { Tool, CategoryMetadata, ToolPairing, FeaturedStack, UserInteractio
 export const db = {
   async getTools(filters?: {
     search?: string;
+    toolNames?: string[];
     purpose?: string[];
     functional_role?: string[];
     tech_layer?: string[];
@@ -17,7 +18,12 @@ export const db = {
       .order('popularity_score', { ascending: false })
       .order('display_priority', { ascending: false });
 
-    if (filters?.search) {
+    if (filters?.toolNames && filters.toolNames.length > 0) {
+      const toolNameConditions = filters.toolNames
+        .map(name => `tool_name.eq.${name},source_slug.eq.${name}`)
+        .join(',');
+      query = query.or(toolNameConditions);
+    } else if (filters?.search) {
       query = query.or(`tool_name.ilike.%${filters.search}%,summary.ilike.%${filters.search}%`);
     }
 
