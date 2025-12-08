@@ -1,8 +1,7 @@
 import React from 'react';
-import { ExternalLink, Star, GitBranch, Layers, ArrowRight, Activity, Database, Layout } from 'lucide-react';
+import { ExternalLink, Star, GitBranch, Layers, Database } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Badge } from './ui/Badge';
-import { Button } from './ui/Button';
 import { Card } from './ui/Card';
 import type { Tool } from '../types';
 import { useFavorites } from '../hooks/useFavorites';
@@ -18,8 +17,7 @@ export function ToolCard({ tool, viewMode = 'grid', onClick }: ToolCardProps) {
   const { isFavorite, toggleFavorite } = useFavorites();
   const isFav = isFavorite(tool.id);
 
-  // 🛡️ 防護措施：確保 categories 永遠不為 null
-  // 就算資料庫漏填，這裡也會給一個安全的預設值，防止白屏
+  // 🛡️ 第二道防線：再次確保 categories 不為空
   const categories = tool.categories || {
     functional_role: [],
     tech_layer: [],
@@ -28,7 +26,7 @@ export function ToolCard({ tool, viewMode = 'grid', onClick }: ToolCardProps) {
     difficulty: 'intermediate'
   };
 
-  // 取得顯示用的名稱與描述 (處理多語言)
+  // 取得顯示用的名稱與描述
   const displayName = i18n.language === 'zh-TW' 
     ? (tool as any).tool_name_zh || tool.tool_name 
     : tool.tool_name;
@@ -37,7 +35,7 @@ export function ToolCard({ tool, viewMode = 'grid', onClick }: ToolCardProps) {
     ? (tool as any).tool_description_zh || tool.tool_description 
     : tool.tool_description;
 
-  // 取得功能角色 (Functional Roles) - 最多顯示 2 個
+  // 安全地取得功能角色 (Functional Roles)
   const functionalRoles = Array.isArray(categories.functional_role) 
     ? categories.functional_role.slice(0, 2) 
     : [];
@@ -48,18 +46,6 @@ export function ToolCard({ tool, viewMode = 'grid', onClick }: ToolCardProps) {
       return;
     }
     onClick?.(tool);
-  };
-
-  // 根據分類給予顏色標籤
-  const getRoleColor = (role: string) => {
-    const colors: Record<string, string> = {
-      'generation': 'bg-blue-100 text-blue-700 border-blue-200',
-      'processing': 'bg-purple-100 text-purple-700 border-purple-200',
-      'orchestration': 'bg-orange-100 text-orange-700 border-orange-200',
-      'storage': 'bg-green-100 text-green-700 border-green-200',
-      'interface': 'bg-pink-100 text-pink-700 border-pink-200'
-    };
-    return colors[role.toLowerCase()] || 'bg-gray-100 text-gray-700 border-gray-200';
   };
 
   // 格狀檢視 (Grid View)
@@ -80,7 +66,6 @@ export function ToolCard({ tool, viewMode = 'grid', onClick }: ToolCardProps) {
                     alt={displayName} 
                     className="w-full h-full object-contain"
                     onError={(e) => {
-                      // 圖片載入失敗時顯示預設圖示
                       (e.target as HTMLImageElement).style.display = 'none';
                       (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
                     }}
@@ -160,7 +145,6 @@ export function ToolCard({ tool, viewMode = 'grid', onClick }: ToolCardProps) {
       onClick={handleCardClick}
     >
       <div className="p-4 flex items-center gap-6">
-        {/* Logo */}
         <div className="w-12 h-12 rounded-lg bg-gray-50 p-2 border border-gray-200 flex-shrink-0">
           {tool.logo_url ? (
             <img src={tool.logo_url} alt={displayName} className="w-full h-full object-contain" />
@@ -171,7 +155,6 @@ export function ToolCard({ tool, viewMode = 'grid', onClick }: ToolCardProps) {
           )}
         </div>
 
-        {/* 內容 */}
         <div className="flex-grow min-w-0 grid grid-cols-12 gap-6 items-center">
           <div className="col-span-4">
             <h3 className="font-bold text-gray-900 group-hover:text-blue-600 truncate">{displayName}</h3>
