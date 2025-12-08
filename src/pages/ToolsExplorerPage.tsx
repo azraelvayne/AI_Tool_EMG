@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { ToolsExplorerLayout } from '../components/ToolsExplorerLayout';
 import { useApp } from '../contexts/AppContext';
 import type { NavigationFilters } from '../types';
-import { ErrorBoundary } from '../components/ErrorBoundary'; // 1. 引入錯誤邊界元件
+import { ErrorBoundary } from '../components/ErrorBoundary';
 
 interface ToolsExplorerPageProps {
   language: 'en' | 'zh-TW';
@@ -11,12 +11,13 @@ interface ToolsExplorerPageProps {
 }
 
 export function ToolsExplorerPage({ initialFilters }: ToolsExplorerPageProps) {
-  const { setFilters, setToolNames, filters } = useApp();
+  const { setFilters, setToolNames } = useApp();
 
-  useEffect(() => {
+  const applyFilters = useCallback(() => {
     if (initialFilters) {
       if ('tools' in initialFilters && Array.isArray(initialFilters.tools)) {
-        setToolNames(initialFilters.tools);
+        const validTools = initialFilters.tools.filter((t: any) => t && typeof t === 'string');
+        setToolNames(validTools);
         setFilters({
           purpose: [],
           functional_role: [],
@@ -28,12 +29,25 @@ export function ToolsExplorerPage({ initialFilters }: ToolsExplorerPageProps) {
       } else if ('filters' in initialFilters) {
         setToolNames([]);
         setFilters({
-          ...filters,
+          purpose: [],
+          functional_role: [],
+          tech_layer: [],
+          data_flow_role: [],
+          difficulty: [],
+          application_field: [],
           ...initialFilters.filters
         });
       } else {
         setToolNames([]);
-        setFilters(initialFilters);
+        setFilters({
+          purpose: [],
+          functional_role: [],
+          tech_layer: [],
+          data_flow_role: [],
+          difficulty: [],
+          application_field: [],
+          ...initialFilters
+        });
       }
     } else {
       setToolNames([]);
@@ -46,7 +60,11 @@ export function ToolsExplorerPage({ initialFilters }: ToolsExplorerPageProps) {
         application_field: []
       });
     }
-  }, [initialFilters]);
+  }, [initialFilters, setFilters, setToolNames]);
+
+  useEffect(() => {
+    applyFilters();
+  }, [applyFilters]);
 
   // 2. 用 ErrorBoundary 包住回傳的元件
   return (

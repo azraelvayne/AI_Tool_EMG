@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { Tool, CategoryMetadata, FilterState, UserMode } from '../types';
 import { db } from '../lib/database';
@@ -43,17 +43,36 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [toolNames, setToolNames] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const initialLoadComplete = useRef(false);
+  const filterTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     loadInitialData();
   }, []);
 
   useEffect(() => {
+    initialLoadComplete.current = false;
     loadInitialData();
   }, [i18n.language]);
 
   useEffect(() => {
-    filterTools();
+    if (!initialLoadComplete.current) {
+      return;
+    }
+
+    if (filterTimeoutRef.current) {
+      clearTimeout(filterTimeoutRef.current);
+    }
+
+    filterTimeoutRef.current = setTimeout(() => {
+      filterTools();
+    }, 300);
+
+    return () => {
+      if (filterTimeoutRef.current) {
+        clearTimeout(filterTimeoutRef.current);
+      }
+    };
   }, [filters, searchQuery, toolNames]);
 
   const loadInitialData = async () => {
@@ -75,6 +94,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setCategories(categoriesData);
       setFavorites(storage.getFavorites());
       setUserModeState(storage.getUserMode());
+      initialLoadComplete.current = true;
     } catch (error) {
       console.error('[AppContext] Error loading data:', error);
       const errorMessage = error instanceof Error
@@ -89,19 +109,35 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   const filterTools = async () => {
+    if (loading) {
+      console.log('[AppContext] Skipping filter - initial load in progress');
+      return;
+    }
+
     try {
       setError(null);
       const currentLang = i18n.language;
+
+      const hasActiveFilters =
+        searchQuery.trim() ||
+        toolNames.length > 0 ||
+        filters.purpose.length > 0 ||
+        filters.functional_role.length > 0 ||
+        filters.tech_layer.length > 0 ||
+        filters.data_flow_role.length > 0 ||
+        filters.difficulty.length > 0 ||
+        filters.application_field.length > 0;
 
       console.log('[AppContext] Filtering tools with:', {
         searchQuery,
         toolNames: toolNames.length,
         filters,
-        language: currentLang
+        language: currentLang,
+        hasActiveFilters
       });
 
       const filtered = await db.getToolsWithTranslations(currentLang, {
-        search: searchQuery,
+        search: searchQuery.trim() || undefined,
         toolNames: toolNames.length > 0 ? toolNames : undefined,
         ...filters
       });

@@ -1,6 +1,24 @@
 import { supabase } from './supabase';
 import type { Tool, CategoryMetadata, ToolPairing, FeaturedStack, UserInteraction, ToolTranslation } from '../types';
 
+function sanitizeSearchInput(input: string): string {
+  if (!input || typeof input !== 'string') return '';
+
+  return input
+    .trim()
+    .replace(/[%_]/g, '\\$&')
+    .substring(0, 100);
+}
+
+function validateFilterParams(filters?: any): boolean {
+  if (!filters) return true;
+
+  if (filters.search && typeof filters.search !== 'string') return false;
+  if (filters.toolNames && !Array.isArray(filters.toolNames)) return false;
+
+  return true;
+}
+
 export const db = {
   // ============================================================================
   // CORE TOOL QUERIES (with strict data protection)
@@ -17,6 +35,11 @@ export const db = {
     application_field?: string[];
   }): Promise<Tool[]> {
     try {
+      if (!validateFilterParams(filters)) {
+        console.warn('[database.ts] Invalid filter parameters, returning empty array');
+        return [];
+      }
+
       let query = supabase
         .from('tools')
         .select('*')
@@ -24,15 +47,27 @@ export const db = {
         .order('display_priority', { ascending: false });
 
       if (filters?.toolNames && filters.toolNames.length > 0) {
-        query = query.in('tool_name', filters.toolNames);
-      } else if (filters?.search) {
-        query = query.or(`tool_name.ilike.%${filters.search}%,summary.ilike.%${filters.search}%`);
+        const validToolNames = filters.toolNames.filter(name => name && typeof name === 'string');
+        if (validToolNames.length > 0) {
+          query = query.in('tool_name', validToolNames);
+        }
+      } else if (filters?.search && filters.search.trim()) {
+        const sanitizedSearch = sanitizeSearchInput(filters.search);
+        if (sanitizedSearch) {
+          query = query.or(`tool_name.ilike.%${sanitizedSearch}%,summary.ilike.%${sanitizedSearch}%`);
+        }
       }
 
       const { data, error } = await query;
 
       if (error) {
-        console.error('[database.ts] Supabase query error in getTools:', error);
+        console.error('[database.ts] Supabase query error in getTools:', {
+          error: error,
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          filters: filters
+        });
         throw new Error(`Database query failed: ${error.message}`);
       }
 
