@@ -204,15 +204,62 @@ export const db = {
     return data as ToolTranslation | null;
   },
 
-  async getToolsWithTranslations(language: string = 'en', filters?: {
-    search?: string;
-    toolNames?: string[];
-    purpose?: string[];
-    functional_role?: string[];
-    tech_layer?: string[];
-    data_flow_role?: string[];
-    difficulty?: string[];
-    application_field?: string[];
+  // 在 src/lib/database.ts 中找到並更新這個函式
+
+export async function getToolsWithTranslations(lang: 'en' | 'zh-TW' = 'en'): Promise<Tool[]> {
+  try {
+    // 1. 取得所有工具
+    const { data: tools, error: toolsError } = await supabase
+      .from('tools')
+      .select('*')
+      .order('tool_name');
+
+    if (toolsError) throw toolsError;
+    if (!tools) return [];
+
+    // 2. 取得翻譯 (如果是中文模式)
+    let translationsMap = new Map();
+    if (lang === 'zh-TW') {
+      const { data: translations, error: transError } = await supabase
+        .from('tool_translations')
+        .select('*')
+        .eq('language_code', 'zh-TW');
+
+      if (!transError && translations) {
+        translations.forEach(t => translationsMap.set(t.tool_id, t));
+      }
+    }
+
+    // 3. 合併資料並進行「資料清洗 (Data Cleaning)」
+    const processedTools = tools.map(tool => {
+      const translation = translationsMap.get(tool.id);
+      
+      // 關鍵修復：如果 categories 是 null，給它一個預設空物件
+      // 這樣前端就不會因為讀取 null.functional_role 而爆炸
+      const safeCategories = tool.categories || {
+        functional_role: [],
+        tech_layer: [],
+        application_field: [],
+        purpose: [],
+        difficulty: 'intermediate'
+      };
+
+      return {
+        ...tool,
+        categories: safeCategories, // 使用修復後的分類
+        tool_name: translation?.name || tool.tool_name,
+        tool_description: translation?.short_description || tool.tool_description,
+        tool_name_zh: translation?.name, // 保留原始中文欄位供 ToolCard 使用
+        tool_description_zh: translation?.short_description
+      };
+    });
+
+    return processedTools;
+  } catch (error) {
+    console.error('Error fetching tools:', error);
+    return [];
+  }
+};
   }): Promise<Tool[]> {
     const tools = await this.getTools(filters);
 
