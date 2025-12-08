@@ -26,12 +26,15 @@ export interface Tool {
   id?: string;
   tool_name: string;
   summary: string;
+  tool_description?: string;
   categories: ToolCategories;
   description_styles: DescriptionStyles;
   use_case_templates: UseCaseTemplate[];
   display_priority?: number;
   popularity_score?: number;
   icon_url?: string;
+  logo_url?: string | null;
+  website_url?: string | null;
   is_verified?: boolean;
   generation_source?: string;
   created_at?: string;
@@ -61,7 +64,9 @@ export interface ToolTranslation {
   id: string;
   tool_id: string;
   language_code: 'en' | 'zh-TW';
+  name?: string;
   summary: string;
+  short_description?: string;
   description_styles: DescriptionStyles;
   created_at?: string;
 }
