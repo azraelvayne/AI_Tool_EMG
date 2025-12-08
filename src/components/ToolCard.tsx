@@ -47,8 +47,13 @@ export function ToolCard({ tool, categories, onClick }: ToolCardProps) {
     return IconComponent || Icons.Box;
   };
 
-  const toolCategories = tool.categories as any;
-  const primaryRole = toolCategories.functional_role?.[0];
+  const toolCategories = tool.categories || {
+    functional_role: [],
+    tech_layer: [],
+    difficulty: null,
+    common_pairings: []
+  };
+  const primaryRole = (toolCategories as any).functional_role?.[0];
   const roleMetadata = primaryRole ? getCategoryMetadata('functional_role', primaryRole) : null;
   const RoleIcon = roleMetadata ? getIcon(roleMetadata.icon_name) : Icons.Box;
 
@@ -101,7 +106,7 @@ export function ToolCard({ tool, categories, onClick }: ToolCardProps) {
 
       <CardBody>
         <div className="flex flex-wrap gap-2 mb-3">
-          {toolCategories.functional_role?.slice(0, 2).map((role: string) => {
+          {((toolCategories as any).functional_role || []).slice(0, 2).map((role: string) => {
             const metadata = getCategoryMetadata('functional_role', role);
             const Icon = metadata ? getIcon(metadata.icon_name) : undefined;
             return (
@@ -110,29 +115,29 @@ export function ToolCard({ tool, categories, onClick }: ToolCardProps) {
               </Badge>
             );
           })}
-          {toolCategories.tech_layer?.[0] && (() => {
-            const metadata = getCategoryMetadata('tech_layer', toolCategories.tech_layer[0]);
+          {((toolCategories as any).tech_layer || [])[0] && (() => {
+            const metadata = getCategoryMetadata('tech_layer', (toolCategories as any).tech_layer[0]);
             const Icon = metadata ? getIcon(metadata.icon_name) : undefined;
             return (
               <Badge color={metadata?.color_hex} icon={Icon} size="sm">
-                {getTranslatedCategoryValue(toolCategories.tech_layer[0])}
+                {getTranslatedCategoryValue((toolCategories as any).tech_layer[0])}
               </Badge>
             );
           })()}
-          {toolCategories.difficulty && (() => {
-            const metadata = getCategoryMetadata('difficulty', toolCategories.difficulty);
+          {(toolCategories as any).difficulty && (() => {
+            const metadata = getCategoryMetadata('difficulty', (toolCategories as any).difficulty);
             const Icon = metadata ? getIcon(metadata.icon_name) : undefined;
             return (
               <Badge color={metadata?.color_hex} icon={Icon} size="sm">
-                {getTranslatedCategoryValue(toolCategories.difficulty)}
+                {getTranslatedCategoryValue((toolCategories as any).difficulty)}
               </Badge>
             );
           })()}
         </div>
 
-        {toolCategories.common_pairings?.length > 0 && (
+        {((toolCategories as any).common_pairings || []).length > 0 && (
           <div className="text-xs text-gray-500 mt-2">
-            {t('tool.pairs_with')}: {toolCategories.common_pairings.slice(0, 3).join(', ')}
+            {t('tool.pairs_with')}: {(toolCategories as any).common_pairings.slice(0, 3).join(', ')}
           </div>
         )}
       </CardBody>
