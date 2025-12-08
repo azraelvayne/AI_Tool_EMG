@@ -65,12 +65,17 @@ export const db = {
       categories: tool.categories || {
         functional_role: [],
         tech_layer: [],
-        difficulty: null,
+        difficulty: 'intermediate',
         purpose: [],
         data_flow_role: [],
         application_field: [],
         common_pairings: []
-      }
+      },
+      tool_name: tool.tool_name || 'Unnamed Tool',
+      summary: tool.summary || '',
+      tool_description: tool.tool_description || '',
+      logo_url: tool.logo_url || null,
+      website_url: tool.website_url || null
     })) as Tool[];
   },
 
@@ -120,35 +125,40 @@ export const db = {
   },
 
   async getCategoryMetadata(language: string = 'en'): Promise<CategoryMetadata[]> {
-    const { data, error } = await supabase
-      .from('category_metadata')
-      .select(`
-        *,
-        category_metadata_translations!inner(
-          language_code,
-          translated_value
-        )
-      `)
-      .order('category_type')
-      .order('display_order');
+    try {
+      const { data: categories, error } = await supabase
+        .from('category_metadata')
+        .select('*')
+        .order('category_type')
+        .order('display_order');
 
-    if (error) throw error;
+      if (error) throw error;
+      if (!categories) return [];
 
-    return (data || []).map((item: any) => {
-      const translation = item.category_metadata_translations?.find(
-        (t: any) => t.language_code === language
+      if (language === 'en') {
+        return categories.map(cat => ({
+          ...cat,
+          translated_value: cat.category_value
+        }));
+      }
+
+      const { data: translations } = await supabase
+        .from('category_metadata_translations')
+        .select('*')
+        .eq('language_code', language);
+
+      const transMap = new Map(
+        (translations || []).map(t => [t.category_metadata_id, t.translated_value])
       );
-      return {
-        id: item.id,
-        category_type: item.category_type,
-        category_value: item.category_value,
-        color_hex: item.color_hex,
-        icon_name: item.icon_name,
-        description: item.description,
-        display_order: item.display_order,
-        translated_value: translation?.translated_value || item.category_value
-      };
-    });
+
+      return categories.map(cat => ({
+        ...cat,
+        translated_value: transMap.get(cat.id) || cat.category_value
+      }));
+    } catch (error) {
+      console.error('Error fetching category metadata:', error);
+      return [];
+    }
   },
 
   async getToolPairings(toolId: string): Promise<ToolPairing[]> {
@@ -225,27 +235,41 @@ export const db = {
     difficulty?: string[];
     application_field?: string[];
   }): Promise<Tool[]> {
-    const tools = await this.getTools(filters);
+    try {
+      const tools = await this.getTools(filters);
 
-    if (language === 'en') {
-      return tools;
-    }
+      if (language === 'en' || tools.length === 0) {
+        return tools;
+      }
 
-    const toolsWithTranslations = await Promise.all(
-      tools.map(async (tool) => {
-        const translation = await this.getToolTranslation(tool.id!, language);
+      const toolIds = tools.map(t => t.id).filter(Boolean);
+      const { data: translations } = await supabase
+        .from('tool_translations')
+        .select('*')
+        .eq('language_code', language)
+        .in('tool_id', toolIds);
+
+      const transMap = new Map(
+        (translations || []).map(t => [t.tool_id, t])
+      );
+
+      return tools.map(tool => {
+        const translation = transMap.get(tool.id!);
         if (translation) {
           return {
             ...tool,
-            summary: translation.summary,
+            tool_name: translation.name || tool.tool_name,
+            summary: translation.summary || tool.summary,
+            tool_description: translation.short_description || tool.tool_description,
             description_styles: translation.description_styles
           };
         }
         return tool;
-      })
-    );
-
-    return toolsWithTranslations;
+      });
+    } catch (error) {
+      console.error('Error getting tools with translations:', error);
+      return this.getTools(filters);
+    }
   },
 
   async getPopularTools(limit: number = 20, language: string = 'en'): Promise<Tool[]> {

@@ -61,17 +61,25 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setLoading(true);
       setError(null);
       const currentLang = i18n.language;
+
+      console.log('[AppContext] Loading initial data for language:', currentLang);
+
       const [toolsData, categoriesData] = await Promise.all([
         db.getToolsWithTranslations(currentLang),
         db.getCategoryMetadata(currentLang)
       ]);
+
+      console.log('[AppContext] Loaded', toolsData.length, 'tools and', categoriesData.length, 'categories');
+
       setTools(toolsData);
       setCategories(categoriesData);
       setFavorites(storage.getFavorites());
       setUserModeState(storage.getUserMode());
     } catch (error) {
-      console.error('Error loading data:', error);
+      console.error('[AppContext] Error loading data:', error);
       setError(error instanceof Error ? error.message : 'Failed to load data');
+      setTools([]);
+      setCategories([]);
     } finally {
       setLoading(false);
     }
@@ -81,15 +89,27 @@ export function AppProvider({ children }: { children: ReactNode }) {
     try {
       setError(null);
       const currentLang = i18n.language;
+
+      console.log('[AppContext] Filtering tools with:', {
+        searchQuery,
+        toolNames: toolNames.length,
+        filters,
+        language: currentLang
+      });
+
       const filtered = await db.getToolsWithTranslations(currentLang, {
         search: searchQuery,
         toolNames: toolNames.length > 0 ? toolNames : undefined,
         ...filters
       });
+
+      console.log('[AppContext] Filtered result:', filtered.length, 'tools');
+
       setTools(filtered);
     } catch (error) {
-      console.error('Error filtering tools:', error);
+      console.error('[AppContext] Error filtering tools:', error);
       setError(error instanceof Error ? error.message : 'Failed to filter tools');
+      setTools([]);
     }
   };
 
