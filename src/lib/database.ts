@@ -24,40 +24,48 @@ export const db = {
         .order('display_priority', { ascending: false });
 
       if (filters?.toolNames && filters.toolNames.length > 0) {
-        const toolNameConditions = filters.toolNames
-          .map(name => `(tool_name.eq.${name},source_slug.eq.${name})`)
-          .join(',');
-        query = query.or(toolNameConditions);
+        query = query.in('tool_name', filters.toolNames);
       } else if (filters?.search) {
         query = query.or(`tool_name.ilike.%${filters.search}%,summary.ilike.%${filters.search}%`);
       }
 
       const { data, error } = await query;
 
-      if (error) throw error;
+      if (error) {
+        console.error('[database.ts] Supabase query error in getTools:', error);
+        throw new Error(`Database query failed: ${error.message}`);
+      }
 
       let results = data || [];
 
       if (filters) {
         results = results.filter(tool => {
-          const safeCategories = tool.categories || {};
+          const safeCategories = {
+            purpose: tool.categories?.purpose || [],
+            functional_role: tool.categories?.functional_role || [],
+            tech_layer: tool.categories?.tech_layer || [],
+            data_flow_role: tool.categories?.data_flow_role || [],
+            difficulty: tool.categories?.difficulty || 'intermediate',
+            application_field: tool.categories?.application_field || [],
+            common_pairings: tool.categories?.common_pairings || []
+          };
 
-          if (filters.purpose?.length && !filters.purpose.some(p => safeCategories?.purpose?.includes(p))) {
+          if (filters.purpose?.length && !filters.purpose.some(p => safeCategories.purpose.includes(p))) {
             return false;
           }
-          if (filters.functional_role?.length && !filters.functional_role.some(fr => safeCategories?.functional_role?.includes(fr))) {
+          if (filters.functional_role?.length && !filters.functional_role.some(fr => safeCategories.functional_role.includes(fr))) {
             return false;
           }
-          if (filters.tech_layer?.length && !filters.tech_layer.some(tl => safeCategories?.tech_layer?.includes(tl))) {
+          if (filters.tech_layer?.length && !filters.tech_layer.some(tl => safeCategories.tech_layer.includes(tl))) {
             return false;
           }
-          if (filters.data_flow_role?.length && !filters.data_flow_role.some(dfr => safeCategories?.data_flow_role?.includes(dfr))) {
+          if (filters.data_flow_role?.length && !filters.data_flow_role.some(dfr => safeCategories.data_flow_role.includes(dfr))) {
             return false;
           }
-          if (filters.difficulty?.length && !filters.difficulty.includes(safeCategories?.difficulty)) {
+          if (filters.difficulty?.length && !filters.difficulty.includes(safeCategories.difficulty)) {
             return false;
           }
-          if (filters.application_field?.length && !filters.application_field.some(af => safeCategories?.application_field?.includes(af))) {
+          if (filters.application_field?.length && !filters.application_field.some(af => safeCategories.application_field.includes(af))) {
             return false;
           }
 

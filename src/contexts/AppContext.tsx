@@ -77,7 +77,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setUserModeState(storage.getUserMode());
     } catch (error) {
       console.error('[AppContext] Error loading data:', error);
-      setError(error instanceof Error ? error.message : 'Failed to load data');
+      const errorMessage = error instanceof Error
+        ? `載入資料失敗: ${error.message}`
+        : '無法連接到資料庫，請檢查網路連線';
+      setError(errorMessage);
       setTools([]);
       setCategories([]);
     } finally {
@@ -108,7 +111,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setTools(filtered);
     } catch (error) {
       console.error('[AppContext] Error filtering tools:', error);
-      setError(error instanceof Error ? error.message : 'Failed to filter tools');
+      const errorMessage = error instanceof Error
+        ? `篩選工具失敗: ${error.message}`
+        : '無法載入工具資料，請檢查網路連線或重新整理頁面';
+      setError(errorMessage);
       setTools([]);
     }
   };
