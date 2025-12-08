@@ -10,12 +10,14 @@ import { FavoritesPage } from './pages/FavoritesPage';
 import { ToolsExplorerPage } from './pages/ToolsExplorerPage';
 import { CreativeUseCasesPage } from './pages/CreativeUseCasesPage';
 import { LearnPage } from './pages/LearnPage';
+import { AdminPage } from './pages/AdminPage'; // ✅ 新增：引入 AdminPage
 import { LanguageSwitch } from './components/LanguageSwitch';
 import { useScrollRestoration } from './hooks/useScrollRestoration';
 import { useFavorites } from './hooks/useFavorites';
-import { Home, Heart } from 'lucide-react';
+import { Home, Heart, Shield } from 'lucide-react'; // ✅ 新增：引入 Shield 圖示
 
-type ViewMode = 'persona-home' | 'persona-detail' | 'inspiration-browse' | 'inspiration-detail' | 'goal-detail' | 'favorites' | 'tools-explorer' | 'creative-use-cases' | 'learn';
+// ✅ 修改：在 ViewMode 加上 'admin'
+type ViewMode = 'persona-home' | 'persona-detail' | 'inspiration-browse' | 'inspiration-detail' | 'goal-detail' | 'favorites' | 'tools-explorer' | 'creative-use-cases' | 'learn' | 'admin';
 
 function AppContent() {
   const { i18n } = useTranslation();
@@ -87,6 +89,11 @@ function AppContent() {
   const handleNavigateToLearn = () => {
     setViewMode('learn');
   };
+  
+  // ✅ 新增：切換到後台的函式
+  const handleNavigateToAdmin = () => {
+    setViewMode('admin');
+  };
 
   return (
     <div className="min-h-screen">
@@ -114,6 +121,16 @@ function AppContent() {
             </span>
           )}
         </button>
+        
+        {/* ✅ 新增：一個隱藏在語言切換旁的後台按鈕 */}
+        <button
+          onClick={handleNavigateToAdmin}
+          className="p-2 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow text-gray-400 hover:text-indigo-600"
+          title="Admin"
+        >
+          <Shield className="w-5 h-5" />
+        </button>
+
         <LanguageSwitch />
       </div>
 
@@ -197,6 +214,11 @@ function AppContent() {
           language={language}
           onBackToHome={handleBackToHome}
         />
+      )}
+      
+      {/* ✅ 新增：後台頁面顯示邏輯 */}
+      {viewMode === 'admin' && (
+        <AdminPage />
       )}
     </div>
   );
