@@ -162,89 +162,53 @@ export function InspirationDetailPage({ language, inspirationKey, onBackToHome, 
       </div>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {inspiration.learning_focus && inspiration.learning_focus.length > 0 && (
-          <div className="mb-10">
-            <div className="flex items-center gap-3 mb-4">
-              <Target className="w-6 h-6 text-blue-600" />
-              <h2 className="text-2xl font-bold text-gray-900">
-                {language === 'zh-TW' ? '你將學到' : 'What You Will Learn'}
-              </h2>
-            </div>
-            <div className="bg-white rounded-xl border border-gray-200 p-6">
-              <div className="flex flex-wrap gap-2">
-                {inspiration.learning_focus.map((focus, index) => (
-                  <Badge key={index} className="bg-blue-50 text-blue-700 border-blue-200">
-                    {focus}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {inspiration.expected_skills && inspiration.expected_skills.length > 0 && (
-          <div className="mb-10">
-            <div className="flex items-center gap-3 mb-4">
-              <Wrench className="w-6 h-6 text-indigo-600" />
-              <h2 className="text-2xl font-bold text-gray-900">
-                {language === 'zh-TW' ? '所需技能' : 'Required Skills'}
-              </h2>
-            </div>
-            <div className="bg-white rounded-xl border border-gray-200 p-6">
-              <div className="flex flex-wrap gap-2">
-                {inspiration.expected_skills.map((skill, index) => (
-                  <Badge key={index} className="bg-indigo-50 text-indigo-700 border-indigo-200">
-                    {skill}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {inspiration.steps && inspiration.steps.length > 0 && (
-          <div className="mb-10">
-            <div className="flex items-center gap-3 mb-4">
-              <CheckCircle2 className="w-6 h-6 text-green-600" />
-              <h2 className="text-2xl font-bold text-gray-900">
-                {language === 'zh-TW' ? '實作步驟' : 'Implementation Steps'}
-              </h2>
-            </div>
-            <motion.div
-              className="space-y-4"
-              initial="hidden"
-              animate="visible"
-              variants={{
-                visible: {
-                  transition: {
-                    staggerChildren: 0.1
-                  }
-                }
-              }}
-            >
-              {inspiration.steps.map((step, index) => (
-                <motion.div
-                  key={index}
-                  variants={{
-                    hidden: { opacity: 0, x: -20 },
-                    visible: { opacity: 1, x: 0 }
-                  }}
-                  className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-shadow"
-                >
-                  <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full flex items-center justify-center font-semibold">
-                      {index + 1}
-                    </div>
-                    <p className="text-gray-700 flex-1 pt-1">{step}</p>
+        {((inspiration.learning_focus && inspiration.learning_focus.length > 0) ||
+          (inspiration.expected_skills && inspiration.expected_skills.length > 0)) && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            {inspiration.learning_focus && inspiration.learning_focus.length > 0 && (
+              <div>
+                <div className="flex items-center gap-3 mb-3">
+                  <Target className="w-6 h-6 text-blue-600" />
+                  <h2 className="text-xl font-bold text-gray-900">
+                    {language === 'zh-TW' ? '你將學到' : 'What You Will Learn'}
+                  </h2>
+                </div>
+                <div className="bg-white rounded-xl border border-gray-200 p-5 h-[calc(100%-3rem)]">
+                  <div className="flex flex-wrap gap-2">
+                    {(inspiration.learning_focus || []).map((focus, index) => (
+                      <Badge key={index} className="bg-blue-50 text-blue-700 border-blue-200">
+                        {focus}
+                      </Badge>
+                    ))}
                   </div>
-                </motion.div>
-              ))}
-            </motion.div>
+                </div>
+              </div>
+            )}
+
+            {inspiration.expected_skills && inspiration.expected_skills.length > 0 && (
+              <div>
+                <div className="flex items-center gap-3 mb-3">
+                  <Wrench className="w-6 h-6 text-indigo-600" />
+                  <h2 className="text-xl font-bold text-gray-900">
+                    {language === 'zh-TW' ? '所需技能' : 'Required Skills'}
+                  </h2>
+                </div>
+                <div className="bg-white rounded-xl border border-gray-200 p-5 h-[calc(100%-3rem)]">
+                  <div className="flex flex-wrap gap-2">
+                    {(inspiration.expected_skills || []).map((skill, index) => (
+                      <Badge key={index} className="bg-indigo-50 text-indigo-700 border-indigo-200">
+                        {skill}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )}
 
         {inspiration.tools && inspiration.tools.length > 0 && (
-          <div className="mb-10">
+          <div className="mb-6">
             <div className="flex items-center gap-3 mb-4">
               <Wrench className="w-6 h-6 text-purple-600" />
               <h2 className="text-2xl font-bold text-gray-900">
@@ -263,7 +227,7 @@ export function InspirationDetailPage({ language, inspirationKey, onBackToHome, 
                 }
               }}
             >
-              {inspiration.tools.map((tool: Tool) => (
+              {(inspiration.tools || []).map((tool: Tool) => (
                 <motion.div
                   key={tool.id}
                   variants={{
@@ -273,7 +237,6 @@ export function InspirationDetailPage({ language, inspirationKey, onBackToHome, 
                 >
                   <ToolCard
                     tool={tool}
-                    categories={[]}
                     onClick={() => {}}
                   />
                 </motion.div>
@@ -282,37 +245,83 @@ export function InspirationDetailPage({ language, inspirationKey, onBackToHome, 
           </div>
         )}
 
-        {inspiration.resource_links && inspiration.resource_links.length > 0 && (
-          <div className="mb-10">
-            <div className="flex items-center gap-3 mb-4">
-              <ExternalLink className="w-6 h-6 text-teal-600" />
-              <h2 className="text-2xl font-bold text-gray-900">
-                {language === 'zh-TW' ? '學習資源' : 'Learning Resources'}
-              </h2>
-            </div>
-            <div className="bg-white rounded-xl border border-gray-200 p-6">
-              <div className="space-y-3">
-                {inspiration.resource_links.map((resource, index) => (
-                  <a
-                    key={index}
-                    href={resource.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
-                  >
-                    <ExternalLink className="w-5 h-5 text-teal-600 flex-shrink-0" />
-                    <span className="text-gray-900 group-hover:text-teal-600 transition-colors">
-                      {resource.name}
-                    </span>
-                  </a>
-                ))}
+        {((inspiration.steps && inspiration.steps.length > 0) ||
+          (inspiration.resource_links && inspiration.resource_links.length > 0)) && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            {inspiration.steps && inspiration.steps.length > 0 && (
+              <div>
+                <div className="flex items-center gap-3 mb-3">
+                  <CheckCircle2 className="w-6 h-6 text-green-600" />
+                  <h2 className="text-xl font-bold text-gray-900">
+                    {language === 'zh-TW' ? '實作步驟' : 'Implementation Steps'}
+                  </h2>
+                </div>
+                <motion.div
+                  className="space-y-2"
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    visible: {
+                      transition: {
+                        staggerChildren: 0.1
+                      }
+                    }
+                  }}
+                >
+                  {(inspiration.steps || []).map((step, index) => (
+                    <motion.div
+                      key={index}
+                      variants={{
+                        hidden: { opacity: 0, x: -20 },
+                        visible: { opacity: 1, x: 0 }
+                      }}
+                      className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-md transition-shadow"
+                    >
+                      <div className="flex gap-3">
+                        <div className="flex-shrink-0 w-7 h-7 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full flex items-center justify-center font-semibold text-sm">
+                          {index + 1}
+                        </div>
+                        <p className="text-gray-700 flex-1 text-sm leading-relaxed pt-0.5">{step}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </motion.div>
               </div>
-            </div>
+            )}
+
+            {inspiration.resource_links && inspiration.resource_links.length > 0 && (
+              <div>
+                <div className="flex items-center gap-3 mb-3">
+                  <ExternalLink className="w-6 h-6 text-teal-600" />
+                  <h2 className="text-xl font-bold text-gray-900">
+                    {language === 'zh-TW' ? '學習資源' : 'Learning Resources'}
+                  </h2>
+                </div>
+                <div className="bg-white rounded-xl border border-gray-200 p-5">
+                  <div className="space-y-2">
+                    {(inspiration.resource_links || []).map((resource, index) => (
+                      <a
+                        key={index}
+                        href={resource.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
+                      >
+                        <ExternalLink className="w-5 h-5 text-teal-600 flex-shrink-0" />
+                        <span className="text-gray-900 group-hover:text-teal-600 transition-colors text-sm">
+                          {resource.name}
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )}
 
         {inspiration.outcome_demo && (
-          <div className="mb-10">
+          <div className="mb-6">
             <div className="bg-gradient-to-r from-green-50 to-teal-50 border border-green-200 rounded-xl p-6">
               <h3 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
                 <CheckCircle2 className="w-5 h-5 text-green-600" />

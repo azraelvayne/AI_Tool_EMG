@@ -10,11 +10,11 @@ import * as Icons from 'lucide-react';
 
 interface ToolCardProps {
   tool: Tool;
-  categories: CategoryMetadata[];
+  categories?: CategoryMetadata[];
   onClick?: () => void;
 }
 
-export function ToolCard({ tool, categories, onClick }: ToolCardProps) {
+export function ToolCard({ tool, categories = [], onClick }: ToolCardProps) {
   const { t } = useTranslation();
   const { favorites, toggleFavorite, getTranslatedCategoryValue } = useApp();
   const isFavorited = favorites.includes(tool.id || '');
@@ -37,7 +37,7 @@ export function ToolCard({ tool, categories, onClick }: ToolCardProps) {
   };
 
   const getCategoryMetadata = (categoryType: string, value: string) => {
-    return categories.find(c => c.category_type === categoryType && c.category_value === value);
+    return (categories || []).find(c => c.category_type === categoryType && c.category_value === value);
   };
 
   const getIcon = (iconName: string) => {
