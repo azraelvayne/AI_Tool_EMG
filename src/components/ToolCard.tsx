@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink, Star, Layers, Database, ArrowRight } from 'lucide-react';
+import { ExternalLink, Star, Layers, Database } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Badge } from './ui/Badge';
 import { Card } from './ui/Card';
@@ -17,7 +17,7 @@ export function ToolCard({ tool, viewMode = 'grid', onClick }: ToolCardProps) {
   const { isFavorite, toggleFavorite } = useFavorites();
   const isFav = isFavorite(tool.id);
 
-  // 🛡️ 關鍵防護：確保 categories 不為 null
+  // 🛡️ 關鍵防護：如果 categories 是 null，給它預設值，防止當機
   const categories = tool.categories || {
     functional_role: [],
     tech_layer: [],
@@ -84,10 +84,7 @@ export function ToolCard({ tool, viewMode = 'grid', onClick }: ToolCardProps) {
               </div>
             </div>
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                toggleFavorite(tool.id);
-              }}
+              onClick={(e) => { e.stopPropagation(); toggleFavorite(tool.id); }}
               className={`p-2 rounded-full transition-all ${isFav ? 'text-red-500 bg-red-50' : 'text-gray-300 hover:text-red-500'}`}
             >
               <Star className={`w-5 h-5 ${isFav ? 'fill-current' : ''}`} />
@@ -106,13 +103,7 @@ export function ToolCard({ tool, viewMode = 'grid', onClick }: ToolCardProps) {
               ))}
             </div>
             {tool.website_url && (
-              <a
-                href={tool.website_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="text-gray-400 hover:text-blue-600 transition-colors p-1"
-              >
+              <a href={tool.website_url} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-gray-400 hover:text-blue-600 transition-colors p-1">
                 <ExternalLink className="w-4 h-4" />
               </a>
             )}
@@ -121,6 +112,5 @@ export function ToolCard({ tool, viewMode = 'grid', onClick }: ToolCardProps) {
       </Card>
     );
   }
-
-  return null; // List mode 暫略
+  return null;
 }
