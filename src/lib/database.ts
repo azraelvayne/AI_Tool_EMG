@@ -37,22 +37,22 @@ export const db = {
       results = results.filter(tool => {
         const categories = tool.categories as any;
 
-        if (filters.purpose?.length && !filters.purpose.some(p => categories.purpose?.includes(p))) {
+        if (filters.purpose?.length && !filters.purpose.some(p => categories?.purpose?.includes(p))) {
           return false;
         }
-        if (filters.functional_role?.length && !filters.functional_role.some(fr => categories.functional_role?.includes(fr))) {
+        if (filters.functional_role?.length && !filters.functional_role.some(fr => categories?.functional_role?.includes(fr))) {
           return false;
         }
-        if (filters.tech_layer?.length && !filters.tech_layer.some(tl => categories.tech_layer?.includes(tl))) {
+        if (filters.tech_layer?.length && !filters.tech_layer.some(tl => categories?.tech_layer?.includes(tl))) {
           return false;
         }
-        if (filters.data_flow_role?.length && !filters.data_flow_role.some(dfr => categories.data_flow_role?.includes(dfr))) {
+        if (filters.data_flow_role?.length && !filters.data_flow_role.some(dfr => categories?.data_flow_role?.includes(dfr))) {
           return false;
         }
-        if (filters.difficulty?.length && !filters.difficulty.includes(categories.difficulty)) {
+        if (filters.difficulty?.length && !filters.difficulty.includes(categories?.difficulty)) {
           return false;
         }
-        if (filters.application_field?.length && !filters.application_field.some(af => categories.application_field?.includes(af))) {
+        if (filters.application_field?.length && !filters.application_field.some(af => categories?.application_field?.includes(af))) {
           return false;
         }
 
@@ -60,7 +60,18 @@ export const db = {
       });
     }
 
-    return results as Tool[];
+    return results.map(tool => ({
+      ...tool,
+      categories: tool.categories || {
+        functional_role: [],
+        tech_layer: [],
+        difficulty: null,
+        purpose: [],
+        data_flow_role: [],
+        application_field: [],
+        common_pairings: []
+      }
+    })) as Tool[];
   },
 
   async getToolByName(toolName: string): Promise<Tool | null> {

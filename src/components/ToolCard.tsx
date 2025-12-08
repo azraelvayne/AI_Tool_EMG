@@ -47,7 +47,15 @@ export function ToolCard({ tool, categories, onClick }: ToolCardProps) {
     return IconComponent || Icons.Box;
   };
 
-  const toolCategories = tool.categories as any;
+  const toolCategories = tool.categories || {
+    functional_role: [],
+    tech_layer: [],
+    difficulty: null,
+    purpose: [],
+    data_flow_role: [],
+    application_field: [],
+    common_pairings: []
+  };
   const primaryRole = toolCategories.functional_role?.[0];
   const roleMetadata = primaryRole ? getCategoryMetadata('functional_role', primaryRole) : null;
   const RoleIcon = roleMetadata ? getIcon(roleMetadata.icon_name) : Icons.Box;

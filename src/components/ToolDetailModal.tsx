@@ -68,7 +68,15 @@ export function ToolDetailModal({ tool, isOpen, onClose, categories }: ToolDetai
   if (!tool) return null;
 
   const isFavorited = favorites.includes(tool.id || '');
-  const toolCategories = tool.categories as any;
+  const toolCategories = (tool.categories || {
+    functional_role: [],
+    tech_layer: [],
+    difficulty: null,
+    purpose: [],
+    data_flow_role: [],
+    application_field: [],
+    common_pairings: []
+  }) as any;
   const descriptions = tool.description_styles as any;
 
   const getIcon = (iconName: string) => {

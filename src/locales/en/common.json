@@ -133,7 +133,8 @@
     "next": "Next",
     "previous": "Previous",
     "no_data": "No Data",
-    "learn_more": "Learn More"
+    "learn_more": "Learn More",
+    "estimated_time": "Estimated Time"
   },
   "nav": {
     "creator_mode": "Creator Mode",
