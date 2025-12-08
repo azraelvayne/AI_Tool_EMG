@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { ToolsExplorerLayout } from '../components/ToolsExplorerLayout';
 import { useApp } from '../contexts/AppContext';
 import type { NavigationFilters } from '../types';
-import { ErrorBoundary } from '../components/ErrorBoundary'; // 1. 引入錯誤邊界元件
 
 interface ToolsExplorerPageProps {
   language: 'en' | 'zh-TW';
@@ -48,10 +47,5 @@ export function ToolsExplorerPage({ initialFilters }: ToolsExplorerPageProps) {
     }
   }, [initialFilters]);
 
-  // 2. 用 ErrorBoundary 包住回傳的元件
-  return (
-    <ErrorBoundary>
-      <ToolsExplorerLayout />
-    </ErrorBoundary>
-  );
+  return <ToolsExplorerLayout />;
 }
