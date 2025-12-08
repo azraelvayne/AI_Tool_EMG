@@ -216,24 +216,12 @@ export const db = {
   }): Promise<Tool[]> {
     const tools = await this.getTools(filters);
 
-    const validTools = tools.filter(tool => {
-      if (!tool.categories) {
-        console.warn(`Tool "${tool.tool_name}" (ID: ${tool.id}) has no categories, filtering out`);
-        return false;
-      }
-      if (typeof tool.categories !== 'object') {
-        console.warn(`Tool "${tool.tool_name}" (ID: ${tool.id}) has invalid categories format, filtering out`);
-        return false;
-      }
-      return true;
-    });
-
     if (language === 'en') {
-      return validTools;
+      return tools;
     }
 
     const toolsWithTranslations = await Promise.all(
-      validTools.map(async (tool) => {
+      tools.map(async (tool) => {
         const translation = await this.getToolTranslation(tool.id!, language);
         if (translation) {
           return {
