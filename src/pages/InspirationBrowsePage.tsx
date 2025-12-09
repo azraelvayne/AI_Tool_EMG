@@ -150,7 +150,7 @@ export function InspirationBrowsePage({ language, onInspirationSelect, onBackToH
 
   return (
     <PageTransition className="min-h-screen bg-gray-50">
-      <div className="bg-gradient-to-r from-indigo-600 to-blue-600 text-white">
+      <div className="bg-gradient-peach text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <Breadcrumb
             items={[
@@ -176,7 +176,7 @@ export function InspirationBrowsePage({ language, onInspirationSelect, onBackToH
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               {title}
             </h1>
-            <p className="text-xl text-blue-100 max-w-2xl mx-auto">
+            <p className="text-xl text-orange-50 max-w-2xl mx-auto">
               {subtitle}
             </p>
           </div>
@@ -229,7 +229,7 @@ export function InspirationBrowsePage({ language, onInspirationSelect, onBackToH
                 <button
                   onClick={() => setViewMode('grid')}
                   className={`p-2 rounded-lg transition-colors ${
-                    viewMode === 'grid' ? 'bg-blue-100 text-blue-600' : 'text-gray-400 hover:bg-gray-100'
+                    viewMode === 'grid' ? 'bg-orange-100 text-orange-600' : 'text-gray-400 hover:bg-gray-100'
                   }`}
                 >
                   <Grid size={20} />
@@ -237,7 +237,7 @@ export function InspirationBrowsePage({ language, onInspirationSelect, onBackToH
                 <button
                   onClick={() => setViewMode('list')}
                   className={`p-2 rounded-lg transition-colors ${
-                    viewMode === 'list' ? 'bg-blue-100 text-blue-600' : 'text-gray-400 hover:bg-gray-100'
+                    viewMode === 'list' ? 'bg-orange-100 text-orange-600' : 'text-gray-400 hover:bg-gray-100'
                   }`}
                 >
                   <List size={20} />

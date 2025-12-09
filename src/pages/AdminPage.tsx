@@ -1,12 +1,14 @@
-import { useState } from 'react';
-import { Shield, Plus, Save } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Shield, Plus, Save, LogOut } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
 import { db } from '../lib/database';
+import { storage } from '../lib/localStorage';
 
 export function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
   const [formData, setFormData] = useState({
     tool_name: '',
     summary: '',
@@ -19,12 +21,28 @@ export function AdminPage() {
     }
   });
 
-  const handleLogin = () => {
-    if (password === 'admin123') { // 簡易密碼鎖
+  useEffect(() => {
+    if (storage.isAdminAuthenticated()) {
       setIsAuthenticated(true);
+    }
+  }, []);
+
+  const handleLogin = () => {
+    if (password === 'admin123') {
+      setIsAuthenticated(true);
+
+      if (rememberMe) {
+        storage.setAdminToken('admin_session', 24);
+      }
     } else {
       alert('密碼錯誤');
     }
+  };
+
+  const handleLogout = () => {
+    storage.clearAdminToken();
+    setIsAuthenticated(false);
+    setPassword('');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -41,12 +59,39 @@ export function AdminPage() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen pt-24 flex items-center justify-center bg-gray-50">
-        <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md text-center">
-          <Shield className="w-12 h-12 text-indigo-600 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold mb-6">管理員登入</h2>
-          <Input type="password" placeholder="密碼 (admin123)" value={password} onChange={(e) => setPassword(e.target.value)} className="mb-4" />
-          <Button onClick={handleLogin} className="w-full">登入</Button>
+      <div className="min-h-screen pt-24 flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50">
+        <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
+          <div className="text-center mb-6">
+            <div className="w-16 h-16 bg-gradient-sky rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <Shield className="w-10 h-10 text-white" />
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900">管理員登入</h2>
+            <p className="text-gray-600 mt-2 text-sm">輸入密碼以存取管理面板</p>
+          </div>
+
+          <div className="space-y-4">
+            <Input
+              type="password"
+              placeholder="請輸入密碼"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
+            />
+
+            <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+                className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+              />
+              <span>記住我（24小時內免登入）</span>
+            </label>
+
+            <Button onClick={handleLogin} className="w-full">
+              登入管理面板
+            </Button>
+          </div>
         </div>
       </div>
     );
@@ -61,7 +106,9 @@ export function AdminPage() {
               <Plus className="w-6 h-6 text-indigo-600" />
               新增工具 (Admin Mode)
             </h1>
-            <Button variant="outline" onClick={() => setIsAuthenticated(false)}>登出</Button>
+            <Button variant="outline" onClick={handleLogout} icon={LogOut}>
+              登出
+            </Button>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">

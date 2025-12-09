@@ -95,13 +95,12 @@ export function PersonaHomePage({
         </div>
       </div>
 
-      {/* Three CTA Blocks */}
       <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-16">
           {/* Tools Directory CTA */}
           <button
             onClick={onNavigateToTools}
-            className="bg-gradient-cool rounded-2xl p-8 text-white text-left hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
+            className="bg-gradient-teal rounded-2xl p-6 text-white text-left hover:shadow-2xl hover:scale-105 transition-all duration-300 group min-h-[260px] flex flex-col"
           >
             <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4 group-hover:bg-white/30 transition-colors">
               <Layers className="w-8 h-8" />
@@ -109,7 +108,7 @@ export function PersonaHomePage({
             <h3 className="text-2xl font-bold mb-3">
               {language === 'zh-TW' ? '工具目錄' : 'Tool Directory'}
             </h3>
-            <p className="text-green-100 mb-4">
+            <p className="text-teal-50 mb-4 flex-grow">
               {language === 'zh-TW'
                 ? '探索 100+ 精選工具，使用多維度篩選找到最適合的解決方案'
                 : 'Explore 100+ curated tools with multi-dimensional filtering'}
@@ -120,10 +119,32 @@ export function PersonaHomePage({
             </div>
           </button>
 
+          {/* Inspiration Gallery CTA */}
+          <button
+            onClick={onBrowseAllInspirations}
+            className="bg-gradient-coral rounded-2xl p-6 text-white text-left hover:shadow-2xl hover:scale-105 transition-all duration-300 group min-h-[260px] flex flex-col"
+          >
+            <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4 group-hover:bg-white/30 transition-colors">
+              <Sparkles className="w-8 h-8" />
+            </div>
+            <h3 className="text-2xl font-bold mb-3">
+              {language === 'zh-TW' ? '精選應用靈感' : 'Inspiration Gallery'}
+            </h3>
+            <p className="text-orange-50 mb-4 flex-grow">
+              {language === 'zh-TW'
+                ? '從真實案例中學習，發現 AI 自動化的無限可能'
+                : 'Learn from real examples and discover unlimited AI automation possibilities'}
+            </p>
+            <div className="flex items-center gap-2 text-sm font-medium">
+              <span>{language === 'zh-TW' ? '查看靈感' : 'View Gallery'}</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </button>
+
           {/* Creative Use Cases CTA */}
           <button
             onClick={onNavigateToUseCases}
-            className="bg-gradient-warm rounded-2xl p-8 text-white text-left hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
+            className="bg-gradient-lavender rounded-2xl p-6 text-white text-left hover:shadow-2xl hover:scale-105 transition-all duration-300 group min-h-[260px] flex flex-col"
           >
             <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4 group-hover:bg-white/30 transition-colors">
               <Lightbulb className="w-8 h-8" />
@@ -131,13 +152,13 @@ export function PersonaHomePage({
             <h3 className="text-2xl font-bold mb-3">
               {language === 'zh-TW' ? '創意堆疊' : 'Creative Stacks'}
             </h3>
-            <p className="text-purple-100 mb-4">
+            <p className="text-purple-50 mb-4 flex-grow">
               {language === 'zh-TW'
                 ? '探索跨領域創意應用場景，一鍵套用工具組合'
                 : 'Discover creative cross-domain applications with one-click tool stacks'}
             </p>
             <div className="flex items-center gap-2 text-sm font-medium">
-              <span>{language === 'zh-TW' ? '查看靈感' : 'View Inspirations'}</span>
+              <span>{language === 'zh-TW' ? '查看案例' : 'View Cases'}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </div>
           </button>
@@ -145,21 +166,21 @@ export function PersonaHomePage({
           {/* Learn More CTA */}
           <button
             onClick={onNavigateToLearn}
-            className="bg-gradient-cool-soft rounded-2xl p-8 text-white text-left hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
+            className="bg-gradient-sky rounded-2xl p-6 text-white text-left hover:shadow-2xl hover:scale-105 transition-all duration-300 group min-h-[260px] flex flex-col"
           >
             <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4 group-hover:bg-white/30 transition-colors">
               <BookOpen className="w-8 h-8" />
             </div>
             <h3 className="text-2xl font-bold mb-3">
-              {language === 'zh-TW' ? '了解更多' : 'Learn More'}
+              {language === 'zh-TW' ? '學習中心' : 'Learn Center'}
             </h3>
-            <p className="text-blue-100 mb-4">
+            <p className="text-sky-50 mb-4 flex-grow">
               {language === 'zh-TW'
-                ? '深入了解平台功能、使用指南、匯出教學與常見問題'
-                : 'Platform guides, export tutorials, and frequently asked questions'}
+                ? '深入了解平台功能、使用指南和最新更新資訊'
+                : 'Learn about platform features, guides, and updates'}
             </p>
             <div className="flex items-center gap-2 text-sm font-medium">
-              <span>{language === 'zh-TW' ? '前往學習' : 'Go to Learn'}</span>
+              <span>{language === 'zh-TW' ? '前往學習' : 'Learn Now'}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </div>
           </button>

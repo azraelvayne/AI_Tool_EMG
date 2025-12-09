@@ -165,5 +165,52 @@ export const storage = {
     const newId = crypto.randomUUID();
     sessionStorage.setItem('session_id', newId);
     return newId;
+  },
+
+  getAdminToken(): string | null {
+    try {
+      const token = localStorage.getItem('admin_token');
+      if (!token) return null;
+
+      const data = JSON.parse(token);
+      const expiresAt = new Date(data.expiresAt);
+
+      if (expiresAt < new Date()) {
+        this.clearAdminToken();
+        return null;
+      }
+
+      return data.token;
+    } catch {
+      return null;
+    }
+  },
+
+  setAdminToken(token: string, expiresInHours: number = 24): void {
+    try {
+      const expiresAt = new Date();
+      expiresAt.setHours(expiresAt.getHours() + expiresInHours);
+
+      const data = {
+        token,
+        expiresAt: expiresAt.toISOString()
+      };
+
+      localStorage.setItem('admin_token', JSON.stringify(data));
+    } catch (error) {
+      console.error('Failed to set admin token:', error);
+    }
+  },
+
+  clearAdminToken(): void {
+    try {
+      localStorage.removeItem('admin_token');
+    } catch (error) {
+      console.error('Failed to clear admin token:', error);
+    }
+  },
+
+  isAdminAuthenticated(): boolean {
+    return this.getAdminToken() !== null;
   }
 };

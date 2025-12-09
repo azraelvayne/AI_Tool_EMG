@@ -94,9 +94,9 @@ export function FavoritesPage({
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-400 mx-auto mb-4"></div>
           <p className="text-gray-600">{language === 'zh-TW' ? '載入中...' : 'Loading...'}</p>
         </div>
       </div>
@@ -104,8 +104,8 @@ export function FavoritesPage({
   }
 
   return (
-    <PageTransition className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50">
-      <div className="bg-gradient-to-r from-pink-600 to-purple-600 text-white">
+    <PageTransition className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
+      <div className="bg-gradient-soft-purple text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <Breadcrumb
             items={[
@@ -129,7 +129,7 @@ export function FavoritesPage({
               <h1 className="text-4xl font-bold mb-3">
                 {language === 'zh-TW' ? '我的收藏' : 'My Favorites'}
               </h1>
-              <p className="text-xl text-pink-100 mb-4">
+              <p className="text-xl text-purple-50 mb-4">
                 {language === 'zh-TW'
                   ? '你收藏的學習目標與靈感案例'
                   : 'Your saved learning goals and inspirations'}
@@ -236,7 +236,7 @@ export function FavoritesPage({
                           <Target className="w-3 h-3 mr-1" />
                           {language === 'zh-TW' ? '學習目標' : 'Goal'}
                         </Badge>
-                        <Heart className="w-5 h-5 text-pink-500 fill-pink-500" />
+                        <Heart className="w-5 h-5 text-purple-400 fill-purple-400" />
                       </div>
                     </motion.div>
                   ))}
@@ -247,7 +247,7 @@ export function FavoritesPage({
             {showInspirations && filteredInspirations.length > 0 && (
               <div className="mb-12">
                 <div className="flex items-center gap-3 mb-6">
-                  <Lightbulb className="w-7 h-7 text-purple-600" />
+                  <Lightbulb className="w-7 h-7 text-purple-400" />
                   <h2 className="text-2xl font-bold text-gray-900">
                     {language === 'zh-TW' ? '靈感案例' : 'Inspirations'}
                   </h2>
@@ -275,7 +275,7 @@ export function FavoritesPage({
                       className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-all duration-300 cursor-pointer group"
                     >
                       <div className="flex items-start justify-between mb-3">
-                        <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors flex-1">
+                        <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-500 transition-colors flex-1">
                           {language === 'zh-TW' ? inspiration.title_zh_tw : inspiration.title_en}
                         </h3>
                         <ComplexityBadge level={inspiration.difficulty} language={language} />
@@ -284,11 +284,11 @@ export function FavoritesPage({
                         {language === 'zh-TW' ? inspiration.description_zh_tw : inspiration.description_en}
                       </p>
                       <div className="flex items-center justify-between">
-                        <Badge className="bg-purple-50 text-purple-700 border-purple-200">
+                        <Badge className="bg-purple-50 text-purple-600 border-purple-200">
                           <Lightbulb className="w-3 h-3 mr-1" />
                           {language === 'zh-TW' ? '靈感' : 'Inspiration'}
                         </Badge>
-                        <Heart className="w-5 h-5 text-pink-500 fill-pink-500" />
+                        <Heart className="w-5 h-5 text-purple-400 fill-purple-400" />
                       </div>
                     </motion.div>
                   ))}
@@ -310,8 +310,8 @@ export function FavoritesPage({
           </>
         ) : (
           <div className="text-center py-16">
-            <div className="w-24 h-24 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Heart className="w-12 h-12 text-pink-400" />
+            <div className="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Heart className="w-12 h-12 text-purple-400" />
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-3">
               {language === 'zh-TW' ? '還沒有收藏項目' : 'No favorites yet'}
