@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Search, Lightbulb, Grid, List, ArrowLeft, Filter as FilterIcon } from 'lucide-react';
+import { Search, Lightbulb, Grid2x2 as Grid, List, Filter as FilterIcon } from 'lucide-react';
 import { Input } from '../components/ui/Input';
 import { Button } from '../components/ui/Button';
 import { Modal } from '../components/ui/Modal';
@@ -184,7 +184,7 @@ export function InspirationBrowsePage({ language, onInspirationSelect, onBackToH
           <div className="max-w-3xl mx-auto">
             <Input
               value={filters.searchQuery}
-              onChange={(value) => setFilters(prev => ({ ...prev, searchQuery: value }))}
+              onChange={(e) => setFilters(prev => ({ ...prev, searchQuery: e.target.value }))}
               placeholder={language === 'zh-TW' ? '搜尋靈感案例...' : 'Search inspirations...'}
               icon={Search}
               className="flex-1"

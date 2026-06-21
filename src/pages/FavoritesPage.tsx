@@ -26,7 +26,7 @@ export function FavoritesPage({
   onGoalSelect,
   onInspirationSelect
 }: FavoritesPageProps) {
-  const { favorites, isGoalFavorite, isInspirationFavorite, clearAllFavorites } = useFavorites();
+  const { favorites, clearAllFavorites } = useFavorites();
   const [goals, setGoals] = useState<Goal[]>([]);
   const [inspirations, setInspirations] = useState<Inspiration[]>([]);
   const [loading, setLoading] = useState(true);

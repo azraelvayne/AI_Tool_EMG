@@ -15,10 +15,21 @@ export function AdminPage() {
     website_url: '',
     logo_url: '',
     categories: {
+      purpose: [],
       functional_role: [],
       tech_layer: [],
-      difficulty: 'intermediate'
-    }
+      data_flow_role: [],
+      application_field: [],
+      difficulty: 'intermediate',
+      common_pairings: []
+    },
+    description_styles: {
+      encyclopedia: '',
+      guide: '',
+      strategy: '',
+      inspiration: []
+    },
+    use_case_templates: []
   });
 
   useEffect(() => {

@@ -21,7 +21,7 @@ export function AIRecommendationModal({
   allTools,
   onApplyStack,
 }: AIRecommendationModalProps) {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const [query, setQuery] = useState('');
   const [userLevel, setUserLevel] = useState<'beginner' | 'intermediate' | 'advanced'>('beginner');
   const [loading, setLoading] = useState(false);
@@ -104,7 +104,7 @@ export function AIRecommendationModal({
           <div className="flex gap-2">
             <Input
               value={query}
-              onChange={setQuery}
+              onChange={(e) => setQuery(e.target.value)}
               placeholder={
                 language === 'zh-TW' ? '例如：我想建立一個 AI 聊天機器人' : 'e.g., I want to build an AI chatbot'
               }

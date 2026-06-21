@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ArrowLeft, Target, Sparkles, Award, BookOpen } from 'lucide-react';
+import { ArrowLeft, Target, Sparkles, Award, BookOpen, Users } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { db } from '../lib/database';
 import type { PersonaWithGoals, Goal } from '../types';
@@ -100,8 +100,12 @@ export function PersonaDetailPage({ language, personaKey, onBackToHome, onGoalSe
           />
 
           <div className="flex items-start gap-6">
-            <div className="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center text-4xl">
-              {persona.icon}
+            <div className="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center overflow-hidden">
+              {persona.icon_url ? (
+                <img src={persona.icon_url} alt={persona.name_en} className="w-full h-full object-cover" />
+              ) : (
+                <Users className="w-10 h-10 text-white/80" />
+              )}
             </div>
             <div className="flex-1">
               <h1 className="text-4xl font-bold mb-3">

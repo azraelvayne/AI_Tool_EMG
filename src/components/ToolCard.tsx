@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Badge } from './ui/Badge';
 import { Card } from './ui/Card';
 import type { Tool } from '../types';
-import { useFavorites } from '../hooks/useFavorites';
+import { useApp } from '../contexts/AppContext';
 
 interface ToolCardProps {
   tool: Tool;
@@ -14,40 +14,45 @@ interface ToolCardProps {
 
 export function ToolCard({ tool, viewMode = 'grid', onClick }: ToolCardProps) {
   const { t, i18n } = useTranslation();
-  const { isFavorite, toggleFavorite } = useFavorites();
-  const isFav = isFavorite(tool.id);
+  const { favorites, toggleFavorite } = useApp();
+  const isFav = favorites.includes(tool.id || '');
 
-  // 🛡️ 關鍵防護：如果 categories 是 null，給它預設值，防止當機
   const categories = tool.categories || {
     functional_role: [],
     tech_layer: [],
     application_field: [],
     purpose: [],
-    difficulty: 'intermediate'
+    data_flow_role: [],
+    difficulty: 'intermediate',
+    common_pairings: []
   };
 
-  const displayName = i18n.language === 'zh-TW' 
-    ? (tool as any).tool_name_zh || tool.tool_name 
+  const displayName = i18n.language === 'zh-TW'
+    ? (tool as any).tool_name_zh || tool.tool_name
     : tool.tool_name;
 
-  const displayDesc = i18n.language === 'zh-TW' 
-    ? (tool as any).tool_description_zh || tool.tool_description 
+  const displayDesc = i18n.language === 'zh-TW'
+    ? (tool as any).tool_description_zh || tool.tool_description
     : tool.tool_description;
 
-  const functionalRoles = Array.isArray(categories.functional_role) 
-    ? categories.functional_role.slice(0, 2) 
+  const functionalRoles = Array.isArray(categories.functional_role)
+    ? categories.functional_role.slice(0, 2)
     : [];
 
-  const handleCardClick = (e: React.MouseEvent) => {
-    if ((e.target as HTMLElement).closest('button') || (e.target as HTMLElement).closest('a')) {
-      return;
-    }
+  const handleCardClick = () => {
     onClick?.(tool);
+  };
+
+  const handleFavoriteClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (tool.id) {
+      toggleFavorite(tool.id);
+    }
   };
 
   if (viewMode === 'grid') {
     return (
-      <Card 
+      <Card
         className="group hover:shadow-xl transition-all duration-300 h-full flex flex-col border-gray-200 hover:border-blue-300 bg-white cursor-pointer"
         onClick={handleCardClick}
       >
@@ -56,9 +61,9 @@ export function ToolCard({ tool, viewMode = 'grid', onClick }: ToolCardProps) {
             <div className="flex items-center gap-4">
               <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-gray-50 to-gray-100 p-2.5 border border-gray-200 shadow-sm group-hover:scale-105 transition-transform duration-300">
                 {tool.logo_url ? (
-                  <img 
-                    src={tool.logo_url} 
-                    alt={displayName} 
+                  <img
+                    src={tool.logo_url}
+                    alt={displayName}
                     className="w-full h-full object-contain"
                     onError={(e) => {
                       (e.target as HTMLImageElement).style.display = 'none';
@@ -84,7 +89,7 @@ export function ToolCard({ tool, viewMode = 'grid', onClick }: ToolCardProps) {
               </div>
             </div>
             <button
-              onClick={(e) => { e.stopPropagation(); toggleFavorite(tool.id); }}
+              onClick={handleFavoriteClick}
               className={`p-2 rounded-full transition-all ${isFav ? 'text-red-500 bg-red-50' : 'text-gray-300 hover:text-red-500'}`}
             >
               <Star className={`w-5 h-5 ${isFav ? 'fill-current' : ''}`} />

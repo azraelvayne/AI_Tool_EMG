@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Lightbulb, Search, Filter, Sparkles } from 'lucide-react';
+import { Lightbulb, Search, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { PageTransition } from '../components/animations/PageTransition';

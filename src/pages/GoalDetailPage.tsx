@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ArrowLeft, Clock, BookOpen, Wrench, Lightbulb, Users, Star, ExternalLink, Heart } from 'lucide-react';
+import { Clock, BookOpen, Wrench, Lightbulb, Users, Star, ExternalLink, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { db } from '../lib/database';
 import type { GoalWithDetails, ToolStack, Inspiration, Persona } from '../types';
@@ -364,7 +364,13 @@ export function GoalDetailPage({
                   onClick={() => onPersonaSelect?.(persona.persona_key)}
                   className="flex items-center gap-3 px-5 py-3 bg-white border border-gray-200 rounded-xl hover:shadow-md hover:border-purple-300 transition-all group"
                 >
-                  <span className="text-2xl">{persona.icon}</span>
+                  <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center">
+                    {persona.icon_url ? (
+                      <img src={persona.icon_url} alt={persona.name_en} className="w-full h-full object-cover" />
+                    ) : (
+                      <Users className="w-5 h-5 text-gray-400" />
+                    )}
+                  </div>
                   <span className="font-medium text-gray-900 group-hover:text-purple-600 transition-colors">
                     {language === 'zh-TW' ? persona.name_zh_tw : persona.name_en}
                   </span>

@@ -1,5 +1,5 @@
 import { ReactNode, useState } from 'react';
-import { Search, Sparkles, Filter, Grid, List } from 'lucide-react';
+import { Search, Sparkles, Filter, Grid2x2 as Grid, List } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Input } from './ui/Input';
 import { Button } from './ui/Button';
@@ -10,7 +10,6 @@ import { PopularToolsModal } from './PopularToolsModal';
 import { FeaturedStacksModal } from './FeaturedStacksModal';
 import { useApp } from '../contexts/AppContext';
 import { Modal } from './ui/Modal';
-import type { CategoryMetadata } from '../types';
 
 interface ToolsExplorerLayoutProps {
   title?: string;
@@ -37,8 +36,8 @@ export function ToolsExplorerLayout({
 
   const selectedTool = tools.find(t => t.id === selectedToolId) || null;
 
-  const handleSearch = (value: string) => {
-    setSearchQuery(value);
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
   };
 
   return (
@@ -202,8 +201,7 @@ export function ToolsExplorerLayout({
                   <ToolCard
                     key={tool.id}
                     tool={tool}
-                    categories={categories}
-                    onClick={() => setSelectedToolId(tool.id || null)}
+                    onClick={(t) => setSelectedToolId(t.id || null)}
                   />
                 ))}
               </div>

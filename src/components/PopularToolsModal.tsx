@@ -128,8 +128,7 @@ export function PopularToolsModal({ isOpen, onClose, categories, onToolClick }: 
               )}
               <ToolCard
                 tool={tool}
-                categories={categories}
-                onClick={() => onToolClick(tool.id || '')}
+                onClick={(t) => onToolClick(t.id || '')}
               />
             </div>
           ))}

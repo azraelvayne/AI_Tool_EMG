@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ArrowLeft, Clock, Award, Target, ExternalLink, Lightbulb, CheckCircle2, Wrench, Heart } from 'lucide-react';
+import { Clock, Target, ExternalLink, Lightbulb, CheckCircle2, Wrench, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { db } from '../lib/database';
 import type { InspirationWithDetails, Tool } from '../types';
