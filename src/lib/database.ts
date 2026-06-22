@@ -122,7 +122,7 @@ export const db = {
         tool_name: tool.tool_name || 'Unnamed Tool',
         summary: tool.summary || '',
         tool_description: tool.tool_description || '',
-        logo_url: tool.logo_url || null,
+        logo_url: tool.icon_url || null,
         website_url: tool.website_url || null
       })) as Tool[];
     } catch (error) {
