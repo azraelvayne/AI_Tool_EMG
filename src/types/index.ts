@@ -22,6 +22,8 @@ export interface UseCaseTemplate {
   steps: string[];
 }
 
+export type ToolStatus = 'draft' | 'published' | 'archived';
+
 export interface Tool {
   id?: string;
   tool_name: string;
@@ -37,6 +39,7 @@ export interface Tool {
   website_url?: string | null;
   is_verified?: boolean;
   generation_source?: string;
+  status?: ToolStatus;
   created_at?: string;
   updated_at?: string;
 }

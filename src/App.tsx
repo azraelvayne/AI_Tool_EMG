@@ -10,13 +10,13 @@ import { FavoritesPage } from './pages/FavoritesPage';
 import { ToolsExplorerPage } from './pages/ToolsExplorerPage';
 import { CreativeUseCasesPage } from './pages/CreativeUseCasesPage';
 import { LearnPage } from './pages/LearnPage';
-import { AdminPage } from './pages/AdminPage'; // ✅ 新增：引入 AdminPage
+import { AdminPage } from './pages/AdminPage';
 import { LanguageSwitch } from './components/LanguageSwitch';
+import { ToastContainer } from './components/ui/Toast';
 import { useScrollRestoration } from './hooks/useScrollRestoration';
 import { useFavorites } from './hooks/useFavorites';
-import { Home, Heart, Shield } from 'lucide-react'; // ✅ 新增：引入 Shield 圖示
+import { Home, Heart, Shield } from 'lucide-react';
 
-// ✅ 修改：在 ViewMode 加上 'admin'
 type ViewMode = 'persona-home' | 'persona-detail' | 'inspiration-browse' | 'inspiration-detail' | 'goal-detail' | 'favorites' | 'tools-explorer' | 'creative-use-cases' | 'learn' | 'admin';
 
 function AppContent() {
@@ -89,8 +89,7 @@ function AppContent() {
   const handleNavigateToLearn = () => {
     setViewMode('learn');
   };
-  
-  // ✅ 新增：切換到後台的函式
+
   const handleNavigateToAdmin = () => {
     setViewMode('admin');
   };
@@ -112,20 +111,17 @@ function AppContent() {
           className="p-2 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow text-gray-700 hover:text-pink-600 relative"
           title={language === 'zh-TW' ? '我的收藏' : 'My Favorites'}
         >
-          <Heart className={`w-5 h-5 ${
-            getFavoriteCount() > 0 ? 'fill-pink-500 text-pink-500' : ''
-          }`} />
+          <Heart className={`w-5 h-5 ${getFavoriteCount() > 0 ? 'fill-pink-500 text-pink-500' : ''}`} />
           {getFavoriteCount() > 0 && (
             <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold">
               {getFavoriteCount()}
             </span>
           )}
         </button>
-        
-        {/* ✅ 新增：一個隱藏在語言切換旁的後台按鈕 */}
+
         <button
           onClick={handleNavigateToAdmin}
-          className="p-2 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow text-gray-400 hover:text-indigo-600"
+          className="p-2 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow text-gray-400 hover:text-blue-600"
           title="Admin"
         >
           <Shield className="w-5 h-5" />
@@ -215,11 +211,12 @@ function AppContent() {
           onBackToHome={handleBackToHome}
         />
       )}
-      
-      {/* ✅ 新增：後台頁面顯示邏輯 */}
+
       {viewMode === 'admin' && (
         <AdminPage />
       )}
+
+      <ToastContainer />
     </div>
   );
 }

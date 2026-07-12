@@ -1,28 +1,22 @@
 import { supabase } from './supabase';
-import type { Tool, CategoryMetadata, ToolPairing, FeaturedStack, UserInteraction, ToolTranslation } from '../types';
+import type { Tool, CategoryMetadata, ToolPairing, FeaturedStack, UserInteraction, ToolTranslation, ToolStatus } from '../types';
 
 function sanitizeSearchInput(input: string): string {
   if (!input || typeof input !== 'string') return '';
-
-  return input
-    .trim()
-    .replace(/[%_]/g, '\\$&')
-    .substring(0, 100);
+  return input.trim().replace(/[%_]/g, '\\$&').substring(0, 100);
 }
 
 function validateFilterParams(filters?: any): boolean {
   if (!filters) return true;
-
   if (filters.search && typeof filters.search !== 'string') return false;
   if (filters.toolNames && !Array.isArray(filters.toolNames)) return false;
-
   return true;
 }
 
 export const db = {
-  // ============================================================================
-  // CORE TOOL QUERIES (with strict data protection)
-  // ============================================================================
+  // ==========================================================================
+  // CORE TOOL QUERIES (public — only published tools)
+  // ==========================================================================
 
   async getTools(filters?: {
     search?: string;
@@ -43,6 +37,7 @@ export const db = {
       let query = supabase
         .from('tools')
         .select('*')
+        .eq('status', 'published')
         .order('popularity_score', { ascending: false })
         .order('display_priority', { ascending: false });
 
@@ -61,13 +56,7 @@ export const db = {
       const { data, error } = await query;
 
       if (error) {
-        console.error('[database.ts] Supabase query error in getTools:', {
-          error: error,
-          message: error.message,
-          details: error.details,
-          hint: error.hint,
-          filters: filters
-        });
+        console.error('[database.ts] Supabase query error in getTools:', error);
         throw new Error(`Database query failed: ${error.message}`);
       }
 
@@ -85,25 +74,12 @@ export const db = {
             common_pairings: tool.categories?.common_pairings || []
           };
 
-          if (filters.purpose?.length && !filters.purpose.some(p => safeCategories.purpose.includes(p))) {
-            return false;
-          }
-          if (filters.functional_role?.length && !filters.functional_role.some(fr => safeCategories.functional_role.includes(fr))) {
-            return false;
-          }
-          if (filters.tech_layer?.length && !filters.tech_layer.some(tl => safeCategories.tech_layer.includes(tl))) {
-            return false;
-          }
-          if (filters.data_flow_role?.length && !filters.data_flow_role.some(dfr => safeCategories.data_flow_role.includes(dfr))) {
-            return false;
-          }
-          if (filters.difficulty?.length && !filters.difficulty.includes(safeCategories.difficulty)) {
-            return false;
-          }
-          if (filters.application_field?.length && !filters.application_field.some(af => safeCategories.application_field.includes(af))) {
-            return false;
-          }
-
+          if (filters.purpose?.length && !filters.purpose.some(p => safeCategories.purpose.includes(p))) return false;
+          if (filters.functional_role?.length && !filters.functional_role.some(fr => safeCategories.functional_role.includes(fr))) return false;
+          if (filters.tech_layer?.length && !filters.tech_layer.some(tl => safeCategories.tech_layer.includes(tl))) return false;
+          if (filters.data_flow_role?.length && !filters.data_flow_role.some(dfr => safeCategories.data_flow_role.includes(dfr))) return false;
+          if (filters.difficulty?.length && !filters.difficulty.includes(safeCategories.difficulty)) return false;
+          if (filters.application_field?.length && !filters.application_field.some(af => safeCategories.application_field.includes(af))) return false;
           return true;
         });
       }
@@ -111,13 +87,8 @@ export const db = {
       return results.map(tool => ({
         ...tool,
         categories: tool.categories || {
-          functional_role: [],
-          tech_layer: [],
-          difficulty: 'intermediate',
-          purpose: [],
-          data_flow_role: [],
-          application_field: [],
-          common_pairings: []
+          functional_role: [], tech_layer: [], difficulty: 'intermediate',
+          purpose: [], data_flow_role: [], application_field: [], common_pairings: []
         },
         tool_name: tool.tool_name || 'Unnamed Tool',
         summary: tool.summary || '',
@@ -133,25 +104,14 @@ export const db = {
 
   async getToolById(id: string): Promise<Tool | null> {
     try {
-      const { data, error } = await supabase
-        .from('tools')
-        .select('*')
-        .eq('id', id)
-        .maybeSingle();
-
+      const { data, error } = await supabase.from('tools').select('*').eq('id', id).maybeSingle();
       if (error) throw error;
       if (!data) return null;
-
       return {
         ...data,
         categories: data.categories || {
-          functional_role: [],
-          tech_layer: [],
-          difficulty: 'intermediate',
-          purpose: [],
-          data_flow_role: [],
-          application_field: [],
-          common_pairings: []
+          functional_role: [], tech_layer: [], difficulty: 'intermediate',
+          purpose: [], data_flow_role: [], application_field: [], common_pairings: []
         }
       } as Tool;
     } catch (error) {
@@ -162,12 +122,7 @@ export const db = {
 
   async getToolByName(toolName: string): Promise<Tool | null> {
     try {
-      const { data, error } = await supabase
-        .from('tools')
-        .select('*')
-        .eq('tool_name', toolName)
-        .maybeSingle();
-
+      const { data, error } = await supabase.from('tools').select('*').eq('tool_name', toolName).maybeSingle();
       if (error) throw error;
       return data as Tool | null;
     } catch (error) {
@@ -176,44 +131,23 @@ export const db = {
     }
   },
 
-  // ============================================================================
-  // TRANSLATION QUERIES (Batch Query Strategy)
-  // ============================================================================
+  // ==========================================================================
+  // TRANSLATION QUERIES
+  // ==========================================================================
 
-  async getToolsWithTranslations(language: string = 'en', filters?: {
-    search?: string;
-    toolNames?: string[];
-    purpose?: string[];
-    functional_role?: string[];
-    tech_layer?: string[];
-    data_flow_role?: string[];
-    difficulty?: string[];
-    application_field?: string[];
-  }): Promise<Tool[]> {
+  async getToolsWithTranslations(language: string = 'en', filters?: any): Promise<Tool[]> {
     try {
-      console.log('[database.ts] getToolsWithTranslations called with language:', language);
-
       const tools = await this.getTools(filters);
-
-      console.log('[database.ts] Retrieved', tools.length, 'tools from getTools');
-
-      if (language === 'en' || tools.length === 0) {
-        return tools;
-      }
+      if (language === 'en' || tools.length === 0) return tools;
 
       const toolIds = tools.map(t => t.id).filter(Boolean);
-
       const { data: translations } = await supabase
         .from('tool_translations')
         .select('*')
         .eq('language_code', language)
         .in('tool_id', toolIds);
 
-      console.log('[database.ts] Retrieved', translations?.length || 0, 'translations');
-
-      const transMap = new Map(
-        (translations || []).map(t => [t.tool_id, t])
-      );
+      const transMap = new Map((translations || []).map(t => [t.tool_id, t]));
 
       return tools.map(tool => {
         const translation = transMap.get(tool.id!);
@@ -234,14 +168,12 @@ export const db = {
     }
   },
 
-  // ============================================================================
-  // CATEGORY METADATA (Separate Query Strategy - NO JOIN)
-  // ============================================================================
+  // ==========================================================================
+  // CATEGORY METADATA
+  // ==========================================================================
 
   async getCategoryMetadata(language: string = 'en'): Promise<CategoryMetadata[]> {
     try {
-      console.log('[database.ts] getCategoryMetadata called with language:', language);
-
       const { data: categories, error } = await supabase
         .from('category_metadata')
         .select('*')
@@ -251,13 +183,8 @@ export const db = {
       if (error) throw error;
       if (!categories) return [];
 
-      console.log('[database.ts] Retrieved', categories.length, 'categories');
-
       if (language === 'en') {
-        return categories.map(cat => ({
-          ...cat,
-          translated_value: cat.category_value
-        }));
+        return categories.map(cat => ({ ...cat, translated_value: cat.category_value }));
       }
 
       const { data: translations } = await supabase
@@ -265,11 +192,7 @@ export const db = {
         .select('*')
         .eq('language_code', language);
 
-      console.log('[database.ts] Retrieved', translations?.length || 0, 'category translations');
-
-      const transMap = new Map(
-        (translations || []).map(t => [t.category_metadata_id, t.translated_value])
-      );
+      const transMap = new Map((translations || []).map(t => [t.category_metadata_id, t.translated_value]));
 
       return categories.map(cat => ({
         ...cat,
@@ -281,15 +204,16 @@ export const db = {
     }
   },
 
-  // ============================================================================
-  // POPULAR TOOLS (Optimized with Batch Query)
-  // ============================================================================
+  // ==========================================================================
+  // POPULAR TOOLS
+  // ==========================================================================
 
   async getPopularTools(limit: number = 20, language: string = 'en'): Promise<Tool[]> {
     try {
       const { data, error } = await supabase
         .from('tools')
         .select('*')
+        .eq('status', 'published')
         .order('popularity_score', { ascending: false })
         .order('display_priority', { ascending: false })
         .limit(limit);
@@ -299,19 +223,12 @@ export const db = {
       let tools = (data || []).map(tool => ({
         ...tool,
         categories: tool.categories || {
-          functional_role: [],
-          tech_layer: [],
-          difficulty: 'intermediate',
-          purpose: [],
-          data_flow_role: [],
-          application_field: [],
-          common_pairings: []
+          functional_role: [], tech_layer: [], difficulty: 'intermediate',
+          purpose: [], data_flow_role: [], application_field: [], common_pairings: []
         }
       })) as Tool[];
 
-      if (language === 'en' || tools.length === 0) {
-        return tools;
-      }
+      if (language === 'en' || tools.length === 0) return tools;
 
       const toolIds = tools.map(t => t.id).filter(Boolean);
       const { data: translations } = await supabase
@@ -320,9 +237,7 @@ export const db = {
         .eq('language_code', language)
         .in('tool_id', toolIds);
 
-      const transMap = new Map(
-        (translations || []).map(t => [t.tool_id, t])
-      );
+      const transMap = new Map((translations || []).map(t => [t.tool_id, t]));
 
       return tools.map(tool => {
         const translation = transMap.get(tool.id!);
@@ -342,17 +257,13 @@ export const db = {
     }
   },
 
-  // ============================================================================
+  // ==========================================================================
   // FEATURED STACKS
-  // ============================================================================
+  // ==========================================================================
 
   async getFeaturedStacks(): Promise<FeaturedStack[]> {
     try {
-      const { data, error } = await supabase
-        .from('featured_stacks')
-        .select('*')
-        .order('display_order');
-
+      const { data, error } = await supabase.from('featured_stacks').select('*').order('display_order');
       if (error) throw error;
       return data as FeaturedStack[];
     } catch (error) {
@@ -364,60 +275,34 @@ export const db = {
   async getFeaturedStacksWithTools(language: string = 'en'): Promise<Array<FeaturedStack & { tools: Tool[] }>> {
     try {
       const stacks = await this.getFeaturedStacks();
-
       const stacksWithTools = await Promise.all(
         stacks.map(async (stack) => {
           const toolIds = stack.tool_ids as unknown as string[];
-
-          const { data: toolsData } = await supabase
-            .from('tools')
-            .select('*')
-            .in('id', toolIds);
+          const { data: toolsData } = await supabase.from('tools').select('*').in('id', toolIds);
 
           let tools = (toolsData || []).map(tool => ({
             ...tool,
             categories: tool.categories || {
-              functional_role: [],
-              tech_layer: [],
-              difficulty: 'intermediate',
-              purpose: [],
-              data_flow_role: [],
-              application_field: [],
-              common_pairings: []
+              functional_role: [], tech_layer: [], difficulty: 'intermediate',
+              purpose: [], data_flow_role: [], application_field: [], common_pairings: []
             }
           })) as Tool[];
 
           if (language !== 'en' && tools.length > 0) {
             const { data: translations } = await supabase
-              .from('tool_translations')
-              .select('*')
-              .eq('language_code', language)
-              .in('tool_id', toolIds);
-
-            const transMap = new Map(
-              (translations || []).map(t => [t.tool_id, t])
-            );
-
+              .from('tool_translations').select('*').eq('language_code', language).in('tool_id', toolIds);
+            const transMap = new Map((translations || []).map(t => [t.tool_id, t]));
             tools = tools.map(tool => {
               const translation = transMap.get(tool.id!);
               if (translation) {
-                return {
-                  ...tool,
-                  tool_name: translation.name || tool.tool_name,
-                  summary: translation.summary || tool.summary
-                };
+                return { ...tool, tool_name: translation.name || tool.tool_name, summary: translation.summary || tool.summary };
               }
               return tool;
             });
           }
-
-          return {
-            ...stack,
-            tools
-          };
+          return { ...stack, tools };
         })
       );
-
       return stacksWithTools;
     } catch (error) {
       console.error('[database.ts] Error in getFeaturedStacksWithTools:', error);
@@ -425,18 +310,16 @@ export const db = {
     }
   },
 
-  // ============================================================================
-  // TOOL PAIRINGS & CRUD OPERATIONS
-  // ============================================================================
+  // ==========================================================================
+  // TOOL PAIRINGS
+  // ==========================================================================
 
   async getToolPairings(toolId: string): Promise<ToolPairing[]> {
     try {
       const { data, error } = await supabase
-        .from('tool_pairings')
-        .select('*')
+        .from('tool_pairings').select('*')
         .or(`tool_id_1.eq.${toolId},tool_id_2.eq.${toolId}`)
         .order('strength', { ascending: false });
-
       if (error) throw error;
       return data as ToolPairing[];
     } catch (error) {
@@ -445,99 +328,139 @@ export const db = {
     }
   },
 
-  async createTool(tool: Omit<Tool, 'id' | 'created_at' | 'updated_at'>): Promise<Tool> {
-    const { data, error } = await supabase
-      .from('tools')
-      .insert([tool])
-      .select()
-      .single();
+  // ==========================================================================
+  // ADMIN CRUD OPERATIONS
+  // ==========================================================================
 
+  async createTool(tool: Omit<Tool, 'id' | 'created_at' | 'updated_at'>): Promise<Tool> {
+    const { data, error } = await supabase.from('tools').insert([tool]).select().single();
     if (error) throw error;
     return data as Tool;
   },
 
   async updateTool(id: string, updates: Partial<Tool>): Promise<Tool> {
-    const { data, error } = await supabase
-      .from('tools')
-      .update(updates)
-      .eq('id', id)
-      .select()
-      .single();
-
+    const { data, error } = await supabase.from('tools').update(updates).eq('id', id).select().single();
     if (error) throw error;
     return data as Tool;
   },
 
-  // ============================================================================
+  async deleteTool(id: string): Promise<void> {
+    const { error } = await supabase.from('tools').delete().eq('id', id);
+    if (error) throw error;
+  },
+
+  async getAdminTools(filters?: {
+    search?: string;
+    status?: ToolStatus | 'all';
+    page?: number;
+    perPage?: number;
+  }): Promise<{ tools: Tool[]; total: number }> {
+    try {
+      const page = filters?.page || 1;
+      const perPage = filters?.perPage || 20;
+      const from = (page - 1) * perPage;
+      const to = from + perPage - 1;
+
+      let query = supabase.from('tools').select('*', { count: 'exact' });
+
+      if (filters?.status && filters.status !== 'all') {
+        query = query.eq('status', filters.status);
+      }
+
+      if (filters?.search && filters.search.trim()) {
+        const sanitized = sanitizeSearchInput(filters.search);
+        if (sanitized) {
+          query = query.or(`tool_name.ilike.%${sanitized}%,summary.ilike.%${sanitized}%`);
+        }
+      }
+
+      query = query.order('updated_at', { ascending: false }).range(from, to);
+
+      const { data, error, count } = await query;
+
+      if (error) throw error;
+
+      const tools = (data || []).map(tool => ({
+        ...tool,
+        categories: tool.categories || {
+          functional_role: [], tech_layer: [], difficulty: 'intermediate',
+          purpose: [], data_flow_role: [], application_field: [], common_pairings: []
+        }
+      })) as Tool[];
+
+      return { tools, total: count || 0 };
+    } catch (error) {
+      console.error('[database.ts] Error in getAdminTools:', error);
+      return { tools: [], total: 0 };
+    }
+  },
+
+  async getAdminStats(): Promise<{
+    total: number;
+    published: number;
+    draft: number;
+    archived: number;
+  }> {
+    try {
+      const { count: total } = await supabase.from('tools').select('*', { count: 'exact', head: true });
+      const { count: published } = await supabase.from('tools').select('*', { count: 'exact', head: true }).eq('status', 'published');
+      const { count: draft } = await supabase.from('tools').select('*', { count: 'exact', head: true }).eq('status', 'draft');
+      const { count: archived } = await supabase.from('tools').select('*', { count: 'exact', head: true }).eq('status', 'archived');
+
+      return {
+        total: total || 0,
+        published: published || 0,
+        draft: draft || 0,
+        archived: archived || 0
+      };
+    } catch (error) {
+      console.error('[database.ts] Error in getAdminStats:', error);
+      return { total: 0, published: 0, draft: 0, archived: 0 };
+    }
+  },
+
+  // ==========================================================================
   // USER INTERACTIONS
-  // ============================================================================
+  // ==========================================================================
 
   async trackInteraction(interaction: Omit<UserInteraction, 'id' | 'created_at'>): Promise<void> {
-    const { error } = await supabase
-      .from('user_interactions')
-      .insert([interaction]);
-
+    const { error } = await supabase.from('user_interactions').insert([interaction]);
     if (error) throw error;
-
     await this.updatePopularityScore(interaction.tool_id);
   },
 
   async updatePopularityScore(toolId: string): Promise<void> {
     const { data: interactions } = await supabase
-      .from('user_interactions')
-      .select('interaction_type')
-      .eq('tool_id', toolId);
-
+      .from('user_interactions').select('interaction_type').eq('tool_id', toolId);
     if (!interactions) return;
-
     const weights = { view: 1, favorite: 3, generate: 5 };
     const score = interactions.reduce((sum, i) => sum + (weights[i.interaction_type as keyof typeof weights] || 0), 0);
-
-    await supabase
-      .from('tools')
-      .update({ popularity_score: score })
-      .eq('id', toolId);
+    await supabase.from('tools').update({ popularity_score: score }).eq('id', toolId);
   },
 
   async trackView(toolId: string, sessionId: string): Promise<void> {
-    await this.trackInteraction({
-      tool_id: toolId,
-      interaction_type: 'view',
-      session_id: sessionId
-    });
+    await this.trackInteraction({ tool_id: toolId, interaction_type: 'view', session_id: sessionId });
   },
 
   async trackFavoriteAction(toolId: string, sessionId: string): Promise<void> {
-    await this.trackInteraction({
-      tool_id: toolId,
-      interaction_type: 'favorite',
-      session_id: sessionId
-    });
+    await this.trackInteraction({ tool_id: toolId, interaction_type: 'favorite', session_id: sessionId });
   },
 
   async trackGenerate(toolId: string, sessionId: string): Promise<void> {
-    await this.trackInteraction({
-      tool_id: toolId,
-      interaction_type: 'generate',
-      session_id: sessionId
-    });
+    await this.trackInteraction({ tool_id: toolId, interaction_type: 'generate', session_id: sessionId });
   },
 
   async searchTools(query: string): Promise<Tool[]> {
     return this.getTools({ search: query });
   },
 
-  // ============================================================================
-  // PERSONA-DRIVEN LEARNING PLATFORM (Separate Query Strategy)
-  // ============================================================================
+  // ==========================================================================
+  // PERSONA-DRIVEN LEARNING PLATFORM
+  // ==========================================================================
 
   async getPersonas(language: string = 'en'): Promise<import('../types').Persona[]> {
     try {
-      const { data, error } = await supabase
-        .from('personas')
-        .select('*')
-        .order('display_order');
-
+      const { data, error } = await supabase.from('personas').select('*').order('display_order');
       if (error) throw error;
       return data as import('../types').Persona[];
     } catch (error) {
@@ -548,12 +471,7 @@ export const db = {
 
   async getPersonaByKey(personaKey: string, language: string = 'en'): Promise<import('../types').Persona | null> {
     try {
-      const { data, error } = await supabase
-        .from('personas')
-        .select('*')
-        .eq('persona_key', personaKey)
-        .maybeSingle();
-
+      const { data, error } = await supabase.from('personas').select('*').eq('persona_key', personaKey).maybeSingle();
       if (error) throw error;
       return data as import('../types').Persona | null;
     } catch (error) {
@@ -564,35 +482,21 @@ export const db = {
 
   async getPersonaWithGoals(personaId: string, language: string = 'en'): Promise<import('../types').PersonaWithGoals | null> {
     try {
-      const { data: persona, error: personaError } = await supabase
-        .from('personas')
-        .select('*')
-        .eq('id', personaId)
-        .maybeSingle();
-
+      const { data: persona, error: personaError } = await supabase.from('personas').select('*').eq('id', personaId).maybeSingle();
       if (personaError) throw personaError;
       if (!persona) return null;
 
       const { data: personaGoalsData } = await supabase
-        .from('persona_goals')
-        .select('goal_id, display_order')
-        .eq('persona_id', personaId)
-        .order('display_order');
+        .from('persona_goals').select('goal_id, display_order').eq('persona_id', personaId).order('display_order');
 
       if (!personaGoalsData || personaGoalsData.length === 0) {
         return { ...persona, goals: [] } as import('../types').PersonaWithGoals;
       }
 
       const goalIds = personaGoalsData.map(pg => pg.goal_id);
-      const { data: goals } = await supabase
-        .from('goals')
-        .select('*')
-        .in('id', goalIds);
+      const { data: goals } = await supabase.from('goals').select('*').in('id', goalIds);
 
-      return {
-        ...persona,
-        goals: goals || []
-      } as import('../types').PersonaWithGoals;
+      return { ...persona, goals: goals || [] } as import('../types').PersonaWithGoals;
     } catch (error) {
       console.error('[database.ts] Error in getPersonaWithGoals:', error);
       return null;
@@ -601,11 +505,7 @@ export const db = {
 
   async getGoals(language: string = 'en'): Promise<import('../types').Goal[]> {
     try {
-      const { data, error } = await supabase
-        .from('goals')
-        .select('*')
-        .order('display_order');
-
+      const { data, error } = await supabase.from('goals').select('*').order('display_order');
       if (error) throw error;
       return data as import('../types').Goal[];
     } catch (error) {
@@ -616,12 +516,7 @@ export const db = {
 
   async getGoalByKey(goalKey: string, language: string = 'en'): Promise<import('../types').Goal | null> {
     try {
-      const { data, error } = await supabase
-        .from('goals')
-        .select('*')
-        .eq('goal_key', goalKey)
-        .maybeSingle();
-
+      const { data, error } = await supabase.from('goals').select('*').eq('goal_key', goalKey).maybeSingle();
       if (error) throw error;
       return data as import('../types').Goal | null;
     } catch (error) {
@@ -632,67 +527,39 @@ export const db = {
 
   async getGoalWithDetails(goalId: string, language: string = 'en'): Promise<import('../types').GoalWithDetails | null> {
     try {
-      const { data: goal } = await supabase
-        .from('goals')
-        .select('*')
-        .eq('id', goalId)
-        .maybeSingle();
-
+      const { data: goal } = await supabase.from('goals').select('*').eq('id', goalId).maybeSingle();
       if (!goal) return null;
 
       const { data: goalStacksData } = await supabase
-        .from('goal_stacks')
-        .select('stack_id, implementation_type, display_order')
-        .eq('goal_id', goalId)
-        .order('display_order');
+        .from('goal_stacks').select('stack_id, implementation_type, display_order').eq('goal_id', goalId).order('display_order');
 
       let stacks: any[] = [];
       if (goalStacksData && goalStacksData.length > 0) {
         const stackIds = goalStacksData.map(gs => gs.stack_id);
-        const { data: stacksData } = await supabase
-          .from('tool_stacks')
-          .select('*')
-          .in('id', stackIds);
+        const { data: stacksData } = await supabase.from('tool_stacks').select('*').in('id', stackIds);
         stacks = stacksData || [];
       }
 
       const { data: goalInspirationsData } = await supabase
-        .from('goal_inspirations')
-        .select('inspiration_id, display_order')
-        .eq('goal_id', goalId)
-        .order('display_order');
+        .from('goal_inspirations').select('inspiration_id, display_order').eq('goal_id', goalId).order('display_order');
 
       let inspirations: any[] = [];
       if (goalInspirationsData && goalInspirationsData.length > 0) {
         const inspirationIds = goalInspirationsData.map(gi => gi.inspiration_id);
-        const { data: inspirationsData } = await supabase
-          .from('inspirations')
-          .select('*')
-          .in('id', inspirationIds);
+        const { data: inspirationsData } = await supabase.from('inspirations').select('*').in('id', inspirationIds);
         inspirations = inspirationsData || [];
       }
 
-      const { data: personaGoalsData } = await supabase
-        .from('persona_goals')
-        .select('persona_id')
-        .eq('goal_id', goalId);
+      const { data: personaGoalsData } = await supabase.from('persona_goals').select('persona_id').eq('goal_id', goalId);
 
       let personas: any[] = [];
       if (personaGoalsData && personaGoalsData.length > 0) {
         const personaIds = personaGoalsData.map(pg => pg.persona_id);
-        const { data: personasData } = await supabase
-          .from('personas')
-          .select('*')
-          .in('id', personaIds);
+        const { data: personasData } = await supabase.from('personas').select('*').in('id', personaIds);
         personas = personasData || [];
       }
 
-      return {
-        ...goal,
-        stacks,
-        inspirations,
-        personas
-      } as import('../types').GoalWithDetails;
+      return { ...goal, stacks, inspirations, personas } as import('../types').GoalWithDetails;
     } catch (error) {
       console.error('[database.ts] Error in getGoalWithDetails:', error);
       return null;
@@ -701,11 +568,7 @@ export const db = {
 
   async getToolStacks(language: string = 'en'): Promise<import('../types').ToolStack[]> {
     try {
-      const { data, error } = await supabase
-        .from('tool_stacks')
-        .select('*')
-        .order('difficulty');
-
+      const { data, error } = await supabase.from('tool_stacks').select('*').order('difficulty');
       if (error) throw error;
       return data as import('../types').ToolStack[];
     } catch (error) {
@@ -716,12 +579,7 @@ export const db = {
 
   async getToolStackByKey(stackKey: string, language: string = 'en'): Promise<import('../types').ToolStack | null> {
     try {
-      const { data, error } = await supabase
-        .from('tool_stacks')
-        .select('*')
-        .eq('stack_key', stackKey)
-        .maybeSingle();
-
+      const { data, error } = await supabase.from('tool_stacks').select('*').eq('stack_key', stackKey).maybeSingle();
       if (error) throw error;
       return data as import('../types').ToolStack | null;
     } catch (error) {
@@ -732,12 +590,7 @@ export const db = {
 
   async getToolStackWithTools(stackId: string, language: string = 'en'): Promise<import('../types').ToolStackWithTools | null> {
     try {
-      const { data: stack } = await supabase
-        .from('tool_stacks')
-        .select('*')
-        .eq('id', stackId)
-        .maybeSingle();
-
+      const { data: stack } = await supabase.from('tool_stacks').select('*').eq('id', stackId).maybeSingle();
       if (!stack) return null;
 
       const toolIds = stack.tool_ids as unknown as string[];
@@ -745,52 +598,30 @@ export const db = {
         return { ...stack, tools: [] } as import('../types').ToolStackWithTools;
       }
 
-      const { data: toolsData } = await supabase
-        .from('tools')
-        .select('*')
-        .in('id', toolIds);
+      const { data: toolsData } = await supabase.from('tools').select('*').in('id', toolIds);
 
       let tools = (toolsData || []).map(tool => ({
         ...tool,
         categories: tool.categories || {
-          functional_role: [],
-          tech_layer: [],
-          difficulty: 'intermediate',
-          purpose: [],
-          data_flow_role: [],
-          application_field: [],
-          common_pairings: []
+          functional_role: [], tech_layer: [], difficulty: 'intermediate',
+          purpose: [], data_flow_role: [], application_field: [], common_pairings: []
         }
       })) as Tool[];
 
       if (language !== 'en' && tools.length > 0) {
         const { data: translations } = await supabase
-          .from('tool_translations')
-          .select('*')
-          .eq('language_code', language)
-          .in('tool_id', toolIds);
-
-        const transMap = new Map(
-          (translations || []).map(t => [t.tool_id, t])
-        );
-
+          .from('tool_translations').select('*').eq('language_code', language).in('tool_id', toolIds);
+        const transMap = new Map((translations || []).map(t => [t.tool_id, t]));
         tools = tools.map(tool => {
           const translation = transMap.get(tool.id!);
           if (translation) {
-            return {
-              ...tool,
-              tool_name: translation.name || tool.tool_name,
-              summary: translation.summary || tool.summary
-            };
+            return { ...tool, tool_name: translation.name || tool.tool_name, summary: translation.summary || tool.summary };
           }
           return tool;
         });
       }
 
-      return {
-        ...stack,
-        tools
-      } as import('../types').ToolStackWithTools;
+      return { ...stack, tools } as import('../types').ToolStackWithTools;
     } catch (error) {
       console.error('[database.ts] Error in getToolStackWithTools:', error);
       return null;
@@ -799,11 +630,7 @@ export const db = {
 
   async getInspirations(language: string = 'en'): Promise<import('../types').Inspiration[]> {
     try {
-      const { data, error } = await supabase
-        .from('inspirations')
-        .select('*')
-        .order('display_order');
-
+      const { data, error } = await supabase.from('inspirations').select('*').order('display_order');
       if (error) throw error;
       return data as import('../types').Inspiration[];
     } catch (error) {
@@ -814,12 +641,7 @@ export const db = {
 
   async getInspirationByKey(inspirationKey: string, language: string = 'en'): Promise<import('../types').Inspiration | null> {
     try {
-      const { data, error } = await supabase
-        .from('inspirations')
-        .select('*')
-        .eq('inspiration_key', inspirationKey)
-        .maybeSingle();
-
+      const { data, error } = await supabase.from('inspirations').select('*').eq('inspiration_key', inspirationKey).maybeSingle();
       if (error) throw error;
       return data as import('../types').Inspiration | null;
     } catch (error) {
@@ -830,12 +652,7 @@ export const db = {
 
   async getInspirationWithDetails(inspirationId: string, language: string = 'en'): Promise<import('../types').InspirationWithDetails | null> {
     try {
-      const { data: inspiration } = await supabase
-        .from('inspirations')
-        .select('*')
-        .eq('id', inspirationId)
-        .maybeSingle();
-
+      const { data: inspiration } = await supabase.from('inspirations').select('*').eq('id', inspirationId).maybeSingle();
       if (!inspiration) return null;
 
       let stack = null;
@@ -849,11 +666,7 @@ export const db = {
         }
       }
 
-      return {
-        ...inspiration,
-        stack,
-        tools
-      } as import('../types').InspirationWithDetails;
+      return { ...inspiration, stack, tools } as import('../types').InspirationWithDetails;
     } catch (error) {
       console.error('[database.ts] Error in getInspirationWithDetails:', error);
       return null;
@@ -866,18 +679,12 @@ export const db = {
       if (!persona) return [];
 
       const { data: personaGoalsData } = await supabase
-        .from('persona_goals')
-        .select('goal_id, display_order')
-        .eq('persona_id', persona.id)
-        .order('display_order');
+        .from('persona_goals').select('goal_id, display_order').eq('persona_id', persona.id).order('display_order');
 
       if (!personaGoalsData || personaGoalsData.length === 0) return [];
 
       const goalIds = personaGoalsData.map(pg => pg.goal_id);
-      const { data: goals } = await supabase
-        .from('goals')
-        .select('*')
-        .in('id', goalIds);
+      const { data: goals } = await supabase.from('goals').select('*').in('id', goalIds);
 
       return goals || [];
     } catch (error) {
@@ -892,18 +699,12 @@ export const db = {
       if (!goal) return [];
 
       const { data: goalInspirationsData } = await supabase
-        .from('goal_inspirations')
-        .select('inspiration_id, display_order')
-        .eq('goal_id', goal.id)
-        .order('display_order');
+        .from('goal_inspirations').select('inspiration_id, display_order').eq('goal_id', goal.id).order('display_order');
 
       if (!goalInspirationsData || goalInspirationsData.length === 0) return [];
 
       const inspirationIds = goalInspirationsData.map(gi => gi.inspiration_id);
-      const { data: inspirations } = await supabase
-        .from('inspirations')
-        .select('*')
-        .in('id', inspirationIds);
+      const { data: inspirations } = await supabase.from('inspirations').select('*').in('id', inspirationIds);
 
       return inspirations || [];
     } catch (error) {
@@ -918,18 +719,12 @@ export const db = {
       if (!goal) return [];
 
       const { data: goalStacksData } = await supabase
-        .from('goal_stacks')
-        .select('stack_id, implementation_type, display_order')
-        .eq('goal_id', goal.id)
-        .order('display_order');
+        .from('goal_stacks').select('stack_id, implementation_type, display_order').eq('goal_id', goal.id).order('display_order');
 
       if (!goalStacksData || goalStacksData.length === 0) return [];
 
       const stackIds = goalStacksData.map(gs => gs.stack_id);
-      const { data: stacks } = await supabase
-        .from('tool_stacks')
-        .select('*')
-        .in('id', stackIds);
+      const { data: stacks } = await supabase.from('tool_stacks').select('*').in('id', stackIds);
 
       return stacks || [];
     } catch (error) {
@@ -940,12 +735,7 @@ export const db = {
 
   async getFeaturedInspirations(limit: number = 6, language: string = 'en'): Promise<import('../types').Inspiration[]> {
     try {
-      const { data, error } = await supabase
-        .from('inspirations')
-        .select('*')
-        .order('display_order')
-        .limit(limit);
-
+      const { data, error } = await supabase.from('inspirations').select('*').order('display_order').limit(limit);
       if (error) throw error;
       return data as import('../types').Inspiration[];
     } catch (error) {
@@ -954,20 +744,13 @@ export const db = {
     }
   },
 
-  // ============================================================================
+  // ==========================================================================
   // CREATIVE USE CASES
-  // ============================================================================
+  // ==========================================================================
 
-  async getCreativeUseCases(filters?: {
-    difficulty?: string;
-    tag?: string;
-    search?: string;
-  }): Promise<any[]> {
+  async getCreativeUseCases(filters?: { difficulty?: string; tag?: string; search?: string }): Promise<any[]> {
     try {
-      let query = supabase
-        .from('creative_use_cases')
-        .select('*')
-        .order('display_order');
+      let query = supabase.from('creative_use_cases').select('*').order('display_order');
 
       if (filters?.difficulty && filters.difficulty !== 'all') {
         query = query.eq('difficulty', filters.difficulty);
@@ -978,17 +761,12 @@ export const db = {
       }
 
       const { data, error } = await query;
-
       if (error) throw error;
 
       let results = data || [];
-
       if (filters?.tag && filters.tag !== 'all') {
-        results = results.filter((useCase: any) =>
-          useCase.use_case_tags?.includes(filters.tag)
-        );
+        results = results.filter((useCase: any) => useCase.use_case_tags?.includes(filters.tag));
       }
-
       return results;
     } catch (error) {
       console.error('[database.ts] Error in getCreativeUseCases:', error);
@@ -998,12 +776,7 @@ export const db = {
 
   async getCreativeUseCaseBySlug(slug: string): Promise<any | null> {
     try {
-      const { data, error } = await supabase
-        .from('creative_use_cases')
-        .select('*')
-        .eq('slug', slug)
-        .maybeSingle();
-
+      const { data, error } = await supabase.from('creative_use_cases').select('*').eq('slug', slug).maybeSingle();
       if (error) throw error;
       return data;
     } catch (error) {
@@ -1012,18 +785,13 @@ export const db = {
     }
   },
 
-  // ============================================================================
+  // ==========================================================================
   // EXPORT TEMPLATES
-  // ============================================================================
+  // ==========================================================================
 
   async getExportTemplates(toolId: string): Promise<any[]> {
     try {
-      const { data, error } = await supabase
-        .from('export_templates')
-        .select('*')
-        .eq('tool_id', toolId)
-        .order('platform');
-
+      const { data, error } = await supabase.from('export_templates').select('*').eq('tool_id', toolId).order('platform');
       if (error) throw error;
       return data || [];
     } catch (error) {
@@ -1034,13 +802,7 @@ export const db = {
 
   async getExportTemplateByPlatform(toolId: string, platform: string): Promise<any | null> {
     try {
-      const { data, error } = await supabase
-        .from('export_templates')
-        .select('*')
-        .eq('tool_id', toolId)
-        .eq('platform', platform)
-        .maybeSingle();
-
+      const { data, error } = await supabase.from('export_templates').select('*').eq('tool_id', toolId).eq('platform', platform).maybeSingle();
       if (error) throw error;
       return data;
     } catch (error) {
