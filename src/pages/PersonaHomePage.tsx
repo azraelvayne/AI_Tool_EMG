@@ -278,24 +278,28 @@ export function PersonaHomePage({
                   whileHover={{ y: -4 }}
                   className="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-xl transition-all text-left bg-white border border-gray-100"
                 >
-                  {/* Gradient header strip */}
-                  <div className={`h-24 bg-gradient-to-br ${gradient} relative overflow-hidden`}>
-                    <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors" />
+                  {/* Header: persona image fills the top, gradient is the fallback */}
+                  <div className={`h-56 bg-gradient-to-br ${gradient} relative overflow-hidden`}>
+                    {persona.icon_url ? (
+                      <>
+                        <img
+                          src={persona.icon_url}
+                          alt={name}
+                          className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/40 to-transparent" />
+                      </>
+                    ) : (
+                      <>
+                        <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors" />
+                        <div className="absolute -bottom-6 -right-6 w-20 h-20 rounded-full bg-white/10" />
+                        <div className="absolute -top-4 -left-4 w-14 h-14 rounded-full bg-white/10" />
+                      </>
+                    )}
                     {/* Icon badge */}
                     <div className="absolute top-3 right-3 w-9 h-9 rounded-xl bg-white/25 backdrop-blur-sm flex items-center justify-center">
                       <Sparkles className="w-4 h-4 text-white" />
                     </div>
-                    {/* Decorative circles */}
-                    <div className="absolute -bottom-6 -right-6 w-20 h-20 rounded-full bg-white/10" />
-                    <div className="absolute -top-4 -left-4 w-14 h-14 rounded-full bg-white/10" />
-                    {/* Persona image if available */}
-                    {persona.icon_url && (
-                      <img
-                        src={persona.icon_url}
-                        alt={name}
-                        className="absolute bottom-0 left-4 h-20 object-contain object-bottom"
-                      />
-                    )}
                   </div>
 
                   {/* Content */}
